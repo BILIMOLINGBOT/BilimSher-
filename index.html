@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BilimSher - A1 Testlari</title>
+    <title>BilimSher - Ingliz Tili Platformasi</title>
     <style>
         * {
             margin: 0;
@@ -15,346 +15,275 @@
         body {
             background-color: #f5f5f5;
             color: #333;
-            padding: 20px;
-            max-width: 600px;
+            padding: 16px;
+            max-width: 500px;
             margin: 0 auto;
         }
         
         .header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        
-        .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #4285F4;
-            margin-bottom: 10px;
-        }
-        
-        .level-selector {
             display: flex;
-            justify-content: center;
-            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
         }
         
-        .level-btn {
-            padding: 8px 15px;
-            border-radius: 20px;
-            background-color: #fff;
-            border: 2px solid #4285F4;
-            cursor: pointer;
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
             font-weight: bold;
+            color: #4285F4;
         }
         
-        .level-btn.active {
+        .logo img {
+            width: 32px;
+            margin-right: 8px;
+        }
+        
+        .user-info {
+            background-color: #fff;
+            padding: 8px 12px;
+            border-radius: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-size: 14px;
+        }
+        
+        .progress-container {
+            background-color: #fff;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            width: 25%;
+            background-color: #34A853;
+            border-radius: 4px;
+        }
+        
+        .levels {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+        }
+        
+        .level {
+            min-width: 80px;
+            padding: 12px;
+            background-color: #fff;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+        
+        .level.active {
             background-color: #4285F4;
             color: white;
         }
         
-        .test-container {
-            background-color: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        .lessons {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             margin-bottom: 20px;
         }
         
-        .test-header {
+        .lesson {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
             display: flex;
             justify-content: space-between;
-            margin-bottom: 15px;
-            font-weight: bold;
+            align-items: center;
         }
         
-        .progress-bar {
+        .lesson:last-child {
+            border-bottom: none;
+        }
+        
+        .lesson-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .lesson-status {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lesson-progress {
+            width: 100px;
             height: 6px;
             background-color: #e0e0e0;
             border-radius: 3px;
-            margin-bottom: 20px;
-            overflow: hidden;
+            margin-top: 4px;
         }
         
-        .progress {
+        .lesson-progress-fill {
             height: 100%;
+            border-radius: 3px;
+        }
+        
+        .completed .lesson-progress-fill {
             background-color: #34A853;
-            width: 0%;
+            width: 100%;
         }
         
-        .question {
-            font-size: 18px;
-            margin-bottom: 15px;
+        .in-progress .lesson-progress-fill {
+            background-color: #FBBC05;
+            width: 60%;
         }
         
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .option {
-            padding: 12px;
-            border-radius: 10px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .option:hover {
-            background-color: #eee;
-        }
-        
-        .option.correct {
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-        }
-        
-        .option.incorrect {
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-        }
-        
-        .explanation {
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: #e2f0fd;
-            display: none;
+        .locked {
+            opacity: 0.6;
         }
         
         .navigation {
             display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
+            justify-content: space-around;
+            background-color: #fff;
+            padding: 12px 0;
+            border-radius: 12px;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            max-width: 500px;
+            margin: 0 auto;
         }
         
-        .nav-btn {
-            padding: 10px 20px;
-            border-radius: 10px;
-            background-color: #4285F4;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .nav-btn:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
-        
-        .result-container {
-            text-align: center;
-            display: none;
-        }
-        
-        .result-score {
-            font-size: 24px;
-            font-weight: bold;
-            margin: 10px 0;
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
             color: #4285F4;
         }
         
-        .restart-btn {
-            padding: 10px 20px;
-            background-color: #34A853;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-top: 20px;
+        .nav-item.active {
+            font-weight: bold;
+        }
+        
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="logo">BilimSher</div>
-        <div>A1 Darajasi - To Be (Affirmative)</div>
-    </div>
-    
-    <div class="level-selector">
-        <button class="level-btn active">A1</button>
-        <button class="level-btn">A2</button>
-        <button class="level-btn">B1</button>
-        <button class="level-btn">B2</button>
-    </div>
-    
-    <div class="test-container">
-        <div class="test-header">
-            <div class="test-title">To Be - Affirmative</div>
-            <div class="question-count">Savol 1/5</div>
+        <div class="logo">
+            <img src="https://via.placeholder.com/32" alt="BilimSher Logo">
+            BilimSher
         </div>
-        
+        <div class="user-info">
+            ★ 450 ball | A1
+        </div>
+    </div>
+    
+    <div class="progress-container">
+        <div>Umumiy progress</div>
         <div class="progress-bar">
-            <div class="progress" style="width: 0%"></div>
-        </div>
-        
-        <div class="question">I ___ a student.</div>
-        
-        <div class="options">
-            <div class="option" onclick="checkAnswer(this, 0)">am</div>
-            <div class="option" onclick="checkAnswer(this, 1)">is</div>
-            <div class="option" onclick="checkAnswer(this, 2)">are</div>
-        </div>
-        
-        <div class="explanation">
-            ✅ To'g'ri javob: <strong>am</strong><br>
-            "I" bilan "am" ishlatiladi. Masalan: I am a teacher. I am happy.
-        </div>
-        
-        <div class="navigation">
-            <button class="nav-btn" id="prevBtn" disabled>Oldingi</button>
-            <button class="nav-btn" id="nextBtn" disabled>Keyingi</button>
+            <div class="progress-fill"></div>
         </div>
     </div>
     
-    <div class="result-container" id="resultContainer">
-        <h2>Test Yakunlandi!</h2>
-        <div class="result-score">Siz 0/5 savolga to'g'ri javob berdingiz</div>
-        <div>To'g'ri javoblar: 0%</div>
-        <button class="restart-btn" onclick="restartTest()">Qayta Boshlash</button>
+    <div class="levels">
+        <div class="level active">A1</div>
+        <div class="level">A2</div>
+        <div class="level">B1</div>
+        <div class="level">B2</div>
+    </div>
+    
+    <div class="lessons">
+        <div class="lesson completed">
+            <div class="lesson-info">
+                <div class="lesson-status">✅</div>
+                <div>
+                    <div>Present Simple</div>
+                    <div class="lesson-progress">
+                        <div class="lesson-progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="lesson in-progress">
+            <div class="lesson-info">
+                <div class="lesson-status">🔄</div>
+                <div>
+                    <div>Present Continuous</div>
+                    <div class="lesson-progress">
+                        <div class="lesson-progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="lesson locked">
+            <div class="lesson-info">
+                <div class="lesson-status">🔒</div>
+                <div>
+                    <div>Past Simple</div>
+                    <div>Dars 2 tugagach ochiladi</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="navigation">
+        <div class="nav-item active">
+            <div class="nav-icon">🏠</div>
+            <div>Asosiy</div>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">📚</div>
+            <div>Darslar</div>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">📊</div>
+            <div>Reyting</div>
+        </div>
+        <div class="nav-item">
+            <div class="nav-icon">👤</div>
+            <div>Profil</div>
+        </div>
     </div>
 
     <script>
-        // Test savollari
-        const questions = [
-            {
-                question: "I ___ a student.",
-                options: ["am", "is", "are"],
-                correct: 0,
-                explanation: "✅ To'g'ri javob: <strong>am</strong><br>\"I\" bilan \"am\" ishlatiladi. Masalan: I am a teacher. I am happy."
-            },
-            {
-                question: "She ___ my sister.",
-                options: ["am", "is", "are"],
-                correct: 1,
-                explanation: "✅ To'g'ri javob: <strong>is</strong><br>\"She\" bilan \"is\" ishlatiladi. Masalan: She is beautiful. She is at home."
-            },
-            {
-                question: "We ___ friends.",
-                options: ["am", "is", "are"],
-                correct: 2,
-                explanation: "✅ To'g'ri javob: <strong>are</strong><br>\"We\" bilan \"are\" ishlatiladi. Masalan: We are students. We are happy."
-            },
-            {
-                question: "It ___ a cat.",
-                options: ["am", "is", "are"],
-                correct: 1,
-                explanation: "✅ To'g'ri javob: <strong>is</strong><br>\"It\" bilan \"is\" ishlatiladi. Masalan: It is big. It is my book."
-            },
-            {
-                question: "You ___ a good person.",
-                options: ["am", "is", "are"],
-                correct: 2,
-                explanation: "✅ To'g'ri javob: <strong>are</strong><br>\"You\" bilan \"are\" ishlatiladi. Masalan: You are kind. You are my friend."
-            }
-        ];
-        
-        let currentQuestion = 0;
-        let score = 0;
-        let userAnswers = [];
-        
-        // Dastlabki savolni ko'rsatish
-        showQuestion();
-        
-        // Savolni ko'rsatish funktsiyasi
-        function showQuestion() {
-            const q = questions[currentQuestion];
-            document.querySelector(".question").textContent = q.question;
-            document.querySelector(".question-count").textContent = `Savol ${currentQuestion + 1}/${questions.length}`;
-            
-            const options = document.querySelectorAll(".option");
-            q.options.forEach((option, index) => {
-                options[index].textContent = option;
-                options[index].className = "option";
+        // Yopiq darsni bosganda xabar chiqarish
+        document.querySelectorAll('.locked').forEach(item => {
+            item.addEventListener('click', event => {
+                alert('Darslarni ketma-ket o\'rganishingiz kerak!\nAvval oldingi darsni tugating.');
             });
-            
-            document.querySelector(".explanation").style.display = "none";
-            document.querySelector(".explanation").innerHTML = q.explanation;
-            
-            document.getElementById("prevBtn").disabled = currentQuestion === 0;
-            document.getElementById("nextBtn").disabled = true;
-            
-            // Progress bar
-            const progress = (currentQuestion / questions.length) * 100;
-            document.querySelector(".progress").style.width = `${progress}%`;
-        }
-        
-        // Javobni tekshirish
-        function checkAnswer(selectedOption, answerIndex) {
-            const q = questions[currentQuestion];
-            const options = document.querySelectorAll(".option");
-            
-            // Barcha variantlarni noaktiv qilish
-            options.forEach(option => {
-                option.onclick = null;
-            });
-            
-            // Tanlangan javobni belgilash
-            if (answerIndex === q.correct) {
-                selectedOption.classList.add("correct");
-                score++;
-            } else {
-                selectedOption.classList.add("incorrect");
-                options[q.correct].classList.add("correct");
-            }
-            
-            // Tushuntirishni ko'rsatish
-            document.querySelector(".explanation").style.display = "block";
-            
-            // Keyingi tugmani faollashtirish
-            document.getElementById("nextBtn").disabled = false;
-            
-            // Javobni saqlash
-            userAnswers[currentQuestion] = answerIndex;
-        }
-        
-        // Keyingi savol
-        document.getElementById("nextBtn").addEventListener("click", () => {
-            currentQuestion++;
-            
-            if (currentQuestion < questions.length) {
-                showQuestion();
-            } else {
-                showResult();
-            }
         });
-        
-        // Oldingi savol
-        document.getElementById("prevBtn").addEventListener("click", () => {
-            currentQuestion--;
-            showQuestion();
-        });
-        
-        // Natijalarni ko'rsatish
-        function showResult() {
-            document.querySelector(".test-container").style.display = "none";
-            document.getElementById("resultContainer").style.display = "block";
-            
-            const percentage = Math.round((score / questions.length) * 100);
-            document.querySelector(".result-score").textContent = `Siz ${score}/${questions.length} savolga to'g'ri javob berdingiz`;
-            document.querySelector(".result-container div:nth-child(3)").textContent = `To'g'ri javoblar: ${percentage}%`;
-        }
-        
-        // Testni qayta boshlash
-        function restartTest() {
-            currentQuestion = 0;
-            score = 0;
-            userAnswers = [];
-            
-            document.querySelector(".test-container").style.display = "block";
-            document.getElementById("resultContainer").style.display = "none";
-            
-            showQuestion();
-        }
         
         // Darajalarni tanlash
-        document.querySelectorAll(".level-btn").forEach(btn => {
-            btn.addEventListener("click", function() {
-                document.querySelectorAll(".level-btn").forEach(b => b.classList.remove("active"));
-                this.classList.add("active");
-                // Bu yerda yangi darajaga o'tish logikasi qo'shilishi mumkin
+        document.querySelectorAll('.level').forEach(item => {
+            item.addEventListener('click', event => {
+                document.querySelectorAll('.level').forEach(level => {
+                    level.classList.remove('active');
+                });
+                event.currentTarget.classList.add('active');
             });
         });
     </script>
