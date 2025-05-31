@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BilimSher - Ingliz Tili Platformasi</title>
+    <title>BilimSher - A1 Darajasi</title>
     <style>
         * {
             margin: 0;
@@ -18,6 +18,7 @@
             padding: 16px;
             max-width: 500px;
             margin: 0 auto;
+            padding-bottom: 70px;
         }
         
         .header {
@@ -67,7 +68,7 @@
         
         .progress-fill {
             height: 100%;
-            width: 25%;
+            width: 10%;
             background-color: #34A853;
             border-radius: 4px;
         }
@@ -118,6 +119,7 @@
         .lesson-info {
             display: flex;
             align-items: center;
+            width: 100%;
         }
         
         .lesson-status {
@@ -127,6 +129,21 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .lesson-content {
+            flex-grow: 1;
+        }
+        
+        .lesson-title {
+            font-weight: 500;
+        }
+        
+        .lesson-desc {
+            font-size: 14px;
+            color: #666;
+            margin-top: 4px;
         }
         
         .lesson-progress {
@@ -142,9 +159,17 @@
             border-radius: 3px;
         }
         
+        .completed {
+            color: #34A853;
+        }
+        
         .completed .lesson-progress-fill {
             background-color: #34A853;
             width: 100%;
+        }
+        
+        .in-progress {
+            color: #FBBC05;
         }
         
         .in-progress .lesson-progress-fill {
@@ -154,6 +179,15 @@
         
         .locked {
             opacity: 0.6;
+        }
+        
+        .test-indicator {
+            font-size: 12px;
+            color: #4285F4;
+            background-color: #e8f0fe;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: 8px;
         }
         
         .navigation {
@@ -215,11 +249,36 @@
     </div>
     
     <div class="lessons">
+        <!-- To Be -->
         <div class="lesson completed">
             <div class="lesson-info">
                 <div class="lesson-status">✅</div>
-                <div>
-                    <div>Present Simple</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">To be affirmative</div>
+                    <div class="lesson-progress">
+                        <div class="lesson-progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="lesson completed">
+            <div class="lesson-info">
+                <div class="lesson-status">✅</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">To be affirmative test <span class="test-indicator">20 test</span></div>
+                    <div class="lesson-progress">
+                        <div class="lesson-progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="lesson completed">
+            <div class="lesson-info">
+                <div class="lesson-status">✅</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">To be question</div>
                     <div class="lesson-progress">
                         <div class="lesson-progress-fill"></div>
                     </div>
@@ -230,8 +289,8 @@
         <div class="lesson in-progress">
             <div class="lesson-info">
                 <div class="lesson-status">🔄</div>
-                <div>
-                    <div>Present Continuous</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">To be question test <span class="test-indicator">20 test</span></div>
                     <div class="lesson-progress">
                         <div class="lesson-progress-fill"></div>
                     </div>
@@ -239,12 +298,148 @@
             </div>
         </div>
         
+        <div class="lesson">
+            <div class="lesson-info">
+                <div class="lesson-status">🔒</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">To be negative</div>
+                    <div class="lesson-desc">To be question test tugagach ochiladi</div>
+                </div>
+            </div>
+        </div>
+        
         <div class="lesson locked">
             <div class="lesson-info">
                 <div class="lesson-status">🔒</div>
-                <div>
-                    <div>Past Simple</div>
-                    <div>Dars 2 tugagach ochiladi</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">To be negative test <span class="test-indicator">20 test</span></div>
+                    <div class="lesson-desc">To be negative tugagach ochiladi</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Present Simple -->
+        <div class="lesson locked">
+            <div class="lesson-info">
+                <div class="lesson-status">🔒</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">Present simple affirmative</div>
+                    <div class="lesson-desc">To be negative test tugagach ochiladi</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="lesson locked">
+            <div class="lesson-info">
+                <div class="lesson-status">🔒</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">Present simple affirmative test <span class="test-indicator">20 test</span></div>
+                    <div class="lesson-desc">Present simple affirmative tugagach ochiladi</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Continue with the rest of the lessons in the same pattern -->
+        <!-- Present Continuous -->
+        <div class="lesson locked">
+            <div class="lesson-info">
+                <div class="lesson-status">🔒</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">Present continuous affirmative</div>
+                    <div class="lesson-desc">Present simple negative test tugagach ochiladi</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="lesson locked">
+            <div class="lesson-info">
+                <div class="lesson-status">🔒</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">Present continuous affirmative test <span class="test-indicator">20 test</span></div>
+                    <div class="lesson-desc">Present continuous affirmative tugagach ochiladi</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- I have/I have got -->
+        <div class="lesson locked">
+            <div class="lesson-info">
+                <div class="lesson-status">🔒</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">I have/I have got affirmative</div>
+                    <div class="lesson-desc">Present continuous negative test tugagach ochiladi</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="lesson locked">
+            <div class="lesson-info">
+                <div class="lesson-status">🔒</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">I have/I have got affirmative test <span class="test-indicator">20 test</span></div>
+                    <div class="lesson-desc">I have/I have got affirmative tugagach ochiladi</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Past Simple -->
+        <div class="lesson locked">
+            <div class="lesson-info">
+                <div class="lesson-status">🔒</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">Past simple affirmative</div>
+                    <div class="lesson-desc">I have/I have got negative test tugagach ochiladi</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="lesson locked">
+            <div class="lesson-info">
+                <div class="lesson-status">🔒</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">Past simple affirmative test <span class="test-indicator">20 test</span></div>
+                    <div class="lesson-desc">Past simple affirmative tugagach ochiladi</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Past Continuous -->
+        <div class="lesson locked">
+            <div class="lesson-info">
+                <div class="lesson-status">🔒</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">Past continuous affirmative</div>
+                    <div class="lesson-desc">Past simple negative test tugagach ochiladi</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="lesson locked">
+            <div class="lesson-info">
+                <div class="lesson-status">🔒</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">Past continuous affirmative test <span class="test-indicator">20 test</span></div>
+                    <div class="lesson-desc">Past continuous affirmative tugagach ochiladi</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="lesson locked">
+            <div class="lesson-info">
+                <div class="lesson-status">🔒</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">Past continuous negative</div>
+                    <div class="lesson-desc">Past continuous question test tugagach ochiladi</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="lesson locked">
+            <div class="lesson-info">
+                <div class="lesson-status">🔒</div>
+                <div class="lesson-content">
+                    <div class="lesson-title">Past continuous negative test <span class="test-indicator">20 test</span></div>
+                    <div class="lesson-desc">Past continuous negative tugagach ochiladi</div>
                 </div>
             </div>
         </div>
@@ -273,7 +468,17 @@
         // Yopiq darsni bosganda xabar chiqarish
         document.querySelectorAll('.locked').forEach(item => {
             item.addEventListener('click', event => {
-                alert('Darslarni ketma-ket o\'rganishingiz kerak!\nAvval oldingi darsni tugating.');
+                const prevLesson = event.currentTarget.previousElementSibling;
+                let message = "Darslarni ketma-ket o'rganishingiz kerak!\n";
+                
+                if (prevLesson && prevLesson.classList.contains('lesson')) {
+                    const prevTitle = prevLesson.querySelector('.lesson-title').textContent;
+                    message += `Avval "${prevTitle}" darsini tugating.`;
+                } else {
+                    message += "Avval oldingi darsni tugating.";
+                }
+                
+                alert(message);
             });
         });
         
@@ -284,6 +489,19 @@
                     level.classList.remove('active');
                 });
                 event.currentTarget.classList.add('active');
+                
+                // Change the level in user info
+                document.querySelector('.user-info').textContent = 
+                    `★ 450 ball | ${event.currentTarget.textContent}`;
+            });
+        });
+        
+        // Completed and in-progress lessons are clickable
+        document.querySelectorAll('.completed, .in-progress').forEach(item => {
+            item.addEventListener('click', event => {
+                const title = event.currentTarget.querySelector('.lesson-title').textContent;
+                alert(`"${title}" darsini ochish...`);
+                // Here you would normally redirect to the lesson page
             });
         });
     </script>
