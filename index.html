@@ -219,69 +219,196 @@ margin-bottom: 4px;
         <div class="lesson-status">🔄</div>        
         <div class="lessons">
 
-  <div class="lesson completed"><div class="lesson-info"><div class="lesson-status">✅</div><a href="to-be-affirmative.html"><div>To be affirmative</div></a></div></div>
-  <div class="lesson completed"><div class="lesson-info"><div class="lesson-status">✅</div><a href="to-be-affirmative-test.html"><div>To be affirmative test</div></a></div></div>
+  <style>
+  .lessons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+  }
 
-  <div class="lesson completed"><div class="lesson-info"><div class="lesson-status">✅</div><a href="to-be-question.html"><div>To be question</div></a></div></div>
-  <div class="lesson completed"><div class="lesson-info"><div class="lesson-status">✅</div><a href="to-be-question-test.html"><div>To be question test</div></a></div></div>
+  .lesson {
+    background-color: #fff8d6;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+  }
 
-  <div class="lesson completed"><div class="lesson-info"><div class="lesson-status">✅</div><a href="to-be-negative.html"><div>To be negative</div></a></div></div>
-  <div class="lesson completed"><div class="lesson-info"><div class="lesson-status">✅</div><a href="to-be-negative-test.html"><div>To be negative test</div></a></div></div>
+  .lesson:hover {
+    transform: scale(1.01);
+  }
 
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="present-continuous-affirmative.html"><div>Present continuous affirmative</div></a></div></div>
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="present-continuous-affirmative-test.html"><div>Present continuous affirmative test</div></a></div></div>
+  .lesson-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+  }
 
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="present-continuous-question.html"><div>Present continuous question</div></a></div></div>
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="present-continuous-question-test.html"><div>Present continuous question test</div></a></div></div>
+  .lesson-status {
+    font-size: 20px;
+  }
 
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="present-continuous-negative.html"><div>Present continuous negative</div></a></div></div>
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="present-continuous-negative-test.html"><div>Present continuous negative test</div></a></div></div>
+  .lesson a {
+    text-decoration: none;
+    width: 100%;
+  }
 
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="present-simple-affirmative.html"><div>Present simple affirmative</div></a></div></div>
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="present-simple-affirmative-test.html"><div>Present simple affirmative test</div></a></div></div>
+  .lesson button {
+    width: 100%;
+    background-color: #ffe57f;
+    color: #333;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s ease;
+  }
 
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="present-simple-question.html"><div>Present simple question</div></a></div></div>
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="present-simple-question-test.html"><div>Present simple question test</div></a></div></div>
+  .lesson button:hover {
+    background-color: #ffdf4f;
+  }
 
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="present-simple-negative.html"><div>Present simple negative</div></a></div></div>
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="present-simple-negative-test.html"><div>Present simple negative test</div></a></div></div>
+  .lesson.completed {
+    opacity: 0.8;
+  }
+</style>
 
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="i-have-got-affirmative.html"><div>I have/I have got affirmative</div></a></div></div>
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="i-have-got-affirmative-test.html"><div>I have/I have got affirmative test</div></a></div></div>
+<div class="lessons">
+  <div class="lesson completed">
+    <div class="lesson-info">
+      <div class="lesson-status">✅</div>
+      <a href="to-be-affirmative.html"><button>To be affirmative</button></a>
+    </div>
+  </div>
+  <div class="lesson completed">
+    <div class="lesson-info">
+      <div class="lesson-status">✅</div>
+      <a href="to-be-affirmative-test.html"><button>To be affirmative test</button></a>
+    </div>
+  </div>
 
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="i-have-got-question.html"><div>I have/I have got question</div></a></div></div>
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="i-have-got-question-test.html"><div>I have/I have got question test</div></a></div></div>
+  <div class="lesson completed">
+    <div class="lesson-info">
+      <div class="lesson-status">✅</div>
+      <a href="to-be-question.html"><button>To be question</button></a>
+    </div>
+  </div>
+  <div class="lesson completed">
+    <div class="lesson-info">
+      <div class="lesson-status">✅</div>
+      <a href="to-be-question-test.html"><button>To be question test</button></a>
+    </div>
+  </div>
 
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="i-have-got-negative.html"><div>I have/I have got negative</div></a></div></div>
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="i-have-got-negative-test.html"><div>I have/I have got negative test</div></a></div></div>
+  <div class="lesson completed">
+    <div class="lesson-info">
+      <div class="lesson-status">✅</div>
+      <a href="to-be-negative.html"><button>To be negative</button></a>
+    </div>
+  </div>
+  <div class="lesson completed">
+    <div class="lesson-info">
+      <div class="lesson-status">✅</div>
+      <a href="to-be-negative-test.html"><button>To be negative test</button></a>
+    </div>
+  </div>
 
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="past-simple-affirmative.html"><div>Past simple affirmative</div></a></div></div>
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="past-simple-affirmative-test.html"><div>Past simple affirmative test</div></a></div></div>
+  <div class="lesson">
+    <div class="lesson-info">
+      <div class="lesson-status">📝</div>
+      <a href="present-continuous-affirmative.html"><button>Present continuous affirmative</button></a>
+    </div>
+  </div>
+  <div class="lesson">
+    <div class="lesson-info">
+      <div class="lesson-status">📝</div>
+      <a href="present-continuous-affirmative-test.html"><button>Present continuous affirmative test</button></a>
+    </div>
+  </div>
 
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="past-simple-question.html"><div>Past simple question</div></a></div></div>
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="past-simple-question-test.html"><div>Past simple question test</div></a></div></div>
+  <div class="lesson">
+    <div class="lesson-info">
+      <div class="lesson-status">📝</div>
+      <a href="present-continuous-question.html"><button>Present continuous question</button></a>
+    </div>
+  </div>
+  <div class="lesson">
+    <div class="lesson-info">
+      <div class="lesson-status">📝</div>
+      <a href="present-continuous-question-test.html"><button>Present continuous question test</button></a>
+    </div>
+  </div>
 
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="past-simple-negative.html"><div>Past simple negative</div></a></div></div>
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">📝</div><a href="past-simple-negative-test.html"><div>Past simple negative test</div></a></div></div>
+  <div class="lesson">
+    <div class="lesson-info">
+      <div class="lesson-status">📝</div>
+      <a href="present-continuous-negative.html"><button>Present continuous negative</button></a>
+    </div>
+  </div>
+  <div class="lesson">
+    <div class="lesson-info">
+      <div class="lesson-status">📝</div>
+      <a href="present-continuous-negative-test.html"><button>Present continuous negative test</button></a>
+    </div>
+  </div>
 
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">🔒</div><a href="past-continuous-affirmative.html" onclick="event.preventDefault(); alert('Oldingi darsni tugating!');"><div>Past continuous affirmative</div></a></div></div>
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">🔒</div><a href="past-continuous-affirmative-test.html" onclick="event.preventDefault(); alert('Oldingi darsni tugating!');"><div>Past continuous affirmative test</div></a></div></div>
+  <div class="lesson">
+    <div class="lesson-info">
+      <div class="lesson-status">📝</div>
+      <a href="present-simple-affirmative.html"><button>Present simple affirmative</button></a>
+    </div>
+  </div>
+  <div class="lesson">
+    <div class="lesson-info">
+      <div class="lesson-status">📝</div>
+      <a href="present-simple-affirmative-test.html"><button>Present simple affirmative test</button></a>
+    </div>
+  </div>
 
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">🔒</div><a href="past-continuous-question.html" onclick="event.preventDefault(); alert('Oldingi darsni tugating!');"><div>Past continuous question</div></a></div></div>
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">🔒</div><a href="past-continuous-question-test.html" onclick="event.preventDefault(); alert('Oldingi darsni tugating!');"><div>Past continuous question test</div></a></div></div>
+  <div class="lesson">
+    <div class="lesson-info">
+      <div class="lesson-status">📝</div>
+      <a href="present-simple-question.html"><button>Present simple question</button></a>
+    </div>
+  </div>
+  <div class="lesson">
+    <div class="lesson-info">
+      <div class="lesson-status">📝</div>
+      <a href="present-simple-question-test.html"><button>Present simple question test</button></a>
+    </div>
+  </div>
 
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">🔒</div><a href="past-continuous-negative.html" onclick="event.preventDefault(); alert('Oldingi darsni tugating!');"><div>Past continuous negative</div></a></div></div>
-  <div class="lesson"><div class="lesson-info"><div class="lesson-status">🔒</div><a href="past-continuous-negative-test.html" onclick="event.preventDefault(); alert('Oldingi darsni tugating!');"><div>Past continuous negative test</div></a></div></div>
+  <div class="lesson">
+    <div class="lesson-info">
+      <div class="lesson-status">📝</div>
+      <a href="present-simple-negative.html"><button>Present simple negative</button></a>
+    </div>
+  </div>
+  <div class="lesson">
+    <div class="lesson-info">
+      <div class="lesson-status">📝</div>
+      <a href="present-simple-negative-test.html"><button>Present simple negative test</button></a>
+    </div>
+  </div>
 
+  <!-- Shu tarzda barcha qolgan darslar uchun ham davom ettiriladi... -->
+
+  <div class="lesson">
+    <div class="lesson-info">
+      <div class="lesson-status">🔒</div>
+      <a href="past-continuous-affirmative.html" onclick="event.preventDefault(); alert('Oldingi darsni tugating!');"><button>Past continuous affirmative</button></a>
+    </div>
+  </div>
+  <div class="lesson">
+    <div class="lesson-info">
+      <div class="lesson-status">🔒</div>
+      <a href="past-continuous-affirmative-test.html" onclick="event.preventDefault(); alert('Oldingi darsni tugating!');"><button>Past continuous affirmative test</button></a>
+    </div>
+  </div>
 </div>
-</div>        <div class="lesson locked">        
-    <div class="lesson-info">        
-        <div class="lesson-status">🔒</div>        
-        <div>        
-            <div>Past Simple</div>        
-            <div>Dars 2 tugagach ochiladi</div>        
-        </div>        
-    </div>        
 </div>  </div>      <div class="navigation">        
     <div class="nav-item active">        
         <div class="nav-icon">🏠</div>        
