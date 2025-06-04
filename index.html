@@ -1,316 +1,321 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BilimSher - Ingliz Tili</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
-    body {
-      background-color: #fff9e6;
-      color: #2d2d2d;
-      max-width: 500px;
-      margin: 0 auto;
-      padding: 16px;
-      padding-bottom: 70px; /* Navigation uchun joy qoldirish */
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      font-size: 24px;
-      font-weight: bold;
-      color: #4d3f00;
-    }
-
-    .logo img {
-      width: 32px;
-      margin-right: 10px;
-    }
-
-    .user-info {
-      background-color: #fff;
-      padding: 8px 14px;
-      border-radius: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      font-size: 14px;
-    }
-
-    .progress-container {
-      background-color: #fff;
-      padding: 14px;
-      border-radius: 12px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-    }
-
-    .progress-bar {
-      height: 10px;
-      background-color: #ddd;
-      border-radius: 5px;
-      overflow: hidden;
-      margin-top: 8px;
-    }
-
-    .progress-fill {
-      width: 45%;
-      height: 100%;
-      background-color: #34a853;
-      transition: width 0.3s ease;
-    }
-
-    .levels {
-      display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding-bottom: 8px;
-      margin-bottom: 20px;
-    }
-
-    .level {
-      min-width: 80px;
-      padding: 12px;
-      text-align: center;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .level:hover {
-      transform: scale(1.05);
-    }
-
-    .level.active {
-      background-color: #4d3f00;
-      color: #fff;
-    }
-
-    .lessons {
-      background-color: #fff;
-      border-radius: 12px;
-      padding: 16px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .lesson {
-      padding: 14px 0;
-      border-bottom: 1px solid #eee;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-    }
-
-    .lesson:last-child {
-      border-bottom: none;
-    }
-
-    .lesson-status {
-      width: 24px;
-      text-align: center;
-      font-size: 20px;
-      margin-right: 12px;
-    }
-
-    .lesson-info {
-      display: flex;
-      align-items: center;
-      flex-grow: 1;
-    }
-
-    .lesson-progress {
-      width: 100px;
-      height: 6px;
-      background-color: #ddd;
-      border-radius: 3px;
-      margin-top: 6px;
-    }
-
-    .lesson-progress-fill {
-      height: 100%;
-      border-radius: 3px;
-      transition: width 0.5s ease-in-out;
-    }
-
-    .completed .lesson-progress-fill {
-      background-color: #34a853;
-      width: 100%;
-    }
-
-    .in-progress .lesson-progress-fill {
-      background-color: #fbbc05;
-      width: 60%;
-    }
-
-    .locked {
-      opacity: 0.5;
-      cursor: default;
-    }
-
-    .complete-btn {
-      background-color: #4d3f00;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .complete-btn:hover {
-      background-color: #6b5a00;
-    }
-
-    .navigation {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      max-width: 500px;
-      margin: 0 auto;
-      background-color: #fff;
-      border-top-left-radius: 16px;
-      border-top-right-radius: 16px;
-      box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
-      display: flex;
-      justify-content: space-around;
-      padding: 12px 0;
-    }
-
-    .nav-item {
-      text-align: center;
-      color: #4d3f00;
-      font-size: 12px;
-    }
-
-    .nav-item .nav-icon {
-      font-size: 20px;
-      margin-bottom: 4px;
-    }
-
-    .nav-item.active {
-      font-weight: bold;
-      color: #f9a825;
-    }
-
-    .notification {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #4d3f00;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      z-index: 1000;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .notification.show {
-      display: block;
-      opacity: 1;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Grammar Learning</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #0088cc;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 20px;
+        }
+        .progress-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .progress-bar {
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #4caf50;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .level-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .level-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .level-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #0088cc;
+        }
+        .level-status {
+            background-color: #0088cc;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+        .lesson-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .lesson-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .lesson-item:last-child {
+            border-bottom: none;
+        }
+        .lesson-info {
+            flex-grow: 1;
+        }
+        .lesson-title {
+            font-weight: 500;
+        }
+        .lesson-status {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+        }
+        .completed {
+            background-color: #4caf50;
+            color: white;
+        }
+        .locked {
+            opacity: 0.6;
+        }
+        .points-display {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .points-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0088cc;
+        }
+        .rating-display {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .stars {
+            color: #ffc107;
+            font-size: 1.5rem;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
-  <div class="notification" id="notification"></div>
-  
-  <div class="header">
-    <div class="logo">
-      <img src="https://via.placeholder.com/32" alt="logo">
-      BilimSher
-    </div>
-    <div class="user-info">⭐ 450 ball | A1</div>
-  </div>
+    <div class="container">
+        <header>
+            <h1>English Grammar Learning</h1>
+            <p>Master English grammar from A1 to B2 levels</p>
+        </header>
 
-  <div class="progress-container">
-    <div>Umumiy progress</div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="overall-progress"></div>
-    </div>
-  </div>
-
-  <div class="levels">
-    <div class="level active">A1</div>
-    <div class="level">A2</div>
-    <div class="level">B1</div>
-    <div class="level">B2</div>
-  </div>
-
-  <div class="lessons" id="lessons-container">
-    <div class="lesson completed" data-lesson="Present Simple">
-      <div class="lesson-info">
-        <div class="lesson-status">✅</div>
-        <div>
-          <div>Present Simple</div>
-          <div class="lesson-progress">
-            <div class="lesson-progress-fill"></div>
-          </div>
+        <div class="points-display">
+            <div>Your Points</div>
+            <div class="points-value" id="user-points">0</div>
         </div>
-      </div>
-    </div>
 
-    <div class="lesson in-progress" data-lesson="To Be">
-      <div class="lesson-info">
-        <div class="lesson-status">🔄</div>
-        <div>
-          <div>To Be</div>
-          <div class="lesson-progress">
-            <div class="lesson-progress-fill"></div>
-          </div>
+        <div class="rating-display">
+            <div>Your Rating</div>
+            <div class="stars">★★★★☆</div>
         </div>
-      </div>
-    </div>
 
-    <div class="lesson locked" data-lesson="Past Simple">
-      <div class="lesson-info">
-        <div class="lesson-status">🔒</div>
-        <div>
-          <div>Past Simple</div>
-          <div class="lesson-progress">
-            <div class="lesson-progress-fill"></div>
-          </div>
+        <div class="progress-container">
+            <div>Overall Progress</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="overall-progress"></div>
+            </div>
+            <div id="progress-percent" style="text-align: right; margin-top: 5px;">0%</div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="navigation">
-    <div class="nav-item active">
-      <div class="nav-icon">🏠</div>
-      <div>Asosiy</div>
+        <div class="level-section">
+            <div class="level-header">
+                <div class="level-title">A1 Level</div>
+                <div class="level-status">In Progress</div>
+            </div>
+            <ul class="lesson-list" id="a1-lessons">
+                <!-- A1 lessons will be inserted here by JavaScript -->
+            </ul>
+        </div>
+
+        <div class="level-section">
+            <div class="level-header">
+                <div class="level-title">A2 Level</div>
+                <div class="level-status">Locked</div>
+            </div>
+            <ul class="lesson-list" id="a2-lessons">
+                <!-- A2 lessons will be inserted here by JavaScript -->
+            </ul>
+        </div>
+
+        <div class="level-section">
+            <div class="level-header">
+                <div class="level-title">B1 Level</div>
+                <div class="level-status">Locked</div>
+            </div>
+            <ul class="lesson-list" id="b1-lessons">
+                <!-- B1 lessons will be inserted here by JavaScript -->
+            </ul>
+        </div>
+
+        <div class="level-section">
+            <div class="level-header">
+                <div class="level-title">B2 Level</div>
+                <div class="level-status">Locked</div>
+            </div>
+            <ul class="lesson-list" id="b2-lessons">
+                <!-- B2 lessons will be inserted here by JavaScript -->
+            </ul>
+        </div>
     </div>
-    <div class="nav-item">
-      <div class="nav-icon">📚</div>
-      <div>Darslar</div>
-    </div>
-    <div class="nav-item">
-      <div class="nav-icon">📈</div>
-      <div>Reyting</div>
-    </div>
-    <div class="nav-item">
-      <div class="nav-icon">👤</div>
-      <div>Profil</div>
-    </div
+
+    <script>
+        // Initialize Telegram WebApp
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        
+        // User data
+        let userData = {
+            points: 0,
+            completedLessons: [],
+            currentLevel: 'A1',
+            rating: 4 // out of 5
+        };
+        
+        // Lessons data
+        const lessons = {
+            A1: [
+                "1. To be affirmative",
+                "2. To be affirmative test",
+                "3. To be question",
+                "4. To be question test",
+                "5. To be negative",
+                "6. To be negative test",
+                "7. Present continues affirmative",
+                "8. Present continues affirmative test",
+                "9. Present continues question",
+                "10. Present continues question test",
+                "11. Present continues negative",
+                "12. Present continues negative test",
+                "13. Present simple affirmative",
+                "14. Present simple affirmative test",
+                "15. Present simple question",
+                "16. Present simple question test",
+                "17. Present simple negative",
+                "18. Present simple negative test",
+                "19. I have/I have got affirmative",
+                "20. I have/I have got affirmative test",
+                "21. I have/I have got question",
+                "22. I have/I have got question test",
+                "23. I have/I have got negative",
+                "24. I have/I have got negative test",
+                "25. Past simple affirmative",
+                "26. Past simple affirmative test",
+                "27. Past simple question",
+                "28. Past simple question test",
+                "29. Past simple negative",
+                "30. Past simple negative test",
+                "31. Past continuous affirmative",
+                "32. Past continuous affirmative test",
+                "33. Past continuous question",
+                "34. Past continuous question test",
+                "35. Past continuous negative",
+                "36. Past continuous negative test"
+            ],
+            A2: [
+                "1. Present perfect affirmative",
+                "2. Present perfect test",
+                "3. Present perfect vs past simple",
+                "4. Present perfect vs past simple test",
+                "5. Past perfect",
+                "6. Past perfect test",
+                "7. Future simple (will)",
+                "8. Future simple test",
+                "9. Be going to",
+                "10. Be going to test",
+                "11. Modal verbs (can, could, may, might)",
+                "12. Modal verbs test",
+                "13. Comparative adjectives",
+                "14. Comparative adjectives test",
+                "15. Superlative adjectives",
+                "16. Superlative adjectives test"
+            ],
+            B1: [
+                "1. Present perfect continuous",
+                "2. Present perfect continuous test",
+                "3. Past perfect continuous",
+                "4. Past perfect continuous test",
+                "5. Future continuous",
+                "6. Future continuous test",
+                "7. Future perfect",
+                "8. Future perfect test",
+                "9. Mixed conditionals",
+                "10. Mixed conditionals test",
+                "11. Passive voice",
+                "12. Passive voice test",
+                "13. Reported speech",
+                "14. Reported speech test",
+                "15. Phrasal verbs",
+                "16. Phrasal verbs test"
+            ],
+            B2: [
+                "1. Future perfect continuous",
+                "2. Future perfect continuous test",
+                "3. Modal perfects",
+                "4. Modal perfects test",
+                "5. Inversion",
+                "6. Inversion test",
+                "7. Cleft sentences",
+                "8. Cleft sentences test",
+                "9. Advanced passive constructions",
+                "10. Advanced passive test",
+                "11. Discourse markers",
+                "12. Discourse markers test",
+                "13. Advanced conditionals",
+                "14. Advanced conditionals test"
+            ]
+        };
+        
+        // Initialize the app
+        function initApp() {
+            loadUserData();
+            renderLessons();
+            updateProgress();
+            updatePoints();
+        }
+        
+        // Load user data (in a real app, this would come from a database)
+        function loadUserData() {
+            const savedData = localStorage.getItem('englishGrammar
