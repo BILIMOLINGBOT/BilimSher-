@@ -2,22 +2,22 @@
 <html lang="uz">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BilimSher - Ingliz Tili Platformasi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BilimSher - Ingliz Tili</title>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
     }
 
     body {
-      background-color: #f5f5f5;
-      color: #333;
-      padding: 16px;
+      background-color: #fff9e6;
+      color: #2d2d2d;
       max-width: 500px;
       margin: 0 auto;
+      padding: 16px;
     }
 
     .header {
@@ -32,67 +32,71 @@
       align-items: center;
       font-size: 24px;
       font-weight: bold;
-      color: #4285F4;
+      color: #4d3f00;
     }
 
     .logo img {
       width: 32px;
-      margin-right: 8px;
+      margin-right: 10px;
     }
 
     .user-info {
       background-color: #fff;
-      padding: 8px 12px;
+      padding: 8px 14px;
       border-radius: 20px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       font-size: 14px;
     }
 
     .progress-container {
       background-color: #fff;
-      padding: 12px;
+      padding: 14px;
       border-radius: 12px;
-      margin-bottom: 20px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
     }
 
     .progress-bar {
-      width: 100%;
-      height: 8px;
-      background-color: #e0e0e0;
-      border-radius: 4px;
-      margin-top: 8px;
+      height: 10px;
+      background-color: #ddd;
+      border-radius: 5px;
       overflow: hidden;
+      margin-top: 8px;
     }
 
     .progress-fill {
+      width: 45%;
       height: 100%;
-      width: 25%;
-      background-color: #34A853;
-      border-radius: 4px;
+      background-color: #34a853;
+      transition: width 0.3s ease;
     }
 
     .levels {
       display: flex;
-      overflow-x: auto;
       gap: 10px;
-      margin-bottom: 20px;
+      overflow-x: auto;
       padding-bottom: 8px;
+      margin-bottom: 20px;
     }
 
     .level {
       min-width: 80px;
       padding: 12px;
-      background-color: #fff;
-      border-radius: 12px;
       text-align: center;
+      background: #fff;
+      border-radius: 12px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .level:hover {
+      transform: scale(1.05);
     }
 
     .level.active {
-      background-color: #4285F4;
-      color: white;
+      background-color: #4d3f00;
+      color: #fff;
     }
 
     .lessons {
@@ -100,11 +104,10 @@
       border-radius: 12px;
       padding: 16px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      margin-bottom: 80px;
     }
 
     .lesson {
-      padding: 12px 0;
+      padding: 14px 0;
       border-bottom: 1px solid #eee;
       display: flex;
       justify-content: space-between;
@@ -115,27 +118,24 @@
       border-bottom: none;
     }
 
+    .lesson-status {
+      width: 24px;
+      text-align: center;
+      font-size: 20px;
+      margin-right: 12px;
+    }
+
     .lesson-info {
       display: flex;
       align-items: center;
     }
 
-    .lesson-status {
-      width: 24px;
-      height: 24px;
-      margin-right: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
     .lesson-progress {
       width: 100px;
       height: 6px;
-      background-color: #e0e0e0;
+      background-color: #ddd;
       border-radius: 3px;
-      margin-top: 4px;
+      margin-top: 6px;
     }
 
     .lesson-progress-fill {
@@ -144,62 +144,60 @@
     }
 
     .completed .lesson-progress-fill {
-      background-color: #34A853;
+      background-color: #34a853;
       width: 100%;
     }
 
     .in-progress .lesson-progress-fill {
-      background-color: #FBBC05;
+      background-color: #fbbc05;
       width: 60%;
     }
 
     .locked {
-      opacity: 0.6;
-      cursor: not-allowed;
+      opacity: 0.5;
+      pointer-events: none;
     }
 
     .navigation {
-      display: flex;
-      justify-content: space-around;
-      background-color: #fff;
-      padding: 12px 0;
-      border-radius: 12px;
-      box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
       max-width: 500px;
       margin: 0 auto;
+      background-color: #fff;
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0;
     }
 
     .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      text-align: center;
+      color: #4d3f00;
       font-size: 12px;
-      color: #4285F4;
+    }
+
+    .nav-item .nav-icon {
+      font-size: 20px;
+      margin-bottom: 4px;
     }
 
     .nav-item.active {
       font-weight: bold;
-    }
-
-    .nav-icon {
-      font-size: 20px;
-      margin-bottom: 4px;
+      color: #f9a825;
     }
   </style>
 </head>
 <body>
   <div class="header">
     <div class="logo">
-      <img src="https://via.placeholder.com/32" alt="BilimSher Logo" />
+      <img src="https://via.placeholder.com/32" alt="logo">
       BilimSher
     </div>
-    <div class="user-info">
-      ★ 450 ball | A1
-    </div>
+    <div class="user-info">⭐ 450 ball | A1</div>
   </div>
 
   <div class="progress-container">
@@ -221,7 +219,7 @@
       <div class="lesson-info">
         <div class="lesson-status">✅</div>
         <div>
-          <div>1. Shunday qilib bering</div>
+          <div>Present Simple</div>
           <div class="lesson-progress">
             <div class="lesson-progress-fill"></div>
           </div>
@@ -233,7 +231,7 @@
       <div class="lesson-info">
         <div class="lesson-status">🔄</div>
         <div>
-          <div>2. Shunday qilib bering</div>
+          <div>To Be</div>
           <div class="lesson-progress">
             <div class="lesson-progress-fill"></div>
           </div>
@@ -245,33 +243,9 @@
       <div class="lesson-info">
         <div class="lesson-status">🔒</div>
         <div>
-          <div>3. Shunday qilib bering</div>
+          <div>Past Simple</div>
           <div class="lesson-progress">
-            <div class="lesson-progress-fill"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="lesson locked">
-      <div class="lesson-info">
-        <div class="lesson-status">🔒</div>
-        <div>
-          <div>4. Shunday qilib bering</div>
-          <div class="lesson-progress">
-            <div class="lesson-progress-fill"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="lesson locked">
-      <div class="lesson-info">
-        <div class="lesson-status">🔒</div>
-        <div>
-          <div>5. Shunday qilib bering</div>
-          <div class="lesson-progress">
-            <div class="lesson-progress-fill"></div>
+            <div class="lesson-progress-fill" style="width: 0%; background-color: transparent;"></div>
           </div>
         </div>
       </div>
@@ -288,7 +262,7 @@
       <div>Darslar</div>
     </div>
     <div class="nav-item">
-      <div class="nav-icon">📊</div>
+      <div class="nav-icon">📈</div>
       <div>Reyting</div>
     </div>
     <div class="nav-item">
@@ -298,18 +272,19 @@
   </div>
 
   <script>
+    // Darslar blokirovkalangan bo'lsa xabar chiqarish
     document.querySelectorAll('.locked').forEach(item => {
       item.addEventListener('click', () => {
-        alert("Darslarni ketma-ket o'rganishingiz kerak!\nAvval oldingi darsni tugating.");
+        alert("Iltimos, avvalgi darslarni tugating.");
       });
     });
 
-    document.querySelectorAll('.level').forEach(item => {
-      item.addEventListener('click', event => {
-        document.querySelectorAll('.level').forEach(level => {
-          level.classList.remove('active');
-        });
-        event.currentTarget.classList.add('active');
+    // Daraja tanlash
+    document.querySelectorAll('.level').forEach(level => {
+      level.addEventListener('click', () => {
+        document.querySelectorAll('.level').forEach(lvl => lvl.classList.remove('active'));
+        level.classList.add('active');
+        // Bu yerda siz darslarni yuklash kodini qo‘shishingiz mumkin
       });
     });
   </script>
