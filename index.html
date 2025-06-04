@@ -4,259 +4,562 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English Grammar - Telegram Mini App</title>
+    <meta name="description" content="A1, A2, B1, B2 darajalari bo'yicha ingliz tili grammatikasi darsliklari">
+    
+    <!-- Telegram WebApp integratsiyasi -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <!-- Font Awesome Ikonlar -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS fayllar -->
     <style>
         :root {
-            --tg-theme-bg-color: #ffffff;
-            --tg-theme-text-color: #000000;
-            --tg-theme-button-color: #2481cc;
-            --tg-theme-button-text-color: #ffffff;
-            --tg-theme-secondary-bg-color: #f4f4f5;
+            --primary-color: #0088cc;
+            --secondary-color: #f5f5f5;
+            --accent-color: #ff9500;
+            --text-color: #333;
+            --light-text: #777;
+            --success-color: #4CAF50;
+            --danger-color: #f44336;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
+            background-color: #fff;
+            color: var(--text-color);
+            line-height: 1.6;
             padding: 0;
-            background-color: var(--tg-theme-bg-color);
-            color: var(--tg-theme-text-color);
-            line-height: 1.5;
+            margin: 0;
         }
         
-        .container {
+        #app {
             max-width: 100%;
+            min-height: 100vh;
             padding: 15px;
         }
         
-        header {
-            text-align: center;
-            margin-bottom: 20px;
+        /* Header styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 10px 0;
-            border-bottom: 1px solid var(--tg-theme-secondary-bg-color);
-        }
-        
-        h1 {
-            font-size: 1.5rem;
-            margin: 0;
-        }
-        
-        .level-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
             margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .user-profile {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        /* Level cards */
+        .levels {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
         }
         
         .level-card {
-            background: var(--tg-theme-secondary-bg-color);
+            background-color: var(--secondary-color);
             border-radius: 10px;
             padding: 15px;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary-color);
         }
         
         .level-card:hover {
-            transform: scale(1.03);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
-        .level-card h3 {
-            margin-top: 0;
-        }
+        .level-card.A1 { border-left-color: #4CAF50; }
+        .level-card.A2 { border-left-color: #2196F3; }
+        .level-card.B1 { border-left-color: #FFC107; }
+        .level-card.B2 { border-left-color: #F44336; }
         
-        .progress-container {
-            background: var(--tg-theme-secondary-bg-color);
+        /* Progress section */
+        .progress-section {
+            background-color: var(--secondary-color);
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 20px;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
         }
         
         .progress-bar {
             width: 100%;
+            height: 10px;
             background: #e0e0e0;
-            border-radius: 10px;
-            margin-top: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
         }
         
         .progress-fill {
-            height: 10px;
-            background: var(--tg-theme-button-color);
-            border-radius: 10px;
-            width: 65%; /* Bu dinamik bo'lishi kerak */
+            height: 100%;
+            background: var(--success-color);
+            border-radius: 5px;
+            transition: width 0.5s ease;
         }
         
-        .btn {
-            background: var(--tg-theme-button-color);
-            color: var(--tg-theme-button-text-color);
-            border: none;
-            padding: 10px 15px;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            margin: 5px 0;
-        }
-        
-        .lesson-list {
+        /* Lessons list */
+        .lessons-list {
             margin-top: 20px;
         }
         
         .lesson-item {
-            background: var(--tg-theme-secondary-bg-color);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         
-        .locked-lesson {
+        .lesson-item.completed {
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .lesson-item.active {
+            border-left: 4px solid var(--accent-color);
+            font-weight: bold;
+        }
+        
+        .lesson-item.locked {
             opacity: 0.6;
+            background-color: var(--secondary-color);
         }
         
-        .lock-icon {
-            color: #999;
+        .lesson-icon {
+            margin-right: 15px;
+            font-size: 1.2rem;
         }
         
-        .rating {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 5px;
+        .lesson-title {
+            flex-grow: 1;
         }
         
-        .star {
-            color: gold;
+        .lesson-score {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        /* Lesson content page */
+        .lesson-content-page {
+            padding: 15px;
+        }
+        
+        .lesson-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .grammar-rule {
+            background-color: var(--secondary-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .examples {
+            margin: 20px 0;
+        }
+        
+        .example {
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        .practice-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+        
+        /* Back button */
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            margin-right: 10px;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .levels {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>English Grammar</h1>
-            <p>A1 dan B2 darajagacha grammatika darsliklari</p>
-        </header>
-        
-        <div class="progress-container">
-            <h3>Umumiy progress</h3>
-            <p>65% yakunlangan (Bu dinamik bo'lishi kerak)</p>
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
-            </div>
-        </div>
-        
-        <div class="level-cards">
-            <div class="level-card" onclick="openLevel('A1')">
-                <h3>A1</h3>
-                <p>Boshlang'ich</p>
-                <div class="rating">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">☆</span>
-                    <span class="star">☆</span>
-                </div>
-            </div>
-            <div class="level-card" onclick="openLevel('A2')">
-                <h3>A2</h3>
-                <p>Elementar</p>
-                <div class="rating">
-                    <span class="star">★</span>
-                    <span class="star">★</span>
-                    <span class="star">☆</span>
-                    <span class="star">☆</span>
-                    <span class="star">☆</span>
-                </div>
-            </div>
-            <div class="level-card" onclick="openLevel('B1')">
-                <h3>B1</h3>
-                <p>O'rta</p>
-                <div class="rating">
-                    <span class="star">★</span>
-                    <span class="star">☆</span>
-                    <span class="star">☆</span>
-                    <span class="star">☆</span>
-                    <span class="star">☆</span>
-                </div>
-            </div>
-            <div class="level-card" onclick="openLevel('B2')">
-                <h3>B2</h3>
-                <p>O'rta yuqori</p>
-                <div class="rating">
-                    <span class="star">☆</span>
-                    <span class="star">☆</span>
-                    <span class="star">☆</span>
-                    <span class="star">☆</span>
-                    <span class="star">☆</span>
-                </div>
-            </div>
-        </div>
-        
-        <button class="btn" onclick="openAdvice()">Maslahat olish</button>
-        
-        <div class="lesson-list">
-            <h3>Yakunlangan darslar</h3>
-            <div class="lesson-item">
-                <div>
-                    <h4>Present Simple</h4>
-                    <p>A1 daraja | 15 ball</p>
-                </div>
-                <span>✅</span>
-            </div>
-            <div class="lesson-item">
-                <div>
-                    <h4>Past Simple</h4>
-                    <p>A1 daraja | 20 ball</p>
-                </div>
-                <span>✅</span>
-            </div>
-            <div class="lesson-item locked-lesson">
-                <div>
-                    <h4>Present Continuous</h4>
-                    <p>A1 daraja</p>
-                </div>
-                <span class="lock-icon">🔒</span>
-            </div>
-        </div>
+    <div id="app">
+        <!-- Asosiy kontent dinamik ravishda shu yerga yuklanadi -->
     </div>
     
+    <!-- Sahifa shablonlari -->
+    <template id="home-page">
+        <div class="home-page">
+            <div class="header">
+                <h1>English Grammar</h1>
+                <div class="user-profile" id="user-profile">U</div>
+            </div>
+            
+            <div class="progress-section">
+                <div class="progress-header">
+                    <h3>Umumiy progress</h3>
+                    <span id="progress-percent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <small>Yakunlangan darslar: <span id="completed-lessons">0</span> / <span id="total-lessons">0</span></small>
+            </div>
+            
+            <h2>Darajalar</h2>
+            <div class="levels">
+                <div class="level-card A1" data-level="A1">
+                    <i class="fas fa-seedling lesson-icon"></i>
+                    <h3>A1 Boshlang'ich</h3>
+                    <small>0% yakunlangan</small>
+                </div>
+                <div class="level-card A2" data-level="A2">
+                    <i class="fas fa-leaf lesson-icon"></i>
+                    <h3>A2 Elementar</h3>
+                    <small>0% yakunlangan</small>
+                </div>
+                <div class="level-card B1" data-level="B1">
+                    <i class="fas fa-tree lesson-icon"></i>
+                    <h3>B1 O'rta</h3>
+                    <small>0% yakunlangan</small>
+                </div>
+                <div class="level-card B2" data-level="B2">
+                    <i class="fas fa-mountain lesson-icon"></i>
+                    <h3>B2 O'rta Yuqori</h3>
+                    <small>0% yakunlangan</small>
+                </div>
+            </div>
+            
+            <h2>Oxirgi davom etilgan darslar</h2>
+            <div class="lessons-list" id="recent-lessons">
+                <!-- Bu joyga JavaScript orqali oxirgi darslar yuklanadi -->
+                <div class="lesson-item">
+                    <div class="lesson-title">Hech qanday dars boshlanmagan</div>
+                </div>
+            </div>
+        </div>
+    </template>
+    
+    <template id="lessons-page">
+        <div class="lessons-page">
+            <div class="header">
+                <button class="back-btn" id="back-to-home"><i class="fas fa-arrow-left"></i></button>
+                <h1 id="level-title">Daraja</h1>
+                <div class="user-profile" id="user-profile-level">U</div>
+            </div>
+            
+            <div class="progress-section">
+                <div class="progress-header">
+                    <h3>Daraja progressi</h3>
+                    <span id="level-progress">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="level-progress-fill"></div>
+                </div>
+                <small>Yakunlangan darslar: <span id="level-completed">0</span> / <span id="level-total">0</span></small>
+            </div>
+            
+            <div class="lessons-list" id="level-lessons-list">
+                <!-- JavaScript orqali darslar ro'yxati yuklanadi -->
+            </div>
+        </div>
+    </template>
+    
+    <template id="lesson-content-page">
+        <div class="lesson-content-page">
+            <div class="header">
+                <button class="back-btn" id="back-to-lessons"><i class="fas fa-arrow-left"></i></button>
+                <h1 id="lesson-content-title">Dars nomi</h1>
+                <div class="user-profile" id="user-profile-lesson">U</div>
+            </div>
+            
+            <div class="grammar-rule" id="grammar-rule">
+                <!-- Grammatika qoidalari shu yerga yuklanadi -->
+            </div>
+            
+            <div class="examples" id="examples">
+                <!-- Misollar shu yerga yuklanadi -->
+            </div>
+            
+            <button class="practice-btn" id="practice-btn">
+                <i class="fas fa-pen"></i> Amaliy mashqlar
+            </button>
+        </div>
+    </template>
+    
+    <!-- JavaScript kodlari -->
     <script>
-        // Telegram WebApp API integratsiyasi
-        function initTelegramWebApp() {
-            // Telegram WebApp obyektini tekshirish
-            if (window.Telegram && Telegram.WebApp) {
-                const tg = Telegram.WebApp;
-                
-                // Foydalanuvchi ma'lumotlari
+        // Telegram WebApp obyekti
+        const tg = window.Telegram.WebApp;
+        
+        // Loyiha holati
+        const state = {
+            currentLevel: null,
+            currentLesson: null,
+            userProgress: {
+                A1: { completed: 0, total: 10, lessons: {} },
+                A2: { completed: 0, total: 12, lessons: {} },
+                B1: { completed: 0, total: 15, lessons: {} },
+                B2: { completed: 0, total: 18, lessons: {} }
+            },
+            recentLessons: []
+        };
+        
+        // DOM elementlari
+        const appElement = document.getElementById('app');
+        
+        // Dastur ishga tushganda
+        document.addEventListener('DOMContentLoaded', function() {
+            tg.expand(); // WebAppni kengaytirish
+            tg.MainButton.hide(); // Asosiy tugmani yashirish
+            
+            // Foydalanuvchi ma'lumotlarini sozlash
+            setupUserProfile();
+            
+            // Sahifalarni yuklash
+            loadHomePage();
+            
+            // LocalStorage'dan progressni yuklash
+            loadProgress();
+            
+            // Daraja kartalariga hodisalar qo'shish
+            document.querySelectorAll('.level-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const level = this.getAttribute('data-level');
+                    loadLessonsPage(level);
+                });
+            });
+        });
+        
+        // Foydalanuvchi profilini sozlash
+        function setupUserProfile() {
+            if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
                 const user = tg.initDataUnsafe.user;
-                if (user) {
-                    console.log("Foydalanuvchi:", user);
-                }
+                const profileElements = document.querySelectorAll('.user-profile');
                 
-                // WebApp ni to'liq ekran qilish
-                tg.expand();
-                
-                // Orqaga tugmasi uchun hodisa
-                tg.BackButton.onClick(() => {
-                    tg.BackButton.hide();
-                    // Bu yerda siz history.back() yoki o'z routingizni ishlatishingiz mumkin
+                profileElements.forEach(el => {
+                    if (user.first_name) {
+                        el.textContent = user.first_name.charAt(0).toUpperCase();
+                        if (user.last_name) {
+                            el.textContent += user.last_name.charAt(0).toUpperCase();
+                        }
+                    }
                 });
             }
         }
         
-        // Darajani ochish funksiyasi
-        function openLevel(level) {
-            alert(level + " darajasi tanlandi! Bu yerda haqiqiy ilovada siz bu darajaga o'tasiz.");
-            // Haqiqiy ilovada bu sahifani o'zgartirish yoki yangi sahifaga o'tish bo'ladi
+        // Bosh sahifani yuklash
+        function loadHomePage() {
+            const template = document.getElementById('home-page');
+            appElement.innerHTML = '';
+            appElement.appendChild(template.content.cloneNode(true));
+            
+            // Progressni yangilash
+            updateProgress();
+            
+            // Oxirgi darslarni yuklash
+            loadRecentLessons();
         }
         
-        // Maslahat olish funksiyasi
-        function openAdvice() {
-            alert("Maslahat olish bo'limi. Bu yerda foydalanuvchi savollarini yuborish mumkin.");
-            // Haqiqiy ilovada bu modal oyna yoki yangi sahifa bo'lishi mumkin
+        // Darslar sahifasini yuklash
+        function loadLessonsPage(level) {
+            state.currentLevel = level;
+            
+            const template = document.getElementById('lessons-page');
+            appElement.innerHTML = '';
+            appElement.appendChild(template.content.cloneNode(true));
+            
+            // Daraja sarlavhasini sozlash
+            document.getElementById('level-title').textContent = getLevelName(level);
+            
+            // Orqaga qaytish tugmasi
+            document.getElementById('back-to-home').addEventListener('click', loadHomePage);
+            
+            // Daraja progressini yangilash
+            updateLevelProgress(level);
+            
+            // Darslar ro'yxatini yuklash
+            loadLessonsList(level);
         }
         
-        // Ilova yuklanganda Telegram WebApp ni ishga tushirish
-        document.addEventListener('DOMContentLoaded', initTelegramWebApp);
-    </script>
-</body>
-</html>
+        // Dars kontentini yuklash
+        function loadLessonContent(lessonId) {
+            state.currentLesson = lessonId;
+            
+            const template = document.getElementById('lesson-content-page');
+            appElement.innerHTML = '';
+            appElement.appendChild(template.content.cloneNode(true));
+            
+            // Dars ma'lumotlarini yuklash (bu joyda API yoki ma'lumotlar bazasidan yuklash kerak)
+            const lesson = getLessonData(state.currentLevel, lessonId);
+            
+            // Sarlavhani sozlash
+            document.getElementById('lesson-content-title').textContent = lesson.title;
+            
+            // Grammatika qoidalarini yuklash
+            document.getElementById('grammar-rule').innerHTML = lesson.grammarRule;
+            
+            // Misollarni yuklash
+            const examplesContainer = document.getElementById('examples');
+            examplesContainer.innerHTML = '<h3>Misollar:</h3>';
+            
+            lesson.examples.forEach(example => {
+                const exampleElement = document.createElement('div');
+                exampleElement.className = 'example';
+                exampleElement.innerHTML = `
+                    <p><strong>${example.sentence}</strong></p>
+                    <p><em>${example.translation}</em></p>
+                    <p>${example.explanation}</p>
+                `;
+                examplesContainer.appendChild(exampleElement);
+            });
+            
+            // Orqaga qaytish tugmasi
+            document.getElementById('back-to-lessons').addEventListener('click', () => {
+                loadLessonsPage(state.currentLevel);
+            });
+            
+            // Amaliy mashqlar tugmasi
+            document.getElementById('practice-btn').addEventListener('click', () => {
+                alert('Amaliy mashqlar sahifasi ishlab chiqilmoqda!');
+                // Bu joyda mashqlar sahifasiga o'tish kodi bo'lishi kerak
+            });
+            
+            // Agar dars yangi boshlangan bo'lsa, progressni yangilash
+            if (!state.userProgress[state.currentLevel].lessons[lessonId]) {
+                state.userProgress[state.currentLevel].lessons[lessonId] = { started: true, completed: false, score: 0 };
+                saveProgress();
+                updateProgress();
+            }
+        }
+        
+        // Daraja nomini olish
+        function getLevelName(level) {
+            const names = {
+                'A1': 'A1 Boshlang'ich',
+                'A2': 'A2 Elementar',
+                'B1': 'B1 O'rta',
+                'B2': 'B2 O'rta Yuqori'
+            };
+            return names[level] || level;
+        }
+        
+        // Progressni yangilash
+        function updateProgress() {
+            let totalCompleted = 0;
+            let totalLessons = 0;
+            
+            // Har bir daraja uchun progressni hisoblash
+            for (const level in state.userProgress) {
+                totalCompleted += state.userProgress[level].completed;
+                totalLessons += state.userProgress[level].total;
+                
+                // Daraja kartalaridagi progressni yangilash
+                const levelCard = document.querySelector(`.level-card[data-level="${level}"] small`);
+                if (levelCard) {
+                    const percent = Math.round((state.userProgress[level].completed / state.userProgress[level].total) * 100);
+                    levelCard.textContent = `${percent}% yakunlangan`;
+                }
+            }
+            
+            // Umumiy progressni yangilash
+            const totalPercent = Math.round((totalCompleted / totalLessons) * 100);
+            
+            if (document.getElementById('progress-percent')) {
+                document.getElementById('progress-percent').textContent = `${totalPercent}%`;
+                document.getElementById('progress-fill').style.width = `${totalPercent}%`;
+                document.getElementById('completed-lessons').textContent = totalCompleted;
+                document.getElementById('total-lessons').textContent = totalLessons;
+            }
+        }
+        
+        // Daraja progressini yangilash
+        function updateLevelProgress(level) {
+            const levelData = state.userProgress[level];
+            const percent = Math.round((levelData.completed / levelData.total) * 100);
+            
+            document.getElementById('level-progress').textContent = `${percent}%`;
+            document.getElementById('level-progress-fill').style.width = `${percent}%`;
+            document.getElementById('level-completed').textContent = levelData.completed;
+            document.getElementById('level-total').textContent = levelData.total;
+        }
+        
+        // Darslar ro'yxatini yuklash
+        function loadLessonsList(level) {
+            const lessonsList = document.getElementById('level-lessons-list');
+            lessonsList.innerHTML = '';
+            
+            // Bu joyda API yoki ma'lumotlar bazasidan darslar ro'yxatini yuklash kerak
+            // Misol uchun:
+            const lessons = getLessonsForLevel(level);
+            
+            lessons.forEach((lesson, index) => {
+                const lessonItem = document.createElement('div');
+                lessonItem.className = 'lesson-item';
+                
+                // Dars holatini aniqlash
+                const lessonProgress = state.userProgress[level].lessons[lesson.id] || {};
+                if (lessonProgress.completed) {
+                    lessonItem.classList.add('completed');
+                } else if (index === 0 || state.userProgress[level].lessons[lessons[index-1].id]?.completed) {
+                    lessonItem.classList.add('active');
+                } else {
+                    lessonItem.classList.add('locked');
+                }
+                
+                // Ikonka
+                const icon = document.createElement('span');
+              
