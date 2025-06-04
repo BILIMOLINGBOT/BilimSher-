@@ -155,7 +155,6 @@
 
     .locked {
       opacity: 0.6;
-      pointer-events: auto;
       cursor: not-allowed;
     }
 
@@ -222,7 +221,7 @@
       <div class="lesson-info">
         <div class="lesson-status">✅</div>
         <div>
-          <div>Present Simple</div>
+          <div>1. Shunday qilib bering</div>
           <div class="lesson-progress">
             <div class="lesson-progress-fill"></div>
           </div>
@@ -234,7 +233,7 @@
       <div class="lesson-info">
         <div class="lesson-status">🔄</div>
         <div>
-          <div>To Be</div>
+          <div>2. Shunday qilib bering</div>
           <div class="lesson-progress">
             <div class="lesson-progress-fill"></div>
           </div>
@@ -246,9 +245,33 @@
       <div class="lesson-info">
         <div class="lesson-status">🔒</div>
         <div>
-          <div>Past Simple</div>
+          <div>3. Shunday qilib bering</div>
           <div class="lesson-progress">
-            <div class="lesson-progress-fill" style="width: 0%; background-color: transparent;"></div>
+            <div class="lesson-progress-fill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson locked">
+      <div class="lesson-info">
+        <div class="lesson-status">🔒</div>
+        <div>
+          <div>4. Shunday qilib bering</div>
+          <div class="lesson-progress">
+            <div class="lesson-progress-fill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson locked">
+      <div class="lesson-info">
+        <div class="lesson-status">🔒</div>
+        <div>
+          <div>5. Shunday qilib bering</div>
+          <div class="lesson-progress">
+            <div class="lesson-progress-fill"></div>
           </div>
         </div>
       </div>
@@ -275,14 +298,12 @@
   </div>
 
   <script>
-    // Yopiq darsni bosganda xabar chiqarish
     document.querySelectorAll('.locked').forEach(item => {
       item.addEventListener('click', () => {
         alert("Darslarni ketma-ket o'rganishingiz kerak!\nAvval oldingi darsni tugating.");
       });
     });
 
-    // Darajalarni tanlash
     document.querySelectorAll('.level').forEach(item => {
       item.addEventListener('click', event => {
         document.querySelectorAll('.level').forEach(level => {
