@@ -159,6 +159,7 @@
 
     .locked {
       opacity: 0.5;
+      cursor: default;
     }
 
     .complete-btn {
@@ -170,6 +171,10 @@
       font-size: 14px;
       cursor: pointer;
       transition: background-color 0.3s;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     .complete-btn:hover {
@@ -219,6 +224,13 @@
       border-radius: 5px;
       z-index: 1000;
       display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .notification.show {
+      display: block;
+      opacity: 1;
     }
   </style>
 </head>
@@ -301,192 +313,4 @@
     <div class="nav-item">
       <div class="nav-icon">👤</div>
       <div>Profil</div>
-    </div>
-  </div>
-
-  <script>
-    // Darslar holati va tartibi
-    const lessonOrder = ["Present Simple", "To Be", "Past Simple"];
-    let lessonsState = {
-      "Present Simple": { status: "completed", progress: 100 },
-      "To Be": { status: "in-progress", progress: 60 },
-      "Past Simple": { status: "locked", progress: 0 }
-    };
-
-    // Darslar talablari
-    const lessonRequirements = {
-      "To Be": ["Present Simple"],
-      "Past Simple": ["To Be"]
-    };
-
-    // DOM elementlari
-    const lessonsContainer = document.getElementById('lessons-container');
-    const overallProgress = document.getElementById('overall-progress');
-    const notification = document.getElementById('notification');
-
-    // Dastur yuklanganda progressni yuklash
-    document.addEventListener('DOMContentLoaded', function() {
-      loadProgress();
-      loadLessons();
-      updateOverallProgress();
-      setupLessonClickHandlers();
-    });
-
-    // Progressni localStorage-dan yuklash
-    function loadProgress() {
-      const savedProgress = localStorage.getItem('englishLessonsProgress');
-      if (savedProgress) {
-        lessonsState = JSON.parse(savedProgress);
-      }
-    }
-
-    // Progressni localStorage-ga saqlash
-    function saveProgress() {
-      localStorage.setItem('englishLessonsProgress', JSON.stringify(lessonsState));
-      updateOverallProgress();
-    }
-
-    // Darslarni UI-ga yuklash
-    function loadLessons() {
-      const lessons = document.querySelectorAll('.lesson');
-      lessons.forEach(lesson => {
-        const lessonName = lesson.dataset.lesson;
-        const state = lessonsState[lessonName];
-        
-        if (state) {
-          // Dars holatini yangilash
-          lesson.className = `lesson ${state.status}`;
-          lesson.querySelector('.lesson-progress-fill').style.width = `${state.progress}%`;
-          
-          // Agar dars davom etayotgan bo'lsa, tugatish tugmasini qo'shish
-          if (state.status === "in-progress") {
-            addCompleteButton(lesson);
-          } else {
-            removeCompleteButton(lesson);
-          }
-        }
-      });
-    }
-
-    // Umumiy progressni hisoblash
-    function updateOverallProgress() {
-      const totalLessons = Object.keys(lessonsState).length;
-      let completedLessons = 0;
-      
-      for (const lesson in lessonsState) {
-        if (lessonsState[lesson].status === "completed") {
-          completedLessons++;
-        }
-      }
-      
-      const progressPercentage = (completedLessons / totalLessons) * 100;
-      overallProgress.style.width = `${progressPercentage}%`;
-    }
-
-    // Darsni tugatish tugmasini qo'shish
-    function addCompleteButton(lessonElement) {
-      if (!lessonElement.querySelector('.complete-btn')) {
-        const completeBtn = document.createElement('button');
-        completeBtn.className = 'complete-btn';
-        completeBtn.textContent = 'Darsni tugatish';
-        completeBtn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          const lessonName = lessonElement.dataset.lesson;
-          completeLesson(lessonName);
-        });
-        lessonElement.appendChild(completeBtn);
-      }
-    }
-
-    // Darsni tugatish tugmasini olib tashlash
-    function removeCompleteButton(lessonElement) {
-      const btn = lessonElement.querySelector('.complete-btn');
-      if (btn) {
-        lessonElement.removeChild(btn);
-      }
-    }
-
-    // Darsni tugatish
-    function completeLesson(completedLessonName) {
-      // Dars holatini yangilash
-      lessonsState[completedLessonName].status = "completed";
-      lessonsState[completedLessonName].progress = 100;
-      
-      // Keyingi darsni ochish
-      const completedIndex = lessonOrder.indexOf(completedLessonName);
-      if (completedIndex !== -1 && completedIndex < lessonOrder.length - 1) {
-        const nextLessonName = lessonOrder[completedIndex + 1];
-        unlockLesson(nextLessonName);
-      }
-      
-      // UI ni yangilash
-      loadLessons();
-      saveProgress();
-      
-      // Xabarnoma ko'rsatish
-      showNotification(`"${completedLessonName}" darsi tugatildi!`);
-    }
-
-    // Darsni ochish
-    function unlockLesson(lessonName) {
-      if (checkLessonRequirements(lessonName)) {
-        lessonsState[lessonName].status = "in-progress";
-        lessonsState[lessonName].progress = 0;
-        loadLessons();
-        saveProgress();
-        showNotification(`"${lessonName}" darsi ochildi!`);
-      } else {
-        showNotification("Iltimos, avval oldingi darslarni tugating!");
-      }
-    }
-
-    // Dars talablarini tekshirish
-    function checkLessonRequirements(lessonName) {
-      if (lessonRequirements[lessonName]) {
-        return lessonRequirements[lessonName].every(req => 
-          lessonsState[req] && lessonsState[req].status === "completed"
-        );
-      }
-      return true;
-    }
-
-    // Darslarga bosish handlerlari
-    function setupLessonClickHandlers() {
-      document.querySelectorAll('.lesson').forEach(lesson => {
-        lesson.addEventListener('click', function() {
-          const lessonName = this.dataset.lesson;
-          const state = lessonsState[lessonName];
-          
-          if (state.status === "locked") {
-            if (checkLessonRequirements(lessonName)) {
-              unlockLesson(lessonName);
-            } else {
-              showNotification("Iltimos, avval oldingi darslarni tugating!");
-            }
-          } else if (state.status === "completed") {
-            showNotification(`"${lessonName}" darsi allaqachon tugatilgan!`);
-          }
-        });
-      });
-    }
-
-    // Xabarnoma ko'rsatish
-    function showNotification(message) {
-      notification.textContent = message;
-      notification.style.display = 'block';
-      setTimeout(() => {
-        notification.style.display = 'none';
-      }, 3000);
-    }
-
-    // Daraja tanlash
-    document.querySelectorAll('.level').forEach(level => {
-      level.addEventListener('click', () => {
-        document.querySelectorAll('.level').forEach(lvl => lvl.classList.remove('active'));
-        level.classList.add('active');
-        // Bu yerda siz darajaga mos darslarni yuklash kodini qo'shishingiz mumkin
-      });
-    });
-  </script>
-</body>
-</html>
+    </div
