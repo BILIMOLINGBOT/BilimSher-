@@ -1,321 +1,262 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Grammar Learning</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <title>English Grammar - Telegram Mini App</title>
     <style>
+        :root {
+            --tg-theme-bg-color: #ffffff;
+            --tg-theme-text-color: #000000;
+            --tg-theme-button-color: #2481cc;
+            --tg-theme-button-text-color: #ffffff;
+            --tg-theme-secondary-bg-color: #f4f4f5;
+        }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f5f5f5;
-            color: #333;
+            background-color: var(--tg-theme-bg-color);
+            color: var(--tg-theme-text-color);
+            line-height: 1.5;
         }
+        
         .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+            max-width: 100%;
+            padding: 15px;
         }
+        
         header {
-            background-color: #0088cc;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px 10px 0 0;
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--tg-theme-secondary-bg-color);
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        
+        .level-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
             margin-bottom: 20px;
         }
+        
+        .level-card {
+            background: var(--tg-theme-secondary-bg-color);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .level-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .level-card h3 {
+            margin-top: 0;
+        }
+        
         .progress-container {
-            background-color: white;
+            background: var(--tg-theme-secondary-bg-color);
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+        
         .progress-bar {
-            height: 20px;
-            background-color: #e0e0e0;
+            width: 100%;
+            background: #e0e0e0;
             border-radius: 10px;
             margin-top: 10px;
-            overflow: hidden;
         }
+        
         .progress-fill {
-            height: 100%;
-            background-color: #4caf50;
-            width: 0%;
-            transition: width 0.3s ease;
+            height: 10px;
+            background: var(--tg-theme-button-color);
+            border-radius: 10px;
+            width: 65%; /* Bu dinamik bo'lishi kerak */
         }
-        .level-section {
-            background-color: white;
+        
+        .btn {
+            background: var(--tg-theme-button-color);
+            color: var(--tg-theme-button-text-color);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin: 5px 0;
+        }
+        
+        .lesson-list {
+            margin-top: 20px;
+        }
+        
+        .lesson-item {
+            background: var(--tg-theme-secondary-bg-color);
             border-radius: 10px;
             padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .level-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        .level-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #0088cc;
-        }
-        .level-status {
-            background-color: #0088cc;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-        }
-        .lesson-list {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-        .lesson-item {
-            padding: 12px 15px;
-            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        .lesson-item:last-child {
-            border-bottom: none;
-        }
-        .lesson-info {
-            flex-grow: 1;
-        }
-        .lesson-title {
-            font-weight: 500;
-        }
-        .lesson-status {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background-color: #e0e0e0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 10px;
-        }
-        .completed {
-            background-color: #4caf50;
-            color: white;
-        }
-        .locked {
+        
+        .locked-lesson {
             opacity: 0.6;
         }
-        .points-display {
-            background-color: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            text-align: center;
+        
+        .lock-icon {
+            color: #999;
         }
-        .points-value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #0088cc;
-        }
-        .rating-display {
-            background-color: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .stars {
-            color: #ffc107;
-            font-size: 1.5rem;
+        
+        .rating {
+            display: flex;
+            justify-content: space-between;
             margin-top: 5px;
+        }
+        
+        .star {
+            color: gold;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>English Grammar Learning</h1>
-            <p>Master English grammar from A1 to B2 levels</p>
+            <h1>English Grammar</h1>
+            <p>A1 dan B2 darajagacha grammatika darsliklari</p>
         </header>
-
-        <div class="points-display">
-            <div>Your Points</div>
-            <div class="points-value" id="user-points">0</div>
-        </div>
-
-        <div class="rating-display">
-            <div>Your Rating</div>
-            <div class="stars">★★★★☆</div>
-        </div>
-
+        
         <div class="progress-container">
-            <div>Overall Progress</div>
+            <h3>Umumiy progress</h3>
+            <p>65% yakunlangan (Bu dinamik bo'lishi kerak)</p>
             <div class="progress-bar">
-                <div class="progress-fill" id="overall-progress"></div>
+                <div class="progress-fill"></div>
             </div>
-            <div id="progress-percent" style="text-align: right; margin-top: 5px;">0%</div>
         </div>
-
-        <div class="level-section">
-            <div class="level-header">
-                <div class="level-title">A1 Level</div>
-                <div class="level-status">In Progress</div>
+        
+        <div class="level-cards">
+            <div class="level-card" onclick="openLevel('A1')">
+                <h3>A1</h3>
+                <p>Boshlang'ich</p>
+                <div class="rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">☆</span>
+                    <span class="star">☆</span>
+                </div>
             </div>
-            <ul class="lesson-list" id="a1-lessons">
-                <!-- A1 lessons will be inserted here by JavaScript -->
-            </ul>
+            <div class="level-card" onclick="openLevel('A2')">
+                <h3>A2</h3>
+                <p>Elementar</p>
+                <div class="rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">☆</span>
+                    <span class="star">☆</span>
+                    <span class="star">☆</span>
+                </div>
+            </div>
+            <div class="level-card" onclick="openLevel('B1')">
+                <h3>B1</h3>
+                <p>O'rta</p>
+                <div class="rating">
+                    <span class="star">★</span>
+                    <span class="star">☆</span>
+                    <span class="star">☆</span>
+                    <span class="star">☆</span>
+                    <span class="star">☆</span>
+                </div>
+            </div>
+            <div class="level-card" onclick="openLevel('B2')">
+                <h3>B2</h3>
+                <p>O'rta yuqori</p>
+                <div class="rating">
+                    <span class="star">☆</span>
+                    <span class="star">☆</span>
+                    <span class="star">☆</span>
+                    <span class="star">☆</span>
+                    <span class="star">☆</span>
+                </div>
+            </div>
         </div>
-
-        <div class="level-section">
-            <div class="level-header">
-                <div class="level-title">A2 Level</div>
-                <div class="level-status">Locked</div>
+        
+        <button class="btn" onclick="openAdvice()">Maslahat olish</button>
+        
+        <div class="lesson-list">
+            <h3>Yakunlangan darslar</h3>
+            <div class="lesson-item">
+                <div>
+                    <h4>Present Simple</h4>
+                    <p>A1 daraja | 15 ball</p>
+                </div>
+                <span>✅</span>
             </div>
-            <ul class="lesson-list" id="a2-lessons">
-                <!-- A2 lessons will be inserted here by JavaScript -->
-            </ul>
-        </div>
-
-        <div class="level-section">
-            <div class="level-header">
-                <div class="level-title">B1 Level</div>
-                <div class="level-status">Locked</div>
+            <div class="lesson-item">
+                <div>
+                    <h4>Past Simple</h4>
+                    <p>A1 daraja | 20 ball</p>
+                </div>
+                <span>✅</span>
             </div>
-            <ul class="lesson-list" id="b1-lessons">
-                <!-- B1 lessons will be inserted here by JavaScript -->
-            </ul>
-        </div>
-
-        <div class="level-section">
-            <div class="level-header">
-                <div class="level-title">B2 Level</div>
-                <div class="level-status">Locked</div>
+            <div class="lesson-item locked-lesson">
+                <div>
+                    <h4>Present Continuous</h4>
+                    <p>A1 daraja</p>
+                </div>
+                <span class="lock-icon">🔒</span>
             </div>
-            <ul class="lesson-list" id="b2-lessons">
-                <!-- B2 lessons will be inserted here by JavaScript -->
-            </ul>
         </div>
     </div>
-
+    
     <script>
-        // Initialize Telegram WebApp
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-        
-        // User data
-        let userData = {
-            points: 0,
-            completedLessons: [],
-            currentLevel: 'A1',
-            rating: 4 // out of 5
-        };
-        
-        // Lessons data
-        const lessons = {
-            A1: [
-                "1. To be affirmative",
-                "2. To be affirmative test",
-                "3. To be question",
-                "4. To be question test",
-                "5. To be negative",
-                "6. To be negative test",
-                "7. Present continues affirmative",
-                "8. Present continues affirmative test",
-                "9. Present continues question",
-                "10. Present continues question test",
-                "11. Present continues negative",
-                "12. Present continues negative test",
-                "13. Present simple affirmative",
-                "14. Present simple affirmative test",
-                "15. Present simple question",
-                "16. Present simple question test",
-                "17. Present simple negative",
-                "18. Present simple negative test",
-                "19. I have/I have got affirmative",
-                "20. I have/I have got affirmative test",
-                "21. I have/I have got question",
-                "22. I have/I have got question test",
-                "23. I have/I have got negative",
-                "24. I have/I have got negative test",
-                "25. Past simple affirmative",
-                "26. Past simple affirmative test",
-                "27. Past simple question",
-                "28. Past simple question test",
-                "29. Past simple negative",
-                "30. Past simple negative test",
-                "31. Past continuous affirmative",
-                "32. Past continuous affirmative test",
-                "33. Past continuous question",
-                "34. Past continuous question test",
-                "35. Past continuous negative",
-                "36. Past continuous negative test"
-            ],
-            A2: [
-                "1. Present perfect affirmative",
-                "2. Present perfect test",
-                "3. Present perfect vs past simple",
-                "4. Present perfect vs past simple test",
-                "5. Past perfect",
-                "6. Past perfect test",
-                "7. Future simple (will)",
-                "8. Future simple test",
-                "9. Be going to",
-                "10. Be going to test",
-                "11. Modal verbs (can, could, may, might)",
-                "12. Modal verbs test",
-                "13. Comparative adjectives",
-                "14. Comparative adjectives test",
-                "15. Superlative adjectives",
-                "16. Superlative adjectives test"
-            ],
-            B1: [
-                "1. Present perfect continuous",
-                "2. Present perfect continuous test",
-                "3. Past perfect continuous",
-                "4. Past perfect continuous test",
-                "5. Future continuous",
-                "6. Future continuous test",
-                "7. Future perfect",
-                "8. Future perfect test",
-                "9. Mixed conditionals",
-                "10. Mixed conditionals test",
-                "11. Passive voice",
-                "12. Passive voice test",
-                "13. Reported speech",
-                "14. Reported speech test",
-                "15. Phrasal verbs",
-                "16. Phrasal verbs test"
-            ],
-            B2: [
-                "1. Future perfect continuous",
-                "2. Future perfect continuous test",
-                "3. Modal perfects",
-                "4. Modal perfects test",
-                "5. Inversion",
-                "6. Inversion test",
-                "7. Cleft sentences",
-                "8. Cleft sentences test",
-                "9. Advanced passive constructions",
-                "10. Advanced passive test",
-                "11. Discourse markers",
-                "12. Discourse markers test",
-                "13. Advanced conditionals",
-                "14. Advanced conditionals test"
-            ]
-        };
-        
-        // Initialize the app
-        function initApp() {
-            loadUserData();
-            renderLessons();
-            updateProgress();
-            updatePoints();
+        // Telegram WebApp API integratsiyasi
+        function initTelegramWebApp() {
+            // Telegram WebApp obyektini tekshirish
+            if (window.Telegram && Telegram.WebApp) {
+                const tg = Telegram.WebApp;
+                
+                // Foydalanuvchi ma'lumotlari
+                const user = tg.initDataUnsafe.user;
+                if (user) {
+                    console.log("Foydalanuvchi:", user);
+                }
+                
+                // WebApp ni to'liq ekran qilish
+                tg.expand();
+                
+                // Orqaga tugmasi uchun hodisa
+                tg.BackButton.onClick(() => {
+                    tg.BackButton.hide();
+                    // Bu yerda siz history.back() yoki o'z routingizni ishlatishingiz mumkin
+                });
+            }
         }
         
-        // Load user data (in a real app, this would come from a database)
-        function loadUserData() {
-            const savedData = localStorage.getItem('englishGrammar
+        // Darajani ochish funksiyasi
+        function openLevel(level) {
+            alert(level + " darajasi tanlandi! Bu yerda haqiqiy ilovada siz bu darajaga o'tasiz.");
+            // Haqiqiy ilovada bu sahifani o'zgartirish yoki yangi sahifaga o'tish bo'ladi
+        }
+        
+        // Maslahat olish funksiyasi
+        function openAdvice() {
+            alert("Maslahat olish bo'limi. Bu yerda foydalanuvchi savollarini yuborish mumkin.");
+            // Haqiqiy ilovada bu modal oyna yoki yangi sahifa bo'lishi mumkin
+        }
+        
+        // Ilova yuklanganda Telegram WebApp ni ishga tushirish
+        document.addEventListener('DOMContentLoaded', initTelegramWebApp);
+    </script>
+</body>
+</html>
