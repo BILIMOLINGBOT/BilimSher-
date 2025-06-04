@@ -11,20 +11,22 @@
       box-sizing: border-box;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+
     body {
       background-color: #f5f5f5;
       color: #333;
       padding: 16px;
       max-width: 500px;
       margin: 0 auto;
-      padding-bottom: 80px;
     }
+
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 20px;
     }
+
     .logo {
       display: flex;
       align-items: center;
@@ -32,10 +34,12 @@
       font-weight: bold;
       color: #4285F4;
     }
+
     .logo img {
       width: 32px;
       margin-right: 8px;
     }
+
     .user-info {
       background-color: #fff;
       padding: 8px 12px;
@@ -43,6 +47,7 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       font-size: 14px;
     }
+
     .progress-container {
       background-color: #fff;
       padding: 12px;
@@ -50,6 +55,7 @@
       margin-bottom: 20px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
+
     .progress-bar {
       width: 100%;
       height: 8px;
@@ -58,12 +64,14 @@
       margin-top: 8px;
       overflow: hidden;
     }
+
     .progress-fill {
       height: 100%;
       width: 25%;
       background-color: #34A853;
       border-radius: 4px;
     }
+
     .levels {
       display: flex;
       overflow-x: auto;
@@ -71,6 +79,7 @@
       margin-bottom: 20px;
       padding-bottom: 8px;
     }
+
     .level {
       min-width: 80px;
       padding: 12px;
@@ -80,17 +89,20 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       cursor: pointer;
     }
+
     .level.active {
       background-color: #4285F4;
       color: white;
     }
+
     .lessons {
       background-color: #fff;
       border-radius: 12px;
       padding: 16px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
+      margin-bottom: 80px;
     }
+
     .lesson {
       padding: 12px 0;
       border-bottom: 1px solid #eee;
@@ -98,13 +110,16 @@
       justify-content: space-between;
       align-items: center;
     }
+
     .lesson:last-child {
       border-bottom: none;
     }
+
     .lesson-info {
       display: flex;
       align-items: center;
     }
+
     .lesson-status {
       width: 24px;
       height: 24px;
@@ -112,7 +127,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 18px;
     }
+
     .lesson-progress {
       width: 100px;
       height: 6px;
@@ -120,21 +137,26 @@
       border-radius: 3px;
       margin-top: 4px;
     }
+
     .lesson-progress-fill {
       height: 100%;
       border-radius: 3px;
     }
+
     .completed .lesson-progress-fill {
       background-color: #34A853;
       width: 100%;
     }
+
     .in-progress .lesson-progress-fill {
       background-color: #FBBC05;
       width: 60%;
     }
+
     .locked {
       opacity: 0.6;
     }
+
     .navigation {
       display: flex;
       justify-content: space-around;
@@ -149,6 +171,7 @@
       max-width: 500px;
       margin: 0 auto;
     }
+
     .nav-item {
       display: flex;
       flex-direction: column;
@@ -156,9 +179,11 @@
       font-size: 12px;
       color: #4285F4;
     }
+
     .nav-item.active {
       font-weight: bold;
     }
+
     .nav-icon {
       font-size: 20px;
       margin-bottom: 4px;
@@ -166,10 +191,9 @@
   </style>
 </head>
 <body>
-
   <div class="header">
     <div class="logo">
-      <img src="https://via.placeholder.com/32" alt="BilimSher Logo">
+      <img src="https://via.placeholder.com/32" alt="BilimSher Logo" />
       BilimSher
     </div>
     <div class="user-info">
@@ -208,7 +232,7 @@
       <div class="lesson-info">
         <div class="lesson-status">🔄</div>
         <div>
-          <div>To be</div>
+          <div>To Be</div>
           <div class="lesson-progress">
             <div class="lesson-progress-fill"></div>
           </div>
@@ -239,7 +263,7 @@
   <script>
     // Yopiq darsni bosganda xabar chiqarish
     document.querySelectorAll('.locked').forEach(item => {
-      item.addEventListener('click', event => {
+      item.addEventListener('click', () => {
         alert("Darslarni ketma-ket o'rganishingiz kerak!\nAvval oldingi darsni tugating.");
       });
     });
@@ -254,6 +278,5 @@
       });
     });
   </script>
-
 </body>
 </html>
