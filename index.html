@@ -1,52 +1,399 @@
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ingliz tili darajalari</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 20px;
-      background-color: #ffffff;
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .level-buttons {
-      display: flex;
-      gap: 20px;
-    }
-
-    .level-button {
-      padding: 20px 30px;
-      font-size: 24px;
-      font-weight: bold;
-      background: linear-gradient(to bottom, #ffdd57, #e6c200);
-      border: none;
-      border-radius: 15px;
-      box-shadow: 0 5px #b89d00;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .level-button:active {
-      transform: translateY(3px);
-      box-shadow: 0 2px #b89d00;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="level-buttons">
-    <button class="level-button" onclick="location.href='a1.html'">A1</button>
-    <button class="level-button" onclick="location.href='a2.html'">A2</button>
-    <button class="level-button" onclick="location.href='b1.html'">B1</button>
-    <button class="level-button" onclick="location.href='b2.html'">B2</button>
-  </div>
-
-</body>
-</html>
+<!DOCTYPE html>  <html lang="uz">      <head>        <meta charset="UTF-8">          
+<meta name="viewport" content="width=device-width, initial-scale=1.0">          
+<title>BilimSher - Ingliz Tili Platformasi</title>          
+<style>          
+    * {          
+        margin: 0;          
+        padding: 0;          
+        box-sizing: border-box;          
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;          
+    }  body {          
+    background-color: #f5f5f5;          
+    color: #333;          
+    padding: 16px;          
+    max-width: 500px;          
+    margin: 0 auto;          
+}      .header {          
+display: flex;          
+justify-content: space-between;          
+align-items: center;          
+margin-bottom: 20px;  
+  
+}  
+  
+.logo {  
+display: flex;  
+align-items: center;  
+font-size: 24px;  
+font-weight: bold;  
+color: #4285F4;  
+}  
+  
+.logo img {  
+width: 32px;  
+margin-right: 8px;  
+}  
+  
+.user-info {  
+background-color: #fff;  
+padding: 8px 12px;  
+border-radius: 20px;  
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);  
+font-size: 14px;  
+}  
+  
+.progress-container {  
+background-color: #fff;  
+padding: 12px;  
+border-radius: 12px;  
+margin-bottom: 20px;  
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);  
+}  
+  
+.progress-bar {  
+width: 100%;  
+height: 8px;  
+background-color: #e0e0e0;  
+border-radius: 4px;  
+margin-top: 8px;  
+overflow: hidden;  
+}  
+  
+.progress-fill {  
+height: 100%;  
+width: 25%;  
+background-color: #34A853;  
+border-radius: 4px;  
+}  
+  
+.levels {  
+display: flex;  
+overflow-x: auto;  
+gap: 10px;  
+margin-bottom: 20px;  
+padding-bottom: 8px;  
+}  
+  
+.level {  
+min-width: 80px;  
+padding: 12px;  
+background-color: #fff;  
+border-radius: 12px;  
+text-align: center;  
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);  
+cursor: pointer;  
+}  
+  
+.level.active {  
+background-color: #4285F4;  
+color: white;  
+}  
+  
+.lessons {  
+background-color: #fff;  
+border-radius: 12px;  
+padding: 16px;  
+box-shadow: 0 2px 4px rgba(0,0,0,0.1);  
+margin-bottom: 20px;  
+}  
+  
+.lesson {  
+padding: 12px 0;  
+border-bottom: 1px solid #eee;  
+display: flex;  
+justify-content: space-between;  
+align-items: center;  
+}  
+  
+.lesson:last-child {  
+border-bottom: none;  
+}  
+  
+.lesson-info {  
+display: flex;  
+align-items: center;  
+}  
+  
+.lesson-status {  
+width: 24px;  
+height: 24px;  
+margin-right: 12px;  
+display: flex;  
+align-items: center;  
+justify-content: center;  
+}  
+  
+.lesson-progress {  
+width: 100px;  
+height: 6px;  
+background-color: #e0e0e0;  
+border-radius: 3px;  
+margin-top: 4px;  
+}  
+  
+.lesson-progress-fill {  
+height: 100%;  
+border-radius: 3px;  
+}  
+  
+.completed .lesson-progress-fill {  
+background-color: #34A853;  
+width: 100%;  
+}  
+  
+.in-progress .lesson-progress-fill {  
+background-color: #FBBC05;  
+width: 60%;  
+}  
+  
+.locked {  
+opacity: 0.6;  
+}  
+  
+.navigation {  
+display: flex;  
+justify-content: space-around;  
+background-color: #fff;  
+padding: 12px 0;  
+border-radius: 12px;  
+box-shadow: 0 -2px 4px rgba(0,0,0,0.1);  
+position: fixed;  
+bottom: 0;  
+left: 0;  
+right: 0;  
+max-width: 500px;  
+margin: 0 auto;  
+}  
+  
+.nav-item {  
+display: flex;  
+flex-direction: column;  
+align-items: center;  
+font-size: 12px;  
+color: #4285F4;  
+}  
+  
+.nav-item.active {  
+font-weight: bold;  
+}  
+  
+.nav-icon {  
+font-size: 20px;  
+margin-bottom: 4px;  
+}  
+  
+</style>    </head>  
+  
+<body>          
+    <div class="header">          
+        <div class="logo">          
+            <img src="https://via.placeholder.com/32" alt="BilimSher Logo">          
+            BilimSher          
+        </div>          
+        <div class="user-info">          
+            ★ 450 ball | A1          
+        </div>          
+    </div>  <div class="progress-container">          
+    <div>Umumiy progress</div>          
+    <div class="progress-bar">          
+        <div class="progress-fill"></div>          
+    </div>          
+</div>      <div class="levels">          
+    <div class="level active">A1</div>          
+    <div class="level">A2</div>          
+    <div class="level">B1</div>          
+    <div class="level">B2</div>          
+</div>      <div class="lessons">          
+    <div class="lesson completed">          
+        <div class="lesson-info">          
+            <div class="lesson-status">✅</div>          
+            <div>          
+                <div>Present Simple</div>          
+                <div class="lesson-progress">          
+                    <div class="lesson-progress-fill"></div>          
+                </div>          
+            </div>          
+        </div>          
+    </div>      <div class="lesson in-progress">          
+    <div class="lesson-info">          
+        <div class="lesson-status">🔄</div>          
+        <div class="lessons">  
+  
+  <style>  
+  .lessons {  
+    display: flex;  
+    flex-direction: column;  
+    gap: 10px;  
+    padding: 20px;  
+  }  
+  
+  .lesson {  
+    background-color: #fff8d6;  
+    border-radius: 12px;  
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);  
+    transition: transform 0.2s ease;  
+  }  
+  
+  .lesson:hover {  
+    transform: scale(1.01);  
+  }  
+  
+  .lesson-info {  
+    display: flex;  
+    align-items: center;  
+    gap: 10px;  
+    padding: 12px;  
+  }  
+  
+  .lesson-status {  
+    font-size: 20px;  
+  }  
+  
+  .lesson a {  
+    text-decoration: none;  
+    width: 100%;  
+  }  
+  
+  .lesson button {  
+    width: 100%;  
+    background-color: #ffe57f;  
+    color: #333;  
+    border: none;  
+    padding: 12px;  
+    font-size: 16px;  
+    border-radius: 8px;  
+    cursor: pointer;  
+    text-align: left;  
+    transition: background-color 0.2s ease;  
+  }  
+  
+  .lesson button:hover {  
+    background-color: #ffdf4f;  
+  }  
+  
+  .lesson.completed {  
+    opacity: 0.8;  
+  }  
+</style>  
+  
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Ingliz tili grammatikasi</title>  
+    <style>  
+        body {  
+            font-family: sans-serif;  
+            display: flex;  
+            flex-direction: column;  
+            align-items: center;  
+            padding: 20px;  
+            background-color: #f4f4f4;  
+        }  
+        .button-grid {  
+            display: grid;  
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));  
+            gap: 15px;  
+            width: 90%;  
+            max-width: 1200px;  
+            margin-top: 20px;  
+        }  
+        .grammar-button {  
+            background-color: #007bff;  
+            color: white;  
+            padding: 15px 25px;  
+            border: none;  
+            border-radius: 8px;  
+            text-align: center;  
+            text-decoration: none;  
+            display: inline-block;  
+            font-size: 16px;  
+            cursor: pointer;  
+            transition: background-color 0.3s ease;  
+        }  
+        .grammar-button:hover {  
+            background-color: #0056b3;  
+        }  
+        h1 {  
+            color: #333;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <h1>Ingliz tili grammatikasi mavzulari</h1>  
+    <div class="button-grid">  
+        <a href="#" class="grammar-button">1. To be affirmative</a>  
+        <a href="#" class="grammar-button">2. To be affirmative test</a>  
+        <a href="#" class="grammar-button">3. To be question</a>  
+        <a href="#" class="grammar-button">4. To be question test</a>  
+        <a href="#" class="grammar-button">5. To be negative</a>  
+        <a href="#" class="grammar-button">6. To be negative test</a>  
+        <a href="#" class="grammar-button">7. Present continues affirmative</a>  
+        <a href="#" class="grammar-button">8. Present continues affirmative test</a>  
+        <a href="#" class="grammar-button">9. Present continues question</a>  
+        <a href="#" class="grammar-button">10. Present continues question test</a>  
+        <a href="#" class="grammar-button">11. Present continues negative</a>  
+        <a href="#" class="grammar-button">12. Present continues negative test</a>  
+        <a href="#" class="grammar-button">13. Present simple affirmative</a>  
+        <a href="#" class="grammar-button">14. Present simple affirmative test</a>  
+        <a href="#" class="grammar-button">15. Present simple question</a>  
+        <a href="#" class="grammar-button">16. Present simple question test</a>  
+        <a href="#" class="grammar-button">17. Present simple negative</a>  
+        <a href="#" class="grammar-button">18. Present simple negative test</a>  
+        <a href="#" class="grammar-button">19. I have/I have got affirmative</a>  
+        <a href="#" class="grammar-button">20. I have/I have got affirmative test</a>  
+        <a href="#" class="grammar-button">21. I have/I have got question</a>  
+        <a href="#" class="grammar-button">22. I have/I have got question test</a>  
+        <a href="#" class="grammar-button">23. I have/I have got negative</a>  
+        <a href="#" class="grammar-button">24. I have/I have got negative test</a>  
+        <a href="#" class="grammar-button">25. Past simple affirmative</a>  
+        <a href="#" class="grammar-button">26. Past simple affirmative test</a>  
+        <a href="#" class="grammar-button">27. Past simple question</a>  
+        <a href="#" class="grammar-button">28. Past simple question test</a>  
+        <a href="#" class="grammar-button">29. Past simple negative</a>  
+        <a href="#" class="grammar-button">30. Past simple negative test</a>  
+        <a href="#" class="grammar-button">31. Past continuous affirmative</a>  
+        <a href="#" class="grammar-button">32. Past continuous affirmative test</a>  
+        <a href="#" class="grammar-button">33. Past continuous question</a>  
+        <a href="#" class="grammar-button">34. Past continuous question test</a>  
+        <a href="#" class="grammar-button">35. Past continuous negative</a>  
+        <a href="#" class="grammar-button">36. Past continuous negative test</a>  
+    </div>  
+  
+</div>  </div>      <div class="navigation">          
+    <div class="nav-item active">          
+        <div class="nav-icon">🏠</div>          
+        <div>Asosiy</div>          
+    </div>          
+    <div class="nav-item">          
+        <div class="nav-icon">📚</div>          
+        <div>Darslar</div>          
+    </div>          
+    <div class="nav-item">          
+        <div class="nav-icon">📊</div>          
+        <div>Reyting</div>          
+    </div>          
+    <div class="nav-item">          
+        <div class="nav-icon">👤</div>          
+        <div>Profil</div>          
+    </div>          
+</div>      <script>          
+    // Yopiq darsni bosganda xabar chiqarish          
+    document.querySelectorAll('.locked').forEach(item => {          
+        item.addEventListener('click', event => {          
+            alert('Darslarni ketma-ket o\'rganishingiz kerak!\nAvval oldingi darsni tugating.');          
+        });          
+    });        // Darajalarni tanlash          
+document.querySelectorAll('.level').forEach(item => {          
+    item.addEventListener('click', event => {          
+        document.querySelectorAll('.level').forEach(level => {          
+            level.classList.remove('active');          
+        });          
+        event.currentTarget.classList.add('active');          
+    });          
+});  
+  
+</script>    </body>  
+  
+</html>        
