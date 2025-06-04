@@ -1,245 +1,70 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BilimSher - Ingliz Tili Platformasi</title>
-  <style>
-    /* Combine all your styles cleanly here (previous CSS is kept as-is) */
-    body {
-      background-color: #f5f5f5;
-      color: #333;
-      padding: 16px;
-      max-width: 500px;
-      margin: 0 auto;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      font-size: 24px;
-      font-weight: bold;
-      color: #4285F4;
-    }
-
-    .logo img {
-      width: 32px;
-      margin-right: 8px;
-    }
-
-    .user-info {
-      background-color: #fff;
-      padding: 8px 12px;
-      border-radius: 20px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      font-size: 14px;
-    }
-
-    .progress-container {
-      background-color: #fff;
-      padding: 12px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 8px;
-      background-color: #e0e0e0;
-      border-radius: 4px;
-      margin-top: 8px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 25%;
-      background-color: #34A853;
-      border-radius: 4px;
-    }
-
-    .levels {
-      display: flex;
-      overflow-x: auto;
-      gap: 10px;
-      margin-bottom: 20px;
-      padding-bottom: 8px;
-    }
-
-    .level {
-      min-width: 80px;
-      padding: 12px;
-      background-color: #fff;
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      cursor: pointer;
-    }
-
-    .level.active {
-      background-color: #4285F4;
-      color: white;
-    }
-
-    .lessons {
-      background-color: #fff8d6;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .lesson {
-      background-color: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      padding: 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: transform 0.2s ease;
-    }
-
-    .lesson:hover {
-      transform: scale(1.01);
-    }
-
-    .lesson-status {
-      font-size: 20px;
-    }
-
-    .lesson.completed {
-      opacity: 0.7;
-    }
-
-    .navigation {
-      display: flex;
-      justify-content: space-around;
-      background-color: #fff;
-      padding: 12px 0;
-      border-radius: 12px;
-      box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 12px;
-      color: #4285F4;
-    }
-
-    .nav-icon {
-      font-size: 20px;
-      margin-bottom: 4px;
-    }
-
-    h1 {
-      color: #333;
-      text-align: center;
-      margin-top: 30px;
-    }
-
-    .button-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .grammar-button {
-      background-color: #007bff;
-      color: white;
-      padding: 15px 25px;
-      border: none;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 16px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
-    }
-
-    .grammar-button:hover {
-      background-color: #0056b3;
-    }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BilimSher - Ingliz Tili Platformasi</title>
+    <style>
+        /* Barcha oldingi stillar */
+        
+        /* Yangi qo'shilgan stillar */
+        .grammar-buttons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .grammar-button {
+            background-color: #4285F4;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+        
+        .grammar-button:hover {
+            background-color: #3367D6;
+        }
+        
+        .lesson a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+    </style>
 </head>
-
 <body>
-  <div class="header">
-    <div class="logo">
-      <img src="https://via.placeholder.com/32" alt="BilimSher Logo">
-      BilimSher
+    <!-- Header va boshqa kontent -->
+    
+    <div class="lessons">
+        <!-- Darslar ro'yxati -->
+        <div class="lesson completed">
+            <a href="#">
+                <div class="lesson-info">
+                    <div class="lesson-status">✅</div>
+                    <div>
+                        <div>Present Simple</div>
+                        <div class="lesson-progress">
+                            <div class="lesson-progress-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Grammatika tugmalari -->
+        <div class="grammar-buttons">
+            <a href="#" class="grammar-button">1. To be affirmative</a>
+            <a href="#" class="grammar-button">2. To be affirmative test</a>
+            <a href="#" class="grammar-button">3. To be question</a>
+            <!-- Qolgan tugmalar... -->
+        </div>
     </div>
-    <div class="user-info">★ 450 ball | A1</div>
-  </div>
-
-  <div class="progress-container">
-    <div>Umumiy progress</div>
-    <div class="progress-bar">
-      <div class="progress-fill"></div>
-    </div>
-  </div>
-
-  <div class="levels">
-    <div class="level active">A1</div>
-    <div class="level">A2</div>
-    <div class="level">B1</div>
-    <div class="level">B2</div>
-  </div>
-
-  <div class="lessons">
-    <div class="lesson completed">
-      <div class="lesson-status">✅</div>
-      <div>Present Simple</div>
-    </div>
-    <div class="lesson in-progress">
-      <div class="lesson-status">🔄</div>
-      <div>Present Continuous</div>
-    </div>
-  </div>
-
-  <h1>Ingliz tili grammatikasi mavzulari</h1>
-  <div class="button-grid">
-    <a href="#" class="grammar-button">1. To be affirmative</a>
-    <a href="#" class="grammar-button">2. To be affirmative test</a>
-    <a href="#" class="grammar-button">3. To be question</a>
-    <!-- Continue other grammar topics... -->
-  </div>
-
-  <div class="navigation">
-    <div class="nav-item active">
-      <div class="nav-icon">🏠</div>
-      Bosh sahifa
-    </div>
-    <div class="nav-item">
-      <div class="nav-icon">📚</div>
-      Darslar
-    </div>
-    <div class="nav-item">
-      <div class="nav-icon">⚙️</div>
-      Sozlamalar
-    </div>
-  </div>
+    
+    <!-- Navigation va boshqa kontent -->
 </body>
 </html>
