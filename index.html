@@ -3,177 +3,28 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Reyting Tizimi (Telegram ID bilan)</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    max-width: 480px;
-    margin: 20px auto;
-    padding: 0 15px;
-    background: #fff3b0;
-    color: #4d3f00;
-  }
-  h1 {
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  #leaderboard {
-    list-style: none;
-    padding-left: 0;
-  }
-  #leaderboard li {
-    padding: 8px 12px;
-    border-bottom: 1px solid #e0daba;
-    font-size: 18px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  #leaderboard li.me {
-    font-weight: bold;
-    background: #f9f6d4;
-    border-left: 4px solid #4d3f00;
-  }
-  #addStarsBtn {
-    margin-top: 20px;
-    background-color: #4d3f00;
-    color: #fff3b0;
-    border: none;
-    padding: 10px 20px;
-    font-size: 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: block;
-    width: 100%;
-  }
-  #addStarsBtn:hover {
-    background-color: #3a3200;
-  }
-</style>
+<title>Telegram Mini API misol</title>
 </head>
 <body>
 
-<h1>Reyting Tizimi</h1>
+<h1>Telegram foydalanuvchi ma'lumotlari</h1>
+<div id="userInfo">Yuklanmoqda...</div>
 
-<ul id="leaderboard">
-  <li>Yuklanmoqda...</li>
-</ul>
+<script>
+  const tg = window.Telegram.WebApp;
 
-<button id="addStarsBtn">⭐ 1 Yulduz Qo'shish</button>
+  // Foydalanuvchi ma'lumotlarini olish
+  const user = tg.initDataUnsafe.user;
 
-<script type="module">
-
-// Telegram WebApp API obyekti
-const tg = window.Telegram.WebApp;
-
-// Foydalanuvchi ma'lumotlarini olish
-const user = tg.initDataUnsafe.user;
-
-if (!user) {
-  alert("Foydalanuvchi ma'lumotlari topilmadi. Iltimos, Telegram orqali oching.");
-  throw new Error("Telegram foydalanuvchi ma'lumotlari yo'q");
-}
-
-const userId = user.id.toString();   // Foydalanuvchi ID stringga aylantiriladi
-const userName = user.first_name || "Foydalanuvchi";
-
-// Firebase modullarini import qilamiz
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js";
-import { getDatabase, ref, get, child, update } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
-
-// Firebase konfiguratsiya
-const firebaseConfig = {
-  apiKey: "AIzaSyD0gBUJNcrgvvntcrfKK7Ky8t6_9Qb96Io",
-  authDomain: "bilimilova-64833.firebaseapp.com",
-  databaseURL: "https://bilimilova-64833-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "bilimilova-64833",
-  storageBucket: "bilimilova-64833.firebasestorage.app",
-  messagingSenderId: "890689414502",
-  appId: "1:890689414502:web:8141d7aab413495c0c14a7",
-  measurementId: "G-ZBC8X1VVMZ"
-};
-
-// Firebase ilovasini ishga tushuramiz
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const db = getDatabase(app);
-
-const leaderboardEl = document.getElementById("leaderboard");
-const addStarsBtn = document.getElementById("addStarsBtn");
-
-// Dastlabki yulduzlar soni (agar kerak bo'lsa localStorage bilan sinxronizatsiya qilishingiz mumkin)
-let stars = 0;
-
-// Reytingni yuklash va ko'rsatish
-async function loadLeaderboard() {
-  leaderboardEl.innerHTML = "<li>Yuklanmoqda...</li>";
-  const dbRef = ref(db);
-
-  try {
-    const snapshot = await get(child(dbRef, 'users'));
-    if (snapshot.exists()) {
-      const data = snapshot.val();
-
-      // Agar foydalanuvchi ma'lumotlari bo'lmasa, uni default qiymatlar bilan qo'shish
-      if (!data[userId]) {
-        await update(ref(db, 'users/' + userId), { 
-          stars: 0, 
-          name: userName 
-        });
-        stars = 0;
-      } else {
-        stars = data[userId].stars || 0;
-      }
-
-      // Reytingni yulduzlar bo'yicha kamayuvchi tartibda saralash
-      const leaderboard = Object.entries(data).sort((a, b) => b[1].stars - a[1].stars);
-
-      leaderboardEl.innerHTML = '';
-      leaderboard.forEach(([uid, info], index) => {
-        const li = document.createElement('li');
-        li.textContent = `${index + 1}. ${info.name || "NoName"}`;
-        const starSpan = document.createElement('span');
-        starSpan.textContent = "⭐ " + (info.stars || 0);
-        li.appendChild(starSpan);
-
-        if (uid === userId) {
-          li.classList.add('me');
-        }
-        leaderboardEl.appendChild(li);
-      });
-    } else {
-      // Agar ma'lumotlar bo'lmasa
-      leaderboardEl.innerHTML = "<li>Hozircha hech kim reytingga qo'shilmagan.</li>";
-      // Foydalanuvchini bazaga qo'shamiz
-      await update(ref(db, 'users/' + userId), { stars: 0, name: userName });
-      stars = 0;
-    }
-  } catch (error) {
-    leaderboardEl.innerHTML = "<li>Xatolik yuz berdi.</li>";
-    console.error(error);
+  if(user) {
+    document.getElementById('userInfo').innerHTML = `
+      <p>Foydalanuvchi ID: <b>${user.id}</b></p>
+      <p>Ismi: <b>${user.first_name}</b></p>
+      <p>Telegram username: <b>${user.username || 'Mavjud emas'}</b></p>
+    `;
+  } else {
+    document.getElementById('userInfo').textContent = "Foydalanuvchi ma'lumotlari topilmadi. Iltimos, Telegram orqali oching.";
   }
-}
-
-// Yulduz qo‘shish va Firebase’ga yozish
-async function addStar() {
-  stars++;
-  try {
-    const userRef = ref(db, 'users/' + userId);
-    await update(userRef, { stars });
-    loadLeaderboard();
-  } catch (error) {
-    console.error("Firebase ga yozishda xatolik:", error);
-    alert("Yulduz qo'shishda xatolik yuz berdi!");
-  }
-}
-
-addStarsBtn.addEventListener("click", addStar);
-
-// Dastlabki reytingni yuklash
-loadLeaderboard();
-
 </script>
 
 </body>
