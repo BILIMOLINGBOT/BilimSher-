@@ -1,56 +1,56 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Reyting Tizimi</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 480px;
-      margin: 20px auto;
-      padding: 0 15px;
-      background: #fff3b0;
-      color: #4d3f00;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-    #leaderboard {
-      list-style: none;
-      padding-left: 0;
-    }
-    #leaderboard li {
-      padding: 8px 12px;
-      border-bottom: 1px solid #e0daba;
-      font-size: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    #leaderboard li.me {
-      font-weight: bold;
-      background: #f9f6d4;
-      border-left: 4px solid #4d3f00;
-    }
-    #addStarsBtn {
-      margin-top: 20px;
-      background-color: #4d3f00;
-      color: #fff3b0;
-      border: none;
-      padding: 10px 20px;
-      font-size: 18px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      display: block;
-      width: 100%;
-    }
-    #addStarsBtn:hover {
-      background-color: #3a3200;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Reyting Tizimi (Telegram ID bilan)</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 480px;
+    margin: 20px auto;
+    padding: 0 15px;
+    background: #fff3b0;
+    color: #4d3f00;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  #leaderboard {
+    list-style: none;
+    padding-left: 0;
+  }
+  #leaderboard li {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e0daba;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #leaderboard li.me {
+    font-weight: bold;
+    background: #f9f6d4;
+    border-left: 4px solid #4d3f00;
+  }
+  #addStarsBtn {
+    margin-top: 20px;
+    background-color: #4d3f00;
+    color: #fff3b0;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: 100%;
+  }
+  #addStarsBtn:hover {
+    background-color: #3a3200;
+  }
+</style>
 </head>
 <body>
 
@@ -63,108 +63,116 @@
 <button id="addStarsBtn">⭐ 1 Yulduz Qo'shish</button>
 
 <script type="module">
-  // Firebase modullarini import qilamiz
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js";
-  import { getDatabase, ref, get, child, update } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
 
-  // Firebase konfiguratsiya (siz bergan ma'lumotlar)
-  const firebaseConfig = {
-    apiKey: "AIzaSyD0gBUJNcrgvvntcrfKK7Ky8t6_9Qb96Io",
-    authDomain: "bilimilova-64833.firebaseapp.com",
-    databaseURL: "https://bilimilova-64833-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "bilimilova-64833",
-    storageBucket: "bilimilova-64833.firebasestorage.app",
-    messagingSenderId: "890689414502",
-    appId: "1:890689414502:web:8141d7aab413495c0c14a7",
-    measurementId: "G-ZBC8X1VVMZ"
-  };
+// Telegram WebApp API obyekti
+const tg = window.Telegram.WebApp;
 
-  // Firebase ilovasini ishga tushuramiz
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const db = getDatabase(app);
+// Foydalanuvchi ma'lumotlarini olish
+const user = tg.initDataUnsafe.user;
 
-  // Foydalanuvchi ismini localStorage’dan olamiz yoki so‘raymiz
-  let username = localStorage.getItem("username");
-  if (!username) {
-    username = prompt("Ismingizni kiriting:");
-    if (!username) {
-      alert("Ism kiritilishi shart!");
-      throw new Error("Ism kiritilmadi");
-    }
-    localStorage.setItem("username", username);
-  }
+if (!user) {
+  alert("Foydalanuvchi ma'lumotlari topilmadi. Iltimos, Telegram orqali oching.");
+  throw new Error("Telegram foydalanuvchi ma'lumotlari yo'q");
+}
 
-  // Ballar localStorage’dan olinadi yoki 0 ga tenglanadi
-  let stars = parseInt(localStorage.getItem("stars") || "0");
+const userId = user.id.toString();   // Foydalanuvchi ID stringga aylantiriladi
+const userName = user.first_name || "Foydalanuvchi";
 
-  const leaderboardEl = document.getElementById("leaderboard");
-  const addStarsBtn = document.getElementById("addStarsBtn");
+// Firebase modullarini import qilamiz
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js";
+import { getDatabase, ref, get, child, update } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
 
-  // Reytingni Firebase’dan yuklab olish va ko‘rsatish
-  async function loadLeaderboard() {
-    leaderboardEl.innerHTML = "<li>Yuklanmoqda...</li>";
-    const dbRef = ref(db);
+// Firebase konfiguratsiya
+const firebaseConfig = {
+  apiKey: "AIzaSyD0gBUJNcrgvvntcrfKK7Ky8t6_9Qb96Io",
+  authDomain: "bilimilova-64833.firebaseapp.com",
+  databaseURL: "https://bilimilova-64833-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "bilimilova-64833",
+  storageBucket: "bilimilova-64833.firebasestorage.app",
+  messagingSenderId: "890689414502",
+  appId: "1:890689414502:web:8141d7aab413495c0c14a7",
+  measurementId: "G-ZBC8X1VVMZ"
+};
 
-    try {
-      const snapshot = await get(child(dbRef, 'users'));
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        const leaderboard = Object.entries(data).sort((a, b) => b[1].stars - a[1].stars);
+// Firebase ilovasini ishga tushuramiz
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getDatabase(app);
 
-        leaderboardEl.innerHTML = '';
-        leaderboard.forEach(([name, info], index) => {
-          const li = document.createElement('li');
-          li.textContent = `${index + 1}. ${name}`;
-          const starSpan = document.createElement('span');
-          starSpan.textContent = "⭐ " + info.stars;
-          li.appendChild(starSpan);
+const leaderboardEl = document.getElementById("leaderboard");
+const addStarsBtn = document.getElementById("addStarsBtn");
 
-          if (name === username) {
-            li.classList.add('me');
-          }
+// Dastlabki yulduzlar soni (agar kerak bo'lsa localStorage bilan sinxronizatsiya qilishingiz mumkin)
+let stars = 0;
 
-          leaderboardEl.appendChild(li);
+// Reytingni yuklash va ko'rsatish
+async function loadLeaderboard() {
+  leaderboardEl.innerHTML = "<li>Yuklanmoqda...</li>";
+  const dbRef = ref(db);
+
+  try {
+    const snapshot = await get(child(dbRef, 'users'));
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+
+      // Agar foydalanuvchi ma'lumotlari bo'lmasa, uni default qiymatlar bilan qo'shish
+      if (!data[userId]) {
+        await update(ref(db, 'users/' + userId), { 
+          stars: 0, 
+          name: userName 
         });
+        stars = 0;
       } else {
-        leaderboardEl.innerHTML = "<li>Hozircha hech kim reytingga qo'shilmagan.</li>";
+        stars = data[userId].stars || 0;
       }
-    } catch (error) {
-      leaderboardEl.innerHTML = "<li>Xatolik yuz berdi.</li>";
-      console.error(error);
-    }
-  }
 
-  // Yulduz qo‘shish va Firebase’ga yozish
-  async function addStar() {
-    stars++;
-    localStorage.setItem("stars", stars);
+      // Reytingni yulduzlar bo'yicha kamayuvchi tartibda saralash
+      const leaderboard = Object.entries(data).sort((a, b) => b[1].stars - a[1].stars);
 
-    try {
-      const userRef = ref(db, 'users/' + username);
-      const snapshot = await get(userRef);
+      leaderboardEl.innerHTML = '';
+      leaderboard.forEach(([uid, info], index) => {
+        const li = document.createElement('li');
+        li.textContent = `${index + 1}. ${info.name || "NoName"}`;
+        const starSpan = document.createElement('span');
+        starSpan.textContent = "⭐ " + (info.stars || 0);
+        li.appendChild(starSpan);
 
-      if (snapshot.exists()) {
-        const oldStars = snapshot.val().stars || 0;
-        if (stars < oldStars) {
-          stars = oldStars;
-          localStorage.setItem("stars", stars);
+        if (uid === userId) {
+          li.classList.add('me');
         }
-      }
-
-      await update(userRef, { stars });
-      loadLeaderboard();
-    } catch (error) {
-      console.error("Firebase ga yozishda xatolik:", error);
-      alert("Yulduz qo'shishda xatolik yuz berdi!");
+        leaderboardEl.appendChild(li);
+      });
+    } else {
+      // Agar ma'lumotlar bo'lmasa
+      leaderboardEl.innerHTML = "<li>Hozircha hech kim reytingga qo'shilmagan.</li>";
+      // Foydalanuvchini bazaga qo'shamiz
+      await update(ref(db, 'users/' + userId), { stars: 0, name: userName });
+      stars = 0;
     }
+  } catch (error) {
+    leaderboardEl.innerHTML = "<li>Xatolik yuz berdi.</li>";
+    console.error(error);
   }
+}
 
-  addStarsBtn.addEventListener("click", addStar);
+// Yulduz qo‘shish va Firebase’ga yozish
+async function addStar() {
+  stars++;
+  try {
+    const userRef = ref(db, 'users/' + userId);
+    await update(userRef, { stars });
+    loadLeaderboard();
+  } catch (error) {
+    console.error("Firebase ga yozishda xatolik:", error);
+    alert("Yulduz qo'shishda xatolik yuz berdi!");
+  }
+}
 
-  // Dastlabki reytingni yuklash
-  loadLeaderboard();
+addStarsBtn.addEventListener("click", addStar);
+
+// Dastlabki reytingni yuklash
+loadLeaderboard();
 
 </script>
 
