@@ -49,15 +49,21 @@
     .user-name {
       font-weight: bold;
     }
+    .loading {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 50px;
+      color: #4d3f00;
+    }
   </style>
 </head>
 <body>
   <h1>Foydalanuvchilar Reytingi</h1>
-  <table class="rating-list">
+  <div id="loading" class="loading">Yuklanmoqda...</div>
+  <table class="rating-list" style="display:none;">
     <thead>
       <tr>
         <th>Profil</th>
-        <th>Telegram ID</th>
         <th>Ism</th>
         <th>Ballar</th>
       </tr>
@@ -68,35 +74,29 @@
   </table>
 
   <script>
-    // Misol uchun ma'lumotlar: real holatda backenddan olinadi
-    const users = [
-      {
-        telegramId: 123456789,
-        name: "Ali",
-        score: 150,
-        profilePic: "https://t.me/i/userpic/320/123456789.jpg"
-      },
-      {
-        telegramId: 987654321,
-        name: "Gulbahor",
-        score: 200,
-        profilePic: "https://t.me/i/userpic/320/987654321.jpg"
-      },
-      {
-        telegramId: 112233445,
-        name: "Jasur",
-        score: 120,
-        profilePic: "https://t.me/i/userpic/320/112233445.jpg"
-      }
-    ];
+    async function fetchUserData() {
+      try {
+        // Backend manzilingizni shu yerga yozing:
+        const response = await fetch('https://sizning-backend-manzilingiz/api/users');
+        if (!response.ok) throw new Error('Serverdan maʼlumot olishda xatolik');
 
-    // Jadvalga foydalanuvchilarni chiqarish funksiyasi
+        const users = await response.json();
+
+        // Ballarga ko'ra kamayish tartibida saralash
+        users.sort((a, b) => b.score - a.score);
+
+        renderUsers(users);
+        document.getElementById('loading').style.display = 'none';
+        document.querySelector('.rating-list').style.display = 'table';
+
+      } catch (error) {
+        document.getElementById('loading').textContent = 'Maʼlumotni yuklab bo‘lmadi: ' + error.message;
+      }
+    }
+
     function renderUsers(users) {
       const tbody = document.getElementById('userTableBody');
       tbody.innerHTML = '';
-
-      // Ballarga ko'ra kamayish tartibida saralash
-      users.sort((a, b) => b.score - a.score);
 
       users.forEach(user => {
         const tr = document.createElement('tr');
@@ -106,7 +106,7 @@
         userInfoDiv.classList.add('user-info');
 
         const img = document.createElement('img');
-        img.src = user.profilePic;
+        img.src = user.profilePic || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'; // Default rasm
         img.alt = user.name + " profili";
         img.classList.add('profile-pic');
 
@@ -118,9 +118,6 @@
         userInfoDiv.appendChild(nameSpan);
         profileTd.appendChild(userInfoDiv);
 
-        const idTd = document.createElement('td');
-        idTd.textContent = user.telegramId;
-
         const nameTd = document.createElement('td');
         nameTd.textContent = user.name;
 
@@ -128,7 +125,6 @@
         scoreTd.textContent = user.score;
 
         tr.appendChild(profileTd);
-        tr.appendChild(idTd);
         tr.appendChild(nameTd);
         tr.appendChild(scoreTd);
 
@@ -136,7 +132,7 @@
       });
     }
 
-    renderUsers(users);
+    fetchUserData();
   </script>
 </body>
 </html>
