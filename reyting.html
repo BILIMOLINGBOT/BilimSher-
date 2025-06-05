@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Foydalanuvchilar Reytingi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff3b0;
+      margin: 0;
+      padding: 20px;
+      color: #4d3f00;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .rating-list {
+      max-width: 600px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .rating-list thead {
+      background-color: #4d3f00;
+      color: #fff;
+    }
+    .rating-list th, .rating-list td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    .rating-list tbody tr:hover {
+      background-color: #ffe48c;
+    }
+    .profile-pic {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+    .user-info {
+      display: flex;
+      align-items: center;
+    }
+    .user-name {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Foydalanuvchilar Reytingi</h1>
+  <table class="rating-list">
+    <thead>
+      <tr>
+        <th>Profil</th>
+        <th>Telegram ID</th>
+        <th>Ism</th>
+        <th>Ballar</th>
+      </tr>
+    </thead>
+    <tbody id="userTableBody">
+      <!-- Foydalanuvchilar ro'yxati shu yerga qo'yiladi -->
+    </tbody>
+  </table>
+
+  <script>
+    // Misol uchun ma'lumotlar: real holatda backenddan olinadi
+    const users = [
+      {
+        telegramId: 123456789,
+        name: "Ali",
+        score: 150,
+        profilePic: "https://t.me/i/userpic/320/123456789.jpg"
+      },
+      {
+        telegramId: 987654321,
+        name: "Gulbahor",
+        score: 200,
+        profilePic: "https://t.me/i/userpic/320/987654321.jpg"
+      },
+      {
+        telegramId: 112233445,
+        name: "Jasur",
+        score: 120,
+        profilePic: "https://t.me/i/userpic/320/112233445.jpg"
+      }
+    ];
+
+    // Jadvalga foydalanuvchilarni chiqarish funksiyasi
+    function renderUsers(users) {
+      const tbody = document.getElementById('userTableBody');
+      tbody.innerHTML = '';
+
+      // Ballarga ko'ra kamayish tartibida saralash
+      users.sort((a, b) => b.score - a.score);
+
+      users.forEach(user => {
+        const tr = document.createElement('tr');
+
+        const profileTd = document.createElement('td');
+        const userInfoDiv = document.createElement('div');
+        userInfoDiv.classList.add('user-info');
+
+        const img = document.createElement('img');
+        img.src = user.profilePic;
+        img.alt = user.name + " profili";
+        img.classList.add('profile-pic');
+
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = user.name;
+        nameSpan.classList.add('user-name');
+
+        userInfoDiv.appendChild(img);
+        userInfoDiv.appendChild(nameSpan);
+        profileTd.appendChild(userInfoDiv);
+
+        const idTd = document.createElement('td');
+        idTd.textContent = user.telegramId;
+
+        const nameTd = document.createElement('td');
+        nameTd.textContent = user.name;
+
+        const scoreTd = document.createElement('td');
+        scoreTd.textContent = user.score;
+
+        tr.appendChild(profileTd);
+        tr.appendChild(idTd);
+        tr.appendChild(nameTd);
+        tr.appendChild(scoreTd);
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    renderUsers(users);
+  </script>
+</body>
+</html>
