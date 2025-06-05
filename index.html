@@ -11,19 +11,21 @@
 <div id="userInfo">Yuklanmoqda...</div>
 
 <script>
-  const tg = window.Telegram.WebApp;
+  if (window.Telegram && window.Telegram.WebApp) {
+    const tg = window.Telegram.WebApp;
+    const user = tg.initDataUnsafe?.user;
 
-  // Foydalanuvchi ma'lumotlarini olish
-  const user = tg.initDataUnsafe.user;
-
-  if(user) {
-    document.getElementById('userInfo').innerHTML = `
-      <p>Foydalanuvchi ID: <b>${user.id}</b></p>
-      <p>Ismi: <b>${user.first_name}</b></p>
-      <p>Telegram username: <b>${user.username || 'Mavjud emas'}</b></p>
-    `;
+    if(user) {
+      document.getElementById('userInfo').innerHTML = `
+        <p>Foydalanuvchi ID: <b>${user.id}</b></p>
+        <p>Ismi: <b>${user.first_name}</b></p>
+        <p>Telegram username: <b>${user.username || 'Mavjud emas'}</b></p>
+      `;
+    } else {
+      document.getElementById('userInfo').textContent = "Foydalanuvchi ma'lumotlari topilmadi. Iltimos, Telegram orqali oching.";
+    }
   } else {
-    document.getElementById('userInfo').textContent = "Foydalanuvchi ma'lumotlari topilmadi. Iltimos, Telegram orqali oching.";
+    document.getElementById('userInfo').textContent = "Telegram WebApp API topilmadi. Iltimos, Telegram ichida oching.";
   }
 </script>
 
