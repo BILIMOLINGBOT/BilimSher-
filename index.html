@@ -17,7 +17,7 @@
       padding: 16px;
       max-width: 500px;
       margin: 0 auto;
-      padding-bottom: 100px; /* pastki navigatsiya paneli uchun joy */
+      padding-bottom: 100px;
     }
     .header {
       display: flex;
@@ -149,7 +149,6 @@
       margin-bottom: 4px;
     }
 
-    /* Active button style */
     a.button.active {
       background-color: #34A853;
       color: white;
@@ -184,9 +183,6 @@
   </div>
 
   <div class="lessons">
-    <div class="button-container">
-      <a href="1.html" class="button" 
-<div class="lessons">
     <div class="button-container">
       <a href="1.html" class="button" data-level="A1">1. To be affirmative</a>
       <a href="2.html" class="button" data-level="A1">2. To be affirmative test</a>
@@ -225,7 +221,8 @@
       <a href="35.html" class="button" data-level="B1">35. Past continuous negative</a>
       <a href="36.html" class="button" data-level="B1">36. Past continuous negative test</a>
     </div>
-</div>
+  </div>
+
   <div class="navigation">
     <div class="nav-item active">
       <div class="nav-icon">🏠</div>
@@ -240,65 +237,6 @@
       Profil
     </div>
   </div>
-
-  <script>
-    // 1. Faol darsni ajratish
-    const links = document.querySelectorAll('a.button');
-    links.forEach(link => {
-      if (link.getAttribute('href') === window.location.pathname.split('/').pop()) {
-        link.classList.add('active');
-      }
-    });
-
-    // 2. Darajani tanlab darslarni filtrlash
-    const levelButtons = document.querySelectorAll('.level');
-    const lessons = document.querySelectorAll('.button-container a');
-
-    levelButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        levelButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const selectedLevel = btn.textContent.trim();
-
-        lessons.forEach(lesson => {
-          if (lesson.dataset.level === selectedLevel) {
-            lesson.style.display = 'inline-block';
-          } else {
-            lesson.style.display = 'none';
-          }
-        });
-
-        localStorage.setItem('activeLevel', selectedLevel);
-      });
-    });
-
-    // Sahifa yuklanganda tanlangan darajani tiklash
-    window.addEventListener('DOMContentLoaded', () => {
-      const savedLevel = localStorage.getItem('activeLevel') || 'A1';
-      document.querySelector(`.level:contains(${savedLevel})`)?.click();
-    });
-
-    // 3. Progress bar hisoblash
-    const totalLessons = lessons.length;
-    let completed = 0;
-
-    lessons.forEach(lesson => {
-      const href = lesson.getAttribute('href');
-      if (localStorage.getItem(`done_${href}`)) {
-        completed++;
-      }
-
-      // Dars tugmasi bosilganda uni bajarilgan deb saqlash
-      lesson.addEventListener('click', () => {
-        localStorage.setItem(`done_${href}`, true);
-      });
-    });
-
-    const progressFill = document.querySelector('.progress-fill');
-    const percent = Math.round((completed / totalLessons) * 100);
-    progressFill.style.width = percent + '%';
-  </script>
 
 </body>
 </html>
