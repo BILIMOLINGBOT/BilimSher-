@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BilimSher - Darslar</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BilimSher</title>
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', sans-serif;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     body {
-      background-color: #fff3b0;
+      background-color: #f5f5f5;
       color: #333;
       padding: 16px;
       max-width: 500px;
-      margin: auto;
-      padding-bottom: 100px;
+      margin: 0 auto;
+      padding-bottom: 100px; /* pastki navigatsiya paneli uchun joy */
     }
     .header {
       display: flex;
@@ -30,7 +30,7 @@
       align-items: center;
       font-size: 24px;
       font-weight: bold;
-      color: #4d3f00;
+      color: #4285F4;
     }
     .logo img {
       width: 32px;
@@ -51,25 +51,29 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .progress-bar {
+      width: 100%;
       height: 8px;
       background-color: #e0e0e0;
       border-radius: 4px;
+      margin-top: 8px;
       overflow: hidden;
     }
     .progress-fill {
-      width: 25%;
       height: 100%;
+      width: 25%;
       background-color: #34A853;
+      border-radius: 4px;
     }
     .levels {
       display: flex;
-      gap: 10px;
-      margin: 20px 0;
       overflow-x: auto;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
     }
     .level {
       min-width: 80px;
-      padding: 10px;
+      padding: 12px;
       background-color: #fff;
       border-radius: 12px;
       text-align: center;
@@ -77,7 +81,7 @@
       cursor: pointer;
     }
     .level.active {
-      background-color: #4d3f00;
+      background-color: #4285F4;
       color: white;
     }
     .lessons {
@@ -85,49 +89,71 @@
       border-radius: 12px;
       padding: 16px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
     }
     .button-container {
       display: flex;
-      flex-direction: column;
-      gap: 10px;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
     }
     a.button {
-      background-color: #4d3f00;
+      display: inline-block;
+      background-color: #007bff;
       color: white;
-      padding: 14px;
-      border-radius: 12px;
-      text-align: center;
       text-decoration: none;
+      padding: 14px 20px;
+      border-radius: 8px;
       font-weight: bold;
-      box-shadow: 0 4px #2c2400;
-      transition: 0.2s;
+      font-size: 16px;
+      min-width: 260px;
+      text-align: center;
+      transition: background-color 0.3s ease;
     }
-    a.button:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px #2c2400;
+    a.button:hover {
+      background-color: #0056b3;
+    }
+    @media (max-width: 600px) {
+      a.button {
+        min-width: 100%;
+        font-size: 14px;
+        padding: 12px 10px;
+      }
     }
     .navigation {
+      display: flex;
+      justify-content: space-around;
+      background-color: #fff;
+      padding: 12px 0;
+      border-radius: 12px;
+      box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
       max-width: 500px;
-      margin: auto;
-      background-color: #fff;
-      padding: 12px 0;
-      border-radius: 12px 12px 0 0;
-      box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
-      display: flex;
-      justify-content: space-around;
+      margin: 0 auto;
     }
     .nav-item {
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       font-size: 12px;
-      color: #4d3f00;
+      color: #4285F4;
+    }
+    .nav-item.active {
+      font-weight: bold;
     }
     .nav-icon {
       font-size: 20px;
       margin-bottom: 4px;
+    }
+
+    /* Active button style */
+    a.button.active {
+      background-color: #34A853;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
@@ -135,14 +161,16 @@
 
   <div class="header">
     <div class="logo">
-      <img src="https://via.placeholder.com/32" alt="Logo" />
+      <img src="https://via.placeholder.com/32" alt="BilimSher Logo">
       BilimSher
     </div>
-    <div class="user-info">Foydalanuvchi</div>
+    <div class="user-info">
+      ★ 450 ball | A1
+    </div>
   </div>
 
   <div class="progress-container">
-    <div>Umumiy Progress</div>
+    <div>Umumiy progress</div>
     <div class="progress-bar">
       <div class="progress-fill"></div>
     </div>
@@ -156,16 +184,92 @@
   </div>
 
   <div class="lessons">
-    <h2>Darslar</h2>
     <div class="button-container">
-      <a href="1.html" class="button">1. To be affirmative</a>
-      <a href="2.html" class="button">2. To be affirmative test</a>
-      <a href="3.html" class="button">3. To be question</a>
-      <a href="4.html" class="button">4. To be question test</a>
-      <a href="5.html" class="button">5. To be negative</a>
-      <a href="6.html" class="button">6. To be negative test</a>
-      <!-- Qo‘shimcha darslar ham shu yerga kiritiladi -->
+      <a href="1.html" class="button" data-level="A1">1. To be affirmative</a>
+      <a href="2.html" class="button" data-level="A1">2. To be affirmative test</a>
+      <a href="3.html" class="button" data-level="A1">3. To be question</a>
+      <a href="4.html" class="button" data-level="A1">4. To be question test</a>
+      <a href="5.html" class="button" data-level="A1">5. To be negative</a>
+      <a href="6.html" class="button" data-level="A1">6. To be negative test</a>
+      <a href="7.html" class="button" data-level="A2">7. Present continuous affirmative</a>
+      <a href="8.html" class="button" data-level="A2">8. Present continuous affirmative test</a>
+      <!-- ... davom ettiriladi ... -->
     </div>
   </div>
 
-  <div class="navigation
+  <div class="navigation">
+    <div class="nav-item active">
+      <div class="nav-icon">🏠</div>
+      Bosh sahifa
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">📚</div>
+      Darslar
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon">👤</div>
+      Profil
+    </div>
+  </div>
+
+  <script>
+    // 1. Faol darsni ajratish
+    const links = document.querySelectorAll('a.button');
+    links.forEach(link => {
+      if (link.getAttribute('href') === window.location.pathname.split('/').pop()) {
+        link.classList.add('active');
+      }
+    });
+
+    // 2. Darajani tanlab darslarni filtrlash
+    const levelButtons = document.querySelectorAll('.level');
+    const lessons = document.querySelectorAll('.button-container a');
+
+    levelButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        levelButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const selectedLevel = btn.textContent.trim();
+
+        lessons.forEach(lesson => {
+          if (lesson.dataset.level === selectedLevel) {
+            lesson.style.display = 'inline-block';
+          } else {
+            lesson.style.display = 'none';
+          }
+        });
+
+        localStorage.setItem('activeLevel', selectedLevel);
+      });
+    });
+
+    // Sahifa yuklanganda tanlangan darajani tiklash
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedLevel = localStorage.getItem('activeLevel') || 'A1';
+      document.querySelector(`.level:contains(${savedLevel})`)?.click();
+    });
+
+    // 3. Progress bar hisoblash
+    const totalLessons = lessons.length;
+    let completed = 0;
+
+    lessons.forEach(lesson => {
+      const href = lesson.getAttribute('href');
+      if (localStorage.getItem(`done_${href}`)) {
+        completed++;
+      }
+
+      // Dars tugmasi bosilganda uni bajarilgan deb saqlash
+      lesson.addEventListener('click', () => {
+        localStorage.setItem(`done_${href}`, true);
+      });
+    });
+
+    const progressFill = document.querySelector('.progress-fill');
+    const percent = Math.round((completed / totalLessons) * 100);
+    progressFill.style.width = percent + '%';
+  </script>
+
+</body>
+</html>
