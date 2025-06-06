@@ -52,6 +52,8 @@
     }
     .nav-item.active { color: #4285F4; font-weight: bold; }
     .nav-icon { font-size: 20px; margin-bottom: 4px; }
+    
+    /* New styles for level tabs */
     .level-tabs {
       display: flex;
       background: #fff;
@@ -72,15 +74,21 @@
       background: #4285F4;
       color: white;
     }
-    .level-content { display: none; }
-    .level-content.active { display: block; }
+    .level-content {
+      display: none;
+    }
+    .level-content.active {
+      display: block;
+    }
     .level-title {
       font-size: 18px;
       font-weight: bold;
       margin-bottom: 12px;
       color: #4285F4;
     }
-    .lesson-group { margin-bottom: 20px; }
+    .lesson-group {
+      margin-bottom: 20px;
+    }
     .lesson-group-title {
       font-weight: bold;
       margin-bottom: 8px;
@@ -88,51 +96,294 @@
       padding-left: 8px;
       border-left: 3px solid #4285F4;
     }
-    a.button.closed {
-      background-color: #ccc;
-      color: #666;
-      cursor: not-allowed;
-    }
-    a.button.closed:hover {
-      background-color: #ccc;
-    }
   </style>
 </head>
 <body>
+
   <div class="header">
     <div class="logo">
       <img id="userPhoto" src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" />
       <span id="userName">Foydalanuvchi</span>
     </div>
   </div>
+
+  <!-- Asosiy -->
   <section id="home" class="active">
     <div class="progress-container">
-      <div id="completedLessonsCount">Yakunlangan darslar: 0 / 36</div>
-      <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
+      <div>Yakunlangan darslar: 5 / 36</div>
+      <div class="progress-bar"><div class="progress-fill" style="width: 14%;"></div></div>
     </div>
-
+    
+    <!-- Level Tabs -->
     <div class="level-tabs">
       <div class="level-tab active" data-level="a1">A1</div>
       <div class="level-tab" data-level="a2">A2</div>
       <div class="level-tab" data-level="b1">B1</div>
       <div class="level-tab" data-level="b2">B2</div>
     </div>
-
+    
+    <!-- Level Contents -->
     <div id="a1-level" class="level-content active">
       <div class="level-title">Boshlang'ich (A1) Darslari</div>
+      
+      <!-- To be fe'li -->
       <div class="lesson-group">
         <div class="lesson-group-title">To be fe'li</div>
         <div class="button-container">
-          <a href="lesson1.html" class="button" data-lesson-id="1">To be affirmative</a>
-          <a href="lesson2.html" class="button closed" data-lesson-id="2" data-required="1">To be affirmative test</a>
-          <a href="lesson3.html" class="button closed" data-lesson-id="3" data-required="2">To be question</a>
-          <a href="lesson4.html" class="button closed" data-lesson-id="4" data-required="3">To be question test</a>
-          <a href="lesson5.html" class="button closed" data-lesson-id="5" data-required="4">To be negative</a>
-          <a href="lesson6.html" class="button closed" data-lesson-id="6" data-required="5">To be negative test</a>
+          <a href="lesson1.html" class="button">To be affirmative</a>
+          <a href="lesson2.html" class="button">To be affirmative test</a>
+          <a href="lesson3.html" class="button">To be question</a>
+          <a href="lesson4.html" class="button">To be question test</a>
+          <a href="lesson5.html" class="button">To be negative</a>
+          <a href="lesson6.html" class="button">To be negative test</a>
         </div>
       </div>
-      <!-- Shu formatda qolgan darslar ham davom etadi -->
+      
+      <!-- Present Continuous -->
+      <div class="lesson-group">
+        <div class="lesson-group-title">Present Continuous</div>
+        <div class="button-container">
+          <a href="lesson7.html" class="button">Present continues affirmative</a>
+          <a href="lesson8.html" class="button">Present continues affirmative test</a>
+          <a href="lesson9.html" class="button">Present continues question</a>
+          <a href="lesson10.html" class="button">Present continues question test</a>
+          <a href="lesson11.html" class="button">Present continues negative</a>
+          <a href="lesson12.html" class="button">Present continues negative test</a>
+        </div>
+      </div>
+      
+      <!-- Present Simple -->
+      <div class="lesson-group">
+        <div class="lesson-group-title">Present Simple</div>
+        <div class="button-container">
+          <a href="lesson13.html" class="button">Present simple affirmative</a>
+          <a href="lesson14.html" class="button">Present simple affirmative test</a>
+          <a href="lesson15.html" class="button">Present simple question</a>
+          <a href="lesson16.html" class="button">Present simple question test</a>
+          <a href="lesson17.html" class="button">Present simple negative</a>
+          <a href="lesson18.html" class="button">Present simple negative test</a>
+        </div>
+      </div>
+      
+      <!-- I have/I have got -->
+      <div class="lesson-group">
+        <div class="lesson-group-title">I have/I have got</div>
+        <div class="button-container">
+          <a href="lesson19.html" class="button">I have/I have got affirmative</a>
+          <a href="lesson20.html" class="button">I have/I have got affirmative test</a>
+          <a href="lesson21.html" class="button">I have/I have got question</a>
+          <a href="lesson22.html" class="button">I have/I have got question test</a>
+          <a href="lesson23.html" class="button">I have/I have got negative</a>
+          <a href="lesson24.html" class="button">I have/I have got negative test</a>
+        </div>
+      </div>
+      
+      <!-- Past Simple -->
+      <div class="lesson-group">
+        <div class="lesson-group-title">Past Simple</div>
+        <div class="button-container">
+          <a href="lesson25.html" class="button">Past simple affirmative</a>
+          <a href="lesson26.html" class="button">Past simple affirmative test</a>
+          <a href="lesson27.html" class="button">Past simple question</a>
+          <a href="lesson28.html" class="button">Past simple question test</a>
+          <a href="lesson29.html" class="button">Past simple negative</a>
+          <a href="lesson30.html" class="button">Past simple negative test</a>
+        </div>
+      </div>
+      
+      <!-- Past Continuous -->
+      <div class="lesson-group">
+        <div class="lesson-group-title">Past Continuous</div>
+        <div class="button-container">
+          <a href="lesson31.html" class="button">Past continuous affirmative</a>
+          <a href="lesson32.html" class="button">Past continuous affirmative test</a>
+          <a href="lesson33.html" class="button">Past continuous question</a>
+          <a href="lesson34.html" class="button">Past continuous question test</a>
+          <a href="lesson35.html" class="button">Past continuous negative</a>
+          <a href="lesson36.html" class="button">Past continuous negative test</a>
+        </div>
+      </div>
+    </div>
+    
+    <div id="a2-level" class="level-content">
+      <div class="level-title">Elementar (A2) Darslari</div>
+      <div id="a2-lessons" class="button-container">
+        <p>Tez orada qo'shiladi</p>
+      </div>
+    </div>
+    
+    <div id="b1-level" class="level-content">
+      <div class="level-title">O'rta (B1) Darslari</div>
+      <div id="b1-lessons" class="button-container">
+        <p>Tez orada qo'shiladi</p>
+      </div>
+    </div>
+    
+    <div id="b2-level" class="level-content">
+      <div class="level-title">Yuqori O'rta (B2) Darslari</div>
+      <div id="b2-lessons" class="button-container">
+        <p>Tez orada qo'shiladi</p>
+      </div>
     </div>
   </section>
+
+  <!-- Darslar -->
+  <section id="lessons">
+    <div class="lessons">
+      <div id="lessonContainer" class="button-container">
+        <p>Yuklanmoqda...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Natijalar -->
+  <section id="results">
+    <div class="results">
+      <h3>Sizning natijalaringiz</h3>
+      <p>Bu yerda foydalanuvchining statistikalari ko'rsatiladi.</p>
+    </div>
+  </section>
+
+  <!-- Sozlamalar -->
+  <section id="settings">
+    <div class="settings">
+      <h3>Sozlamalar</h3>
+      <p>Til: O'zbek</p>
+      <p>Tez orada boshqa sozlamalar ham qo'shiladi.</p>
+    </div>
+  </section>
+
+  <!-- Navigatsiya -->
+  <div class="navigation">
+    <div class="nav-item active" data-target="home">
+      <div class="nav-icon"><i class="fas fa-home"></i></div>
+      <div>Asosiy</div>
+    </div>
+    <div class="nav-item" data-target="lessons">
+      <div class="nav-icon"><i class="fas fa-book"></i></div>
+      <div>Darslar</div>
+    </div>
+    <div class="nav-item" data-target="results">
+      <div class="nav-icon"><i class="fas fa-chart-line"></i></div>
+      <div>Natijalar</div>
+    </div>
+    <div class="nav-item" data-target="settings">
+      <div class="nav-icon"><i class="fas fa-cog"></i></div>
+      <div>Sozlamalar</div>
+    </div>
+  </div>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyD0gBUJNcrgvvntcrfKK7Ky8t6_9Qb96Io",
+      authDomain: "bilimilova-64833.firebaseapp.com",
+      databaseURL: "https://bilimilova-64833-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "bilimilova-64833",
+      storageBucket: "bilimilova-64833.appspot.com",
+      messagingSenderId: "890689414502",
+      appId: "1:890689414502:web:8141d7aab413495c0c14a7",
+      measurementId: "G-ZBC8X1VVMZ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    
+    // Telegram foydalanuvchi ma'lumotlari
+    window.Telegram.WebApp.ready();
+    const user = Telegram.WebApp.initDataUnsafe.user;
+    const userPhoto = document.getElementById('userPhoto');
+    const userName = document.getElementById('userName');
+    if (user?.photo_url) userPhoto.src = user.photo_url;
+    userName.innerText = user?.username || user?.first_name || 'Foydalanuvchi';
+
+    // Navigatsiya
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+
+        item.classList.add('active');
+        const target = item.getAttribute('data-target');
+        document.getElementById(target).classList.add('active');
+      });
+    });
+    
+    // Level tabs functionality
+    document.querySelectorAll('.level-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.level-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.level-content').forEach(c => c.classList.remove('active'));
+        
+        tab.classList.add('active');
+        const level = tab.getAttribute('data-level');
+        document.getElementById(`${level}-level`).classList.add('active');
+      });
+    });
+
+    // Load lessons for the separate lessons page
+    const lessonContainer = document.getElementById("lessonContainer");
+    if (lessonContainer) {
+      try {
+        const querySnapshot = await getDocs(collection(db, "lessons"));
+        lessonContainer.innerHTML = "";
+        
+        // Group lessons by category
+        const categories = {
+          "To be fe'li": [],
+          "Present Continuous": [],
+          "Present Simple": [],
+          "I have/I have got": [],
+          "Past Simple": [],
+          "Past Continuous": []
+        };
+        
+        querySnapshot.forEach((doc) => {
+          const lesson = doc.data();
+          if (lesson.level === "A1") {
+            if (lesson.title.includes("To be")) {
+              categories["To be fe'li"].push(lesson);
+            } else if (lesson.title.includes("Present continues")) {
+              categories["Present Continuous"].push(lesson);
+            } else if (lesson.title.includes("Present simple")) {
+              categories["Present Simple"].push(lesson);
+            } else if (lesson.title.includes("I have")) {
+              categories["I have/I have got"].push(lesson);
+            } else if (lesson.title.includes("Past simple")) {
+              categories["Past Simple"].push(lesson);
+            } else if (lesson.title.includes("Past continuous")) {
+              categories["Past Continuous"].push(lesson);
+            }
+          }
+        });
+        
+        // Display lessons by category
+        for (const [category, lessons] of Object.entries(categories)) {
+          if (lessons.length > 0) {
+            const categoryDiv = document.createElement("div");
+            categoryDiv.className = "lesson-group";
+            categoryDiv.innerHTML = `<div class="lesson-group-title">${category}</div><div class="button-container"></div>`;
+            
+            const buttonContainer = categoryDiv.querySelector(".button-container");
+            lessons.forEach(lesson => {
+              const a = document.createElement("a");
+              a.href = `lesson${lesson.id}.html`;
+              a.className = "button";
+              a.innerText = lesson.title;
+              buttonContainer.appendChild(a);
+            });
+            
+            lessonContainer.appendChild(categoryDiv);
+          }
+        }
+      } catch (error) {
+        lessonContainer.innerHTML = "<p>Xatolik yuz berdi.</p>";
+        console.error("Darslar yuklashda xatolik:", error);
+      }
+    }
+  </script>
 </body>
 </html>
