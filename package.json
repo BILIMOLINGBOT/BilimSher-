@@ -1,13 +1,13 @@
 {
-  "name": "telegram-miniapp-backend",
+  "name": "telegram-profile-photo-server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node app.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
     "axios": "^1.4.0",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
   }
 }
