@@ -141,6 +141,9 @@
       color: #4285F4;
       cursor: pointer;
     }
+    .nav-item.active {
+      font-weight: bold;
+    }
     .nav-icon {
       font-size: 20px;
       margin-bottom: 4px;
@@ -197,7 +200,6 @@
   <!-- Telegram Web Apps JS -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
-    // Telegram mini app tayyorligini kutamiz
     window.Telegram.WebApp.ready();
 
     // Foydalanuvchi ma'lumotlarini olish
@@ -231,4 +233,11 @@
       .forEach(lesson => {
         const a = document.createElement("a");
         a.href = `lesson${lesson.id}.html`; // Har bir dars uchun fayl nomi
-        a.className = "button
+        a.className = "button";
+        a.innerText = lesson.title;
+        lessonContainer.appendChild(a);
+      });
+
+  </script>
+</body>
+</html>
