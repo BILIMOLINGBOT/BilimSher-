@@ -168,24 +168,25 @@
     </div>
   </div>
 
-  <div class="navigation">
-    <div class="nav-item active">
-      <div class="nav-icon"><i class="fas fa-home"></i></div>
-      <div>Asosiy</div>
-    </div>
-    <div class="nav-item">
-      <div class="nav-icon"><i class="fas fa-book"></i></div>
-      <div>Darslar</div>
-    </div>
-    <div class="nav-item">
-      <div class="nav-icon"><i class="fas fa-chart-line"></i></div>
-      <div>Reyting</div>
-    </div>
-    <div class="nav-item">
-      <div class="nav-icon"><i class="fas fa-cog"></i></div>
-      <div>Sozlamalar</div>
-    </div>
-  </div>
+  // Navigatsiya tugmalari bilan sahifa o‘zgartirish
+document.querySelectorAll('.nav-item').forEach((item, index) => {
+  item.addEventListener('click', () => {
+    switch (index) {
+      case 0:
+        window.location.href = "index.html"; // Asosiy
+        break;
+      case 1:
+        window.location.href = "darslar.html"; // Darslar
+        break;
+      case 2:
+        window.location.href = "reyting.html"; // Reyting
+        break;
+      case 3:
+        window.location.href = "sozlamalar.html"; // Sozlamalar
+        break;
+    }
+  });
+});
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script type="module">
