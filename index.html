@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>BilimSher</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body {
@@ -35,8 +35,9 @@
     }
     a.button {
       background: #007bff; color: white; padding: 14px 20px;
-      border-radius: 8px; min-width: 260px; text-align: center;
+      border-radius: 8px; min-width: 120px; text-align: center;
       font-weight: bold; text-decoration: none; transition: 0.3s;
+      cursor: pointer;
     }
     a.button:hover { background-color: #0056b3; }
     .navigation {
@@ -52,6 +53,11 @@
     }
     .nav-item.active { color: #4285F4; font-weight: bold; }
     .nav-icon { font-size: 20px; margin-bottom: 4px; }
+
+    /* Daraja tugmalari uchun style */
+    #levelButtons {
+      display: flex; justify-content: center; gap: 12px; margin-bottom: 16px;
+    }
   </style>
 </head>
 <body>
@@ -69,13 +75,21 @@
       <div>Yakunlangan darslar: 5 / 20</div>
       <div class="progress-bar"><div class="progress-fill" style="width: 25%;"></div></div>
     </div>
+
+    <!-- Darajalar tugmalari -->
+    <div id="levelButtons">
+      <a href="#" class="button" data-level="A1">A1</a>
+      <a href="#" class="button" data-level="A2">A2</a>
+      <a href="#" class="button" data-level="B1">B1</a>
+      <a href="#" class="button" data-level="B2">B2</a>
+    </div>
   </section>
 
   <!-- Darslar -->
   <section id="lessons">
     <div class="lessons">
       <div id="lessonContainer" class="button-container">
-        <p>Yuklanmoqda...</p>
+        <p>Darajani tanlang va darslar shu yerda ko‘rsatiladi.</p>
       </div>
     </div>
   </section>
@@ -118,7 +132,6 @@
   </div>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -138,33 +151,9 @@
     const db = getFirestore(app);
     const lessonContainer = document.getElementById("lessonContainer");
 
-    async function loadLessons() {
-      lessonContainer.innerHTML = "<p>Yuklanmoqda...</p>";
-      try {
-        const querySnapshot = await getDocs(collection(db, "lessons"));
-        lessonContainer.innerHTML = "";
-        querySnapshot.forEach((doc) => {
-          const lesson = doc.data();
-          if (lesson.level === "A1") {
-            const a = document.createElement("a");
-            a.href = `lesson${lesson.id}.html`;
-            a.className = "button";
-            a.innerText = lesson.title;
-            lessonContainer.appendChild(a);
-          }
-        });
-        if (lessonContainer.innerHTML === "") {
-          lessonContainer.innerHTML = "<p>Darslar topilmadi.</p>";
-        }
-      } catch (error) {
-        lessonContainer.innerHTML = "<p>Xatolik yuz berdi.</p>";
-        console.error("Darslar yuklashda xatolik:", error);
-      }
-    }
-
     // Telegram foydalanuvchi maʼlumotlari
     window.Telegram.WebApp.ready();
-    const user = Telegram.WebApp.initDataUnsafe?.user;
+    const user = Telegram.WebApp.initDataUnsafe.user;
     const userPhoto = document.getElementById('userPhoto');
     const userName = document.getElementById('userName');
     if (user?.photo_url) userPhoto.src = user.photo_url;
@@ -182,9 +171,30 @@
       });
     });
 
-    // Darslarni yuklashni boshlash
-    loadLessons();
+    // Darajalar bo'yicha darslarni yuklash funktsiyasi
+    async function loadLessons(level) {
+      lessonContainer.innerHTML = "<p>Yuklanmoqda...</p>";
+      try {
+        const querySnapshot = await getDocs(collection(db, "lessons"));
+        lessonContainer.innerHTML = "";
+        let found = false;
+        querySnapshot.forEach((doc) => {
+          const lesson = doc.data();
+          if (lesson.level === level) {
+            found = true;
+            const a = document.createElement("a");
+            a.href = `lesson${lesson.id}.html`;
+            a.className = "button";
+            a.innerText = lesson.title;
+            lessonContainer.appendChild(a);
+          }
+        });
+        if (!found) lessonContainer.innerHTML = "<p>Bu daraja uchun darslar topilmadi.</p>";
+      } catch (error) {
+        lessonContainer.innerHTML = "<p>Xatolik yuz berdi.</p>";
+        console.error("Darslar yuklashda xatolik:", error);
+      }
+    }
 
-  </script>
-</body>
-</html>
+    // Daraja tugmalari eventlari
+    document.querySelectorAll('#level
