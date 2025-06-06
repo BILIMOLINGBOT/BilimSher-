@@ -3,118 +3,119 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bilim Ilova</title>
+  <title>BilimSher</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
     body {
-      background-color: #fff3b0;
-      font-family: 'Arial', sans-serif;
-      padding: 20px;
+      background-color: #f5f5f5;
+      color: #333;
+      padding: 16px;
+      max-width: 500px;
+      margin: 0 auto;
+      padding-bottom: 100px;
+    }
+    .header {
+      font-size: 24px;
+      font-weight: bold;
+      color: #4285F4;
+      margin-bottom: 20px;
       text-align: center;
     }
-
-    h1 {
-      font-size: 24px;
-      margin-bottom: 20px;
-      color: #4d3f00;
-    }
-
-    .level-buttons {
+    .levels {
       display: flex;
-      justify-content: center;
+      overflow-x: auto;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+    }
+    .level {
+      min-width: 80px;
+      padding: 12px;
+      background-color: #fff;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .level.active {
+      background-color: #4285F4;
+      color: white;
+    }
+    .lessons {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .button-container {
+      display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 30px;
+      justify-content: center;
     }
-
-    .level {
-      background-color: #4d3f00;
-      color: white;
-      border: none;
-      padding: 14px 24px;
-      border-radius: 20px;
-      font-size: 18px;
-      cursor: pointer;
-      box-shadow: 0 6px #3b3100;
-      transition: all 0.2s ease;
-    }
-
-    .level:active {
-      transform: translateY(3px);
-      box-shadow: 0 3px #3b3100;
-    }
-
-    .level.active {
-      background-color: #ff9900;
-    }
-
-    .lessons {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 10px;
-    }
-
-    .button {
+    a.button {
       display: inline-block;
-      background-color: #4d3f00;
+      background-color: #007bff;
       color: white;
       text-decoration: none;
-      padding: 14px;
-      border-radius: 15px;
-      font-size: 18px;
-      box-shadow: 0 6px #3b3100;
-      transition: all 0.2s;
+      padding: 14px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 16px;
+      min-width: 260px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
     }
-
-    .button:active {
-      transform: translateY(4px);
-      box-shadow: 0 2px #3b3100;
-    }
-
-    .button:hover {
-      background-color: #ff9900;
+    a.button:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
 <body>
 
-  <h1>Darajani tanlang</h1>
-  <div class="level-buttons">
-    <button class="level active" data-level="A1">A1</button>
-    <button class="level" data-level="A2">A2</button>
-    <button class="level" data-level="B1">B1</button>
-    <button class="level" data-level="B2">B2</button>
+  <div class="header">Darajani tanlang</div>
+
+  <div class="levels">
+    <div class="level active" data-level="A1">A1</div>
+    <div class="level" data-level="A2">A2</div>
+    <div class="level" data-level="B1">B1</div>
+    <div class="level" data-level="B2">B2</div>
   </div>
 
   <div id="lessonContainer" class="lessons">
-    <!-- Darslar avtomatik yuklanadi -->
+    <div class="button-container">
+      <!-- Dars tugmalari shu yerda ko‘rsatiladi -->
+    </div>
   </div>
 
-  <!-- Firebase SDK (v9 compat) -->
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
   <script>
-    // Firebase konfiguratsiyasi
     const firebaseConfig = {
       apiKey: "AIzaSyD0gBUJNcrgvvntcrfKK7Ky8t6_9Qb96Io",
       authDomain: "bilimilova-64833.firebaseapp.com",
       databaseURL: "https://bilimilova-64833-default-rtdb.europe-west1.firebasedatabase.app",
       projectId: "bilimilova-64833",
-      storageBucket: "bilimilova-64833.firebasestorage.app",
+      storageBucket: "bilimilova-64833.appspot.com",
       messagingSenderId: "890689414502",
       appId: "1:890689414502:web:8141d7aab413495c0c14a7",
       measurementId: "G-ZBC8X1VVMZ"
     };
 
-    // Firebase ishga tushiriladi
     firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
-  </script>
 
-  <!-- Darslarni yuklash -->
-  <script>
-    const lessonContainer = document.getElementById('lessonContainer');
+    const lessonContainer = document.querySelector('.button-container');
     const levelButtons = document.querySelectorAll('.level');
     let currentLevel = 'A1';
 
@@ -136,7 +137,7 @@
         filtered.forEach(lesson => {
           const link = document.createElement('a');
           link.className = 'button';
-          link.href = `lessons/${lesson.id}.html`; // Har bir dars alohida sahifada
+          link.href = `lessons/${lesson.id}.html`;
           link.textContent = `${lesson.title} (${lesson.points} ★)`;
           lessonContainer.appendChild(link);
         });
@@ -152,9 +153,8 @@
       });
     });
 
-    // Boshlanishida A1 yuklanadi
+    // Boshlang‘ich yuklanish: A1 darslari
     loadLessons(currentLevel);
   </script>
-
 </body>
 </html>
