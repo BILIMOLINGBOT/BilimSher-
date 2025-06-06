@@ -1,23 +1,21 @@
+require('dotenv').config();  // .env faylni o‘qish uchun
+
 const express = require('express');  
 const axios = require('axios');  
 const cors = require('cors');  
   
 const app = express();  
 const PORT = process.env.PORT || 3000;  
-  
-// Bu yerga o'zingizning haqiqiy bot tokeningizni qo'ying
-const BOT_TOKEN = '7862555162:AAGpCSy47LVQxeZNHI_U5Sz93Q6ss2oY15Q';  
+const BOT_TOKEN = process.env.BOT_TOKEN;  // Tokenni .env dan olamiz  
   
 // Middleware  
-app.use(cors()); // Frontend boshqa domen/portda bo'lsa kerak bo'ladi  
+app.use(cors());  
 app.use(express.json());  
   
-// Oddiy test uchun root endpoint  
 app.get('/', (req, res) => {  
   res.send('Telegram Mini App backend ishlayapti');  
 });  
   
-// Telegram bot orqali foydalanuvchiga xabar yuborish endpointi  
 app.post('/send-message', async (req, res) => {  
   const { chat_id, text } = req.body;  
   
@@ -27,10 +25,7 @@ app.post('/send-message', async (req, res) => {
   
   try {  
     const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;  
-    const response = await axios.post(url, {  
-      chat_id,  
-      text,  
-    });  
+    const response = await axios.post(url, { chat_id, text });  
     res.json({ ok: true, result: response.data.result });  
   } catch (error) {  
     console.error('Telegram API error:', error.response?.data || error.message);  
