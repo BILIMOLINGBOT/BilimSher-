@@ -25,7 +25,12 @@
       display: flex; align-items: center; font-size: 24px; font-weight: bold; color: #4285F4;
     }
     .logo img {
-      width: 32px; margin-right: 8px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%; /* Profil rasmi uchun dumaloq */
+      margin-right: 8px;
+      object-fit: cover;
+      background-color: #ddd; /* Agar rasm yo'q bo'lsa, fon bo'lsin */
     }
     .user-info {
       background-color: #fff;
@@ -144,7 +149,8 @@
 
   <div class="header">
     <div class="logo">
-      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="logo" />
+      <!-- Telegram profil rasmi shu yerda -->
+      <img id="userPhoto" src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="Foydalanuvchi rasmi" />
       BilimSher
     </div>
     <div class="user-info">Foydalanuvchi: <span id="userName">...</span></div>
@@ -229,9 +235,17 @@
       console.error("Darslar yuklanishda xatolik:", error);
     }
 
-    // Telegram foydalanuvchi nomini chiqarish
+    // Telegram profil rasmi va foydalanuvchi nomi
     window.Telegram.WebApp.ready();
     const user = Telegram.WebApp.initDataUnsafe.user;
+
+    const userPhoto = document.getElementById('userPhoto');
+    if (user?.photo_url) {
+      userPhoto.src = user.photo_url;
+    } else {
+      userPhoto.src = "https://cdn-icons-png.flaticon.com/512/3135/3135768.png"; // default logo
+    }
+
     let name = user?.username || user?.first_name || 'Foydalanuvchi';
     document.getElementById('userName').innerText = name;
   </script>
