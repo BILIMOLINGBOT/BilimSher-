@@ -1,68 +1,182 @@
-const lessonsList = [
-  "To be affirmative",
-  "To be affirmative test",
-  "To be question",
-  "To be question test",
-  "To be negative",
-  "To be negative test",
-  "Present continues affirmative",
-  "Present continues affirmative test",
-  "Present continues question",
-  "Present continues question test",
-  "Present continues negative",
-  "Present continues negative test",
-  "Present simple affirmative",
-  "Present simple affirmative test",
-  "Present simple question",
-  "Present simple question test",
-  "Present simple negative",
-  "Present simple negative test",
-  "I have/I have got affirmative",
-  "I have/I have got affirmative test",
-  "I have/I have got question",
-  "I have/I have got question test",
-  "I have/I have got negative",
-  "I have/I have got negative test",
-  "Past simple affirmative",
-  "Past simple affirmative test",
-  "Past simple question",
-  "Past simple question test",
-  "Past simple negative",
-  "Past simple negative test",
-  "Past continuous affirmative",
-  "Past continuous affirmative test",
-  "Past continuous question",
-  "Past continuous question test",
-  "Past continuous negative",
-  "Past continuous negative test"
-];
-
-function openLevel(level) {
-  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-  document.getElementById('lessons').classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-
-  const lessonContainer = document.getElementById("lessonContainer");
-  lessonContainer.innerHTML = "";
-
-  const completedLessons = parseInt(localStorage.getItem("completedLessons") || "0");
-
-  lessonsList.forEach((title, index) => {
-    const isUnlocked = index <= completedLessons;
-    const a = document.createElement("a");
-    a.className = "button";
-    a.innerText = `${index + 1}. ${title}`;
-
-    if (isUnlocked) {
-      a.href = `lesson${index + 1}.html`;
-    } else {
-      a.style.backgroundColor = "#ccc";
-      a.style.pointerEvents = "auto";
-      a.addEventListener("click", () => {
-        alert("Darslarni ketma-ket oʻrganish kerak");
-      });
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bilim Mini App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff3b0;
+      padding: 20px;
+      margin: 0;
     }
+    .button {
+      display: block;
+      margin: 8px auto;
+      padding: 12px 20px;
+      background: #4d3f00;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 350px;
+      text-align: center;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 6px #3a3000;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .button:active {
+      box-shadow: none;
+      transform: translateY(4px);
+    }
+    .progress-container {
+      max-width: 400px;
+      margin: 0 auto 15px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .progress-bar {
+      width: 100%;
+      background: #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 20px;
+      margin-top: 8px;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #4d3f00;
+      border-radius: 10px 0 0 10px;
+      transition: width 0.5s ease;
+    }
+    section {
+      display: none;
+    }
+    section.active {
+      display: block;
+    }
+    #lessonContainer {
+      max-width: 400px;
+      margin: 0 auto;
+      margin-top: 10px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
 
-    lessonContainer.appendChild(a);
-  });
-}
+  <!-- Asosiy sahifa -->
+  <section id="home" class="active">
+    <div class="progress-container">
+      Yakunlangan darslar: <span id="completedCount">0</span> / <span id="totalLessons">0</span>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+    <a href="#" class="button" onclick="openLevel('A1')">A1 Bosqich Darslari</a>
+  </section>
+
+  <!-- Darslar ro'yxati sahifasi -->
+  <section id="lessons">
+    <h2 style="text-align:center; color:#4d3f00;">A1 Bosqich Darslari</h2>
+    <div id="lessonContainer"></div>
+    <div style="text-align:center; margin-top: 20px;">
+      <a href="#" class="button" onclick="backToHome()">Orqaga</a>
+    </div>
+  </section>
+
+<script>
+  const lessonsList = [
+    "To be affirmative",
+    "To be affirmative test",
+    "To be question",
+    "To be question test",
+    "To be negative",
+    "To be negative test",
+    "Present continues affirmative",
+    "Present continues affirmative test",
+    "Present continues question",
+    "Present continues question test",
+    "Present continues negative",
+    "Present continues negative test",
+    "Present simple affirmative",
+    "Present simple affirmative test",
+    "Present simple question",
+    "Present simple question test",
+    "Present simple negative",
+    "Present simple negative test",
+    "I have/I have got affirmative",
+    "I have/I have got affirmative test",
+    "I have/I have got question",
+    "I have/I have got question test",
+    "I have/I have got negative",
+    "I have/I have got negative test",
+    "Past simple affirmative",
+    "Past simple affirmative test",
+    "Past simple question",
+    "Past simple question test",
+    "Past simple negative",
+    "Past simple negative test",
+    "Past continuous affirmative",
+    "Past continuous affirmative test",
+    "Past continuous question",
+    "Past continuous question test",
+    "Past continuous negative",
+    "Past continuous negative test"
+  ];
+
+  // Umumiy darslar sonini chiqaramiz
+  document.getElementById("totalLessons").innerText = lessonsList.length;
+
+  function openLevel(level) {
+    // Home sahifani yashirish, lessons sahifasini ko‘rsatish
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("lessons").classList.add("active");
+
+    const lessonContainer = document.getElementById("lessonContainer");
+    lessonContainer.innerHTML = "";
+
+    // LocalStorage dan hozirgi tugallangan darslar soni
+    const completedLessons = parseInt(localStorage.getItem("completedLessons") || "0");
+    document.getElementById("completedCount").innerText = completedLessons;
+
+    // Progress bar yangilash
+    const progress = (completedLessons / lessonsList.length) * 100;
+    document.getElementById("progressFill").style.width = progress + "%";
+
+    // Darslar ro'yxatini yaratamiz
+    lessonsList.forEach((title, index) => {
+      const isUnlocked = index <= completedLessons;
+      const a = document.createElement("a");
+      a.className = "button";
+      a.innerText = `${index + 1}. ${title}`;
+
+      if (isUnlocked) {
+        // Masalan, lesson fayl nomi lesson1.html, lesson2.html va h.k.
+        a.href = `lesson${index + 1}.html`;
+        a.target = "_blank"; // Yangi oynada ochilsin, xohlasangiz olib tashlashingiz mumkin
+      } else {
+        a.style.backgroundColor = "#ccc";
+        a.style.pointerEvents = "auto";
+        a.addEventListener("click", () => {
+          alert("Darslarni ketma-ket o‘rganish kerak!");
+        });
+      }
+
+      lessonContainer.appendChild(a);
+    });
+  }
+
+  // Orqaga tugmasi funksiyasi
+  function backToHome() {
+    document.getElementById("lessons").classList.remove("active");
+    document.getElementById("home").classList.add("active");
+  }
+</script>
+
+</body>
+</html>
