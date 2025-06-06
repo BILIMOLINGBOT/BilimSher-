@@ -37,8 +37,17 @@
       background: #007bff; color: white; padding: 14px 20px;
       border-radius: 8px; min-width: 260px; text-align: center;
       font-weight: bold; text-decoration: none; transition: 0.3s;
+      position: relative;
     }
     a.button:hover { background-color: #0056b3; }
+    a.button.locked {
+      background: #e0e0e0;
+      color: #999;
+      cursor: not-allowed;
+    }
+    a.button.locked:hover {
+      background: #e0e0e0;
+    }
     .navigation {
       display: flex; justify-content: space-around;
       background: #fff; padding: 12px 0;
@@ -96,6 +105,36 @@
       padding-left: 8px;
       border-left: 3px solid #4285F4;
     }
+    
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 80%;
+      text-align: center;
+    }
+    .modal-button {
+      background: #4285F4;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      margin-top: 15px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -110,8 +149,8 @@
   <!-- Asosiy -->
   <section id="home" class="active">
     <div class="progress-container">
-      <div>Yakunlangan darslar: 5 / 36</div>
-      <div class="progress-bar"><div class="progress-fill" style="width: 14%;"></div></div>
+      <div>Yakunlangan darslar: <span id="completedLessons">0</span> / <span id="totalLessons">36</span></div>
+      <div class="progress-bar"><div id="progressFill" class="progress-fill" style="width: 0%;"></div></div>
     </div>
     
     <!-- Level Tabs -->
@@ -130,12 +169,12 @@
       <div class="lesson-group">
         <div class="lesson-group-title">To be fe'li</div>
         <div class="button-container">
-          <a href="lesson1.html" class="button">To be affirmative</a>
-          <a href="lesson2.html" class="button">To be affirmative test</a>
-          <a href="lesson3.html" class="button">To be question</a>
-          <a href="lesson4.html" class="button">To be question test</a>
-          <a href="lesson5.html" class="button">To be negative</a>
-          <a href="lesson6.html" class="button">To be negative test</a>
+          <a href="lesson1.html" class="button" data-lesson="1">To be affirmative</a>
+          <a href="lesson2.html" class="button locked" data-lesson="2">To be affirmative test</a>
+          <a href="lesson3.html" class="button locked" data-lesson="3">To be question</a>
+          <a href="lesson4.html" class="button locked" data-lesson="4">To be question test</a>
+          <a href="lesson5.html" class="button locked" data-lesson="5">To be negative</a>
+          <a href="lesson6.html" class="button locked" data-lesson="6">To be negative test</a>
         </div>
       </div>
       
@@ -143,12 +182,12 @@
       <div class="lesson-group">
         <div class="lesson-group-title">Present Continuous</div>
         <div class="button-container">
-          <a href="lesson7.html" class="button">Present continues affirmative</a>
-          <a href="lesson8.html" class="button">Present continues affirmative test</a>
-          <a href="lesson9.html" class="button">Present continues question</a>
-          <a href="lesson10.html" class="button">Present continues question test</a>
-          <a href="lesson11.html" class="button">Present continues negative</a>
-          <a href="lesson12.html" class="button">Present continues negative test</a>
+          <a href="lesson7.html" class="button locked" data-lesson="7">Present continues affirmative</a>
+          <a href="lesson8.html" class="button locked" data-lesson="8">Present continues affirmative test</a>
+          <a href="lesson9.html" class="button locked" data-lesson="9">Present continues question</a>
+          <a href="lesson10.html" class="button locked" data-lesson="10">Present continues question test</a>
+          <a href="lesson11.html" class="button locked" data-lesson="11">Present continues negative</a>
+          <a href="lesson12.html" class="button locked" data-lesson="12">Present continues negative test</a>
         </div>
       </div>
       
@@ -156,12 +195,12 @@
       <div class="lesson-group">
         <div class="lesson-group-title">Present Simple</div>
         <div class="button-container">
-          <a href="lesson13.html" class="button">Present simple affirmative</a>
-          <a href="lesson14.html" class="button">Present simple affirmative test</a>
-          <a href="lesson15.html" class="button">Present simple question</a>
-          <a href="lesson16.html" class="button">Present simple question test</a>
-          <a href="lesson17.html" class="button">Present simple negative</a>
-          <a href="lesson18.html" class="button">Present simple negative test</a>
+          <a href="lesson13.html" class="button locked" data-lesson="13">Present simple affirmative</a>
+          <a href="lesson14.html" class="button locked" data-lesson="14">Present simple affirmative test</a>
+          <a href="lesson15.html" class="button locked" data-lesson="15">Present simple question</a>
+          <a href="lesson16.html" class="button locked" data-lesson="16">Present simple question test</a>
+          <a href="lesson17.html" class="button locked" data-lesson="17">Present simple negative</a>
+          <a href="lesson18.html" class="button locked" data-lesson="18">Present simple negative test</a>
         </div>
       </div>
       
@@ -169,12 +208,12 @@
       <div class="lesson-group">
         <div class="lesson-group-title">I have/I have got</div>
         <div class="button-container">
-          <a href="lesson19.html" class="button">I have/I have got affirmative</a>
-          <a href="lesson20.html" class="button">I have/I have got affirmative test</a>
-          <a href="lesson21.html" class="button">I have/I have got question</a>
-          <a href="lesson22.html" class="button">I have/I have got question test</a>
-          <a href="lesson23.html" class="button">I have/I have got negative</a>
-          <a href="lesson24.html" class="button">I have/I have got negative test</a>
+          <a href="lesson19.html" class="button locked" data-lesson="19">I have/I have got affirmative</a>
+          <a href="lesson20.html" class="button locked" data-lesson="20">I have/I have got affirmative test</a>
+          <a href="lesson21.html" class="button locked" data-lesson="21">I have/I have got question</a>
+          <a href="lesson22.html" class="button locked" data-lesson="22">I have/I have got question test</a>
+          <a href="lesson23.html" class="button locked" data-lesson="23">I have/I have got negative</a>
+          <a href="lesson24.html" class="button locked" data-lesson="24">I have/I have got negative test</a>
         </div>
       </div>
       
@@ -182,12 +221,12 @@
       <div class="lesson-group">
         <div class="lesson-group-title">Past Simple</div>
         <div class="button-container">
-          <a href="lesson25.html" class="button">Past simple affirmative</a>
-          <a href="lesson26.html" class="button">Past simple affirmative test</a>
-          <a href="lesson27.html" class="button">Past simple question</a>
-          <a href="lesson28.html" class="button">Past simple question test</a>
-          <a href="lesson29.html" class="button">Past simple negative</a>
-          <a href="lesson30.html" class="button">Past simple negative test</a>
+          <a href="lesson25.html" class="button locked" data-lesson="25">Past simple affirmative</a>
+          <a href="lesson26.html" class="button locked" data-lesson="26">Past simple affirmative test</a>
+          <a href="lesson27.html" class="button locked" data-lesson="27">Past simple question</a>
+          <a href="lesson28.html" class="button locked" data-lesson="28">Past simple question test</a>
+          <a href="lesson29.html" class="button locked" data-lesson="29">Past simple negative</a>
+          <a href="lesson30.html" class="button locked" data-lesson="30">Past simple negative test</a>
         </div>
       </div>
       
@@ -195,12 +234,12 @@
       <div class="lesson-group">
         <div class="lesson-group-title">Past Continuous</div>
         <div class="button-container">
-          <a href="lesson31.html" class="button">Past continuous affirmative</a>
-          <a href="lesson32.html" class="button">Past continuous affirmative test</a>
-          <a href="lesson33.html" class="button">Past continuous question</a>
-          <a href="lesson34.html" class="button">Past continuous question test</a>
-          <a href="lesson35.html" class="button">Past continuous negative</a>
-          <a href="lesson36.html" class="button">Past continuous negative test</a>
+          <a href="lesson31.html" class="button locked" data-lesson="31">Past continuous affirmative</a>
+          <a href="lesson32.html" class="button locked" data-lesson="32">Past continuous affirmative test</a>
+          <a href="lesson33.html" class="button locked" data-lesson="33">Past continuous question</a>
+          <a href="lesson34.html" class="button locked" data-lesson="34">Past continuous question test</a>
+          <a href="lesson35.html" class="button locked" data-lesson="35">Past continuous negative</a>
+          <a href="lesson36.html" class="button locked" data-lesson="36">Past continuous negative test</a>
         </div>
       </div>
     </div>
@@ -253,6 +292,14 @@
     </div>
   </section>
 
+  <!-- Modal for locked lessons -->
+  <div id="lockedModal" class="modal">
+    <div class="modal-content">
+      <p>Darslarni ketma-ket oʻrganish kerak. Avval oldingi darslarni yakunlang.</p>
+      <button class="modal-button" onclick="document.getElementById('lockedModal').style.display='none'">Tushunarli</button>
+    </div>
+  </div>
+
   <!-- Navigatsiya -->
   <div class="navigation">
     <div class="nav-item active" data-target="home">
@@ -276,7 +323,7 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyD0gBUJNcrgvvntcrfKK7Ky8t6_9Qb96Io",
@@ -299,6 +346,103 @@
     const userName = document.getElementById('userName');
     if (user?.photo_url) userPhoto.src = user.photo_url;
     userName.innerText = user?.username || user?.first_name || 'Foydalanuvchi';
+
+    // User progress
+    let userProgress = {
+      completedLessons: [],
+      lastCompletedLesson: 0
+    };
+    
+    // Initialize user progress
+    async function initUserProgress() {
+      if (user?.id) {
+        const userRef = doc(db, "users", user.id.toString());
+        const userSnap = await getDoc(userRef);
+        
+        if (userSnap.exists()) {
+          userProgress = userSnap.data();
+        } else {
+          // Create new user document with default progress
+          await setDoc(userRef, userProgress);
+        }
+        
+        updateLessonAccess();
+        updateProgressUI();
+      }
+    }
+    
+    // Update which lessons are accessible
+    function updateLessonAccess() {
+      const lessonButtons = document.querySelectorAll('.button[data-lesson]');
+      const lastCompleted = userProgress.lastCompletedLesson || 0;
+      
+      lessonButtons.forEach(button => {
+        const lessonNum = parseInt(button.getAttribute('data-lesson'));
+        
+        if (lessonNum <= lastCompleted + 1) {
+          // Lesson is either completed or next in sequence
+          button.classList.remove('locked');
+          button.onclick = function(e) {
+            if (lessonNum === lastCompleted + 1) {
+              // Mark as completed when accessed (in a real app, this would happen after completion)
+              completeLesson(lessonNum);
+            }
+            // Allow navigation
+            return true;
+          };
+        } else {
+          // Lesson is locked
+          button.classList.add('locked');
+          button.onclick = function(e) {
+            e.preventDefault();
+            document.getElementById('lockedModal').style.display = 'flex';
+            return false;
+          };
+        }
+        
+        // Mark completed lessons differently
+        if (userProgress.completedLessons.includes(lessonNum)) {
+          button.style.backgroundColor = '#34A853';
+          button.innerHTML = `<i class="fas fa-check" style="margin-right: 8px;"></i>${button.textContent}`;
+        }
+      });
+    }
+    
+    // Update progress UI
+    function updateProgressUI() {
+      const completedCount = userProgress.completedLessons.length;
+      const totalLessons = 36; // Total lessons in A1 level
+      
+      document.getElementById('completedLessons').textContent = completedCount;
+      document.getElementById('totalLessons').textContent = totalLessons;
+      
+      const progressPercent = (completedCount / totalLessons) * 100;
+      document.getElementById('progressFill').style.width = `${progressPercent}%`;
+    }
+    
+    // Mark a lesson as completed
+    async function completeLesson(lessonNum) {
+      if (!userProgress.completedLessons.includes(lessonNum)) {
+        userProgress.completedLessons.push(lessonNum);
+        userProgress.lastCompletedLesson = Math.max(userProgress.lastCompletedLesson, lessonNum);
+        
+        if (user?.id) {
+          const userRef = doc(db, "users", user.id.toString());
+          await setDoc(userRef, userProgress, { merge: true });
+        }
+        
+        updateLessonAccess();
+        updateProgressUI();
+      }
+    }
+    
+    // For demo purposes - mark first lesson as completed
+    if (!user?.id) {
+      userProgress.completedLessons = [1];
+      userProgress.lastCompletedLesson = 1;
+      updateLessonAccess();
+      updateProgressUI();
+    }
 
     // Navigatsiya
     document.querySelectorAll('.nav-item').forEach(item => {
@@ -380,10 +524,4 @@
           }
         }
       } catch (error) {
-        lessonContainer.innerHTML = "<p>Xatolik yuz berdi.</p>";
-        console.error("Darslar yuklashda xatolik:", error);
-      }
-    }
-  </script>
-</body>
-</html>
+        lessonContainer.i
