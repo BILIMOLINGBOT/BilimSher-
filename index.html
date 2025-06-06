@@ -21,11 +21,53 @@
       padding-bottom: 100px;
     }
     .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
       font-size: 24px;
       font-weight: bold;
       color: #4285F4;
+    }
+    .logo img {
+      width: 32px;
+      margin-right: 8px;
+    }
+    .user-info {
+      background-color: #fff;
+      padding: 8px 12px;
+      border-radius: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      font-size: 14px;
+    }
+    .progress-container {
+      background-color: #fff;
+      padding: 12px;
+      border-radius: 12px;
       margin-bottom: 20px;
-      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .progress-label {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background-color: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 25%;
+      background-color: #34A853;
+      border-radius: 4px;
+      transition: width 0.5s ease;
     }
     .levels {
       display: flex;
@@ -53,6 +95,7 @@
       border-radius: 12px;
       padding: 16px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
     }
     .button-container {
       display: flex;
@@ -77,11 +120,50 @@
     a.button:hover {
       background-color: #0056b3;
     }
+    .navigation {
+      display: flex;
+      justify-content: space-around;
+      background-color: #fff;
+      padding: 12px 0;
+      border-radius: 12px;
+      box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 12px;
+      color: #4285F4;
+      cursor: pointer;
+    }
+    .nav-icon {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
   </style>
 </head>
 <body>
 
-  <div class="header">Darajani tanlang</div>
+  <div class="header">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="logo">
+      BilimSher
+    </div>
+    <div class="user-info">Ism: Anvar</div>
+  </div>
+
+  <div class="progress-container">
+    <div class="progress-label">Yakunlangan darslar: 5 / 20</div>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: 25%;"></div>
+    </div>
+  </div>
 
   <div class="levels">
     <div class="level active" data-level="A1">A1</div>
@@ -90,9 +172,28 @@
     <div class="level" data-level="B2">B2</div>
   </div>
 
-  <div id="lessonContainer" class="lessons">
-    <div class="button-container">
-      <!-- Dars tugmalari shu yerda ko‘rsatiladi -->
+  <div class="lessons">
+    <div id="lessonContainer" class="button-container">
+      <!-- Darslar shu yerga yuklanadi -->
+    </div>
+  </div>
+
+  <div class="navigation">
+    <div class="nav-item active">
+      <div class="nav-icon"><i class="fas fa-home"></i></div>
+      <div>Asosiy</div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon"><i class="fas fa-book"></i></div>
+      <div>Darslar</div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon"><i class="fas fa-chart-line"></i></div>
+      <div>Natijalar</div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon"><i class="fas fa-user"></i></div>
+      <div>Profil</div>
     </div>
   </div>
 
@@ -111,11 +212,10 @@
       appId: "1:890689414502:web:8141d7aab413495c0c14a7",
       measurementId: "G-ZBC8X1VVMZ"
     };
-
     firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
 
-    const lessonContainer = document.querySelector('.button-container');
+    const lessonContainer = document.getElementById('lessonContainer');
     const levelButtons = document.querySelectorAll('.level');
     let currentLevel = 'A1';
 
@@ -153,8 +253,8 @@
       });
     });
 
-    // Boshlang‘ich yuklanish: A1 darslari
     loadLessons(currentLevel);
   </script>
+
 </body>
 </html>
