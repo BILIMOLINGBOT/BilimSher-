@@ -1,35 +1,43 @@
+// .env fayldan konfiguratsiyalarni o'qish uchun
+require('dotenv').config();
+
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 
 const app = express();
+
+// Middleware lar
 app.use(cors());
 app.use(express.json());
 
-const BOT_TOKEN = 'SIZNING_BOT_TOKENINGIZ_HOZIR_BU YERGA_QO\'YING';
+// .env dan o'qilgan token va port
+const BOT_TOKEN = process.env.BOT_TOKEN;
+const PORT = process.env.PORT || 3000;
 
-// Profil rasm olish endpointi
+// Telegram foydalanuvchining profil rasm URL sini olish endpointi
 app.post('/getUserPhoto', async (req, res) => {
   try {
     const { userId } = req.body;
 
-    if (!userId) return res.status(400).json({ error: 'userId kerak' });
+    if (!userId) {
+      return res.status(400).json({ error: 'userId kerak' });
+    }
 
-    // 1. User profil rasm ma'lumotlarini olish
+    // Telegram API dan user profile photos olish
     const photosResponse = await axios.get(
       `https://api.telegram.org/bot${BOT_TOKEN}/getUserProfilePhotos`,
       { params: { user_id: userId, limit: 1 } }
     );
 
     if (!photosResponse.data.ok || photosResponse.data.result.total_count === 0) {
-      return res.json({ photoUrl: null });  // Profil rasmi yo'q
+      return res.json({ photoUrl: null }); // Profil rasmi yo'q
     }
 
-    // 2. Birinchi profil rasmning file_id sini olish
-    // (photos[0][0] - eng kichik o'lchamdagi rasm)
+    // Birinchi rasmning file_id sini olish
     const fileId = photosResponse.data.result.photos[0][0].file_id;
 
-    // 3. File path olish
+    // File path olish
     const fileResponse = await axios.get(
       `https://api.telegram.org/bot${BOT_TOKEN}/getFile`,
       { params: { file_id: fileId } }
@@ -41,10 +49,10 @@ app.post('/getUserPhoto', async (req, res) => {
 
     const filePath = fileResponse.data.result.file_path;
 
-    // 4. To'liq URL yaratish
+    // To'liq rasm URL sini yaratish
     const photoUrl = `https://api.telegram.org/file/bot${BOT_TOKEN}/${filePath}`;
 
-    // 5. Frontendga URL ni yuborish
+    // Frontendga yuborish
     res.json({ photoUrl });
 
   } catch (error) {
@@ -53,7 +61,6 @@ app.post('/getUserPhoto', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server ${PORT}-portda ishga tushdi`);
 });
