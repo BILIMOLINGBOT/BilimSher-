@@ -1,180 +1,162 @@
-<!DOCTYPE html>
-<html lang="uz">
+<!DOCTYPE html><html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BilimSher</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sozlamalar va Reyting</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body {
-      background-color: #f5f5f5;
-      color: #333;
-      max-width: 500px;
-      margin: 0 auto;
-      padding-bottom: 100px;
+      font-family: sans-serif;
+      background-color: #fff3b0;
+      margin: 0;
+      padding: 0;
+      color: #4d3f00;
     }
-    section { display: none; padding: 16px; }
-    section.active { display: block; }
-    .header {
-      display: flex; align-items: center; gap: 10px; padding: 16px;
+    h2 {
+      text-align: center;
+      margin-top: 1rem;
     }
-    .logo img {
-      width: 36px; height: 36px; border-radius: 50%; background-color: #ddd;
+    .section {
+      padding: 1rem;
+      background-color: #fffbe6;
+      margin: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
-    .logo span {
-      font-weight: bold; font-size: 18px;
+    .option {
+      margin-bottom: 1rem;
     }
-    .progress-container, .lessons, .results, .settings {
-      background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px;
+    .option label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
     }
-    .progress-bar { width: 100%; height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
-    .progress-fill { height: 100%; width: 25%; background: #34A853; transition: width 0.5s; }
-    .button-container {
-      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+    .buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
-    a.button {
-      background: #007bff; color: white; padding: 14px 20px;
-      border-radius: 8px; min-width: 260px; text-align: center;
-      font-weight: bold; text-decoration: none; transition: 0.3s;
+    .button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 10px;
+      background: #4d3f00;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: transform 0.1s ease;
     }
-    a.button:hover { background-color: #0056b3; }
-    .navigation {
-      display: flex; justify-content: space-around;
-      background: #fff; padding: 12px 0;
-      position: fixed; bottom: 0; left: 0; right: 0;
-      max-width: 500px; margin: 0 auto;
-      border-top: 1px solid #ddd;
+    .button:active {
+      transform: scale(0.95);
     }
-    .nav-item {
-      display: flex; flex-direction: column; align-items: center;
-      font-size: 12px; color: #555; cursor: pointer;
+    .user-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem;
+      background-color: #fff;
+      margin-bottom: 0.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .nav-item.active { color: #4285F4; font-weight: bold; }
-    .nav-icon { font-size: 20px; margin-bottom: 4px; }
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #ccc;
+      margin-right: 0.75rem;
+    }
+    .user-info {
+      flex: 1;
+    }
+    .stars {
+      font-size: 1.2rem;
+      color: gold;
+      font-weight: bold;
+    }
   </style>
 </head>
-<body>
-
-  <div class="header">
-    <div class="logo">
-      <img id="userPhoto" src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" />
-      <span id="userName">Foydalanuvchi</span>
-    </div>
-  </div>
-
-  <!-- Asosiy -->
-  <section id="home" class="active">
-    <div class="progress-container">
-      <div>Yakunlangan darslar: 5 / 20</div>
-      <div class="progress-bar"><div class="progress-fill" style="width: 25%;"></div></div>
-    </div>
-  </section>
-
-  <!-- Darslar -->
-  <section id="lessons">
-    <div class="lessons">
-      <div id="lessonContainer" class="button-container">
-        <p>Yuklanmoqda...</p>
+<body>  <h2>⚙️ Sozlamalar</h2>
+  <div class="section">
+    <div class="option">
+      <label>1. Tilni tanlash</label>
+      <div class="buttons">
+        <button class="button">🇺🇿 O‘zbekcha</button>
+        <button class="button">🇬🇧 Inglizcha</button>
       </div>
-    </div>
-  </section>
-
-  <!-- Natijalar -->
-  <section id="results">
-    <div class="results">
-      <h3>Sizning natijalaringiz</h3>
-      <p>Bu yerda foydalanuvchining statistikalari ko‘rsatiladi.</p>
-    </div>
-  </section>
-
-  <!-- Sozlamalar -->
-  <section id="settings">
-    <div class="settings">
-      <h3>Sozlamalar</h3>
-      <p>Til: O‘zbek</p>
-      <p>Tez orada boshqa sozlamalar ham qo‘shiladi.</p>
-    </div>
-  </section>
-
-  <!-- Navigatsiya -->
-  <div class="navigation">
-    <div class="nav-item active" data-target="home">
-      <div class="nav-icon"><i class="fas fa-home"></i></div>
-      <div>Asosiy</div>
-    </div>
-    <div class="nav-item" data-target="lessons">
-      <div class="nav-icon"><i class="fas fa-book"></i></div>
-      <div>Darslar</div>
-    </div>
-    <div class="nav-item" data-target="results">
-      <div class="nav-icon"><i class="fas fa-chart-line"></i></div>
-      <div>Natijalar</div>
-    </div>
-    <div class="nav-item" data-target="settings">
-      <div class="nav-icon"><i class="fas fa-cog"></i></div>
-      <div>Sozlamalar</div>
-    </div>
+    </div><div class="option">
+  <label>2. Ovoz tezligi</label>
+  <div class="buttons">
+    <button class="button">🐢 Sekin</button>
+    <button class="button">🚶 O‘rtacha</button>
+    <button class="button">🐇 Tez</button>
   </div>
+</div>
 
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+<div class="option">
+  <label>3. Ovoz turi</label>
+  <div class="buttons">
+    <button class="button">👩 Ayol ovozi</button>
+    <button class="button">👨 Erkak ovozi</button>
+  </div>
+</div>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyD0gBUJNcrgvvntcrfKK7Ky8t6_9Qb96Io",
-      authDomain: "bilimilova-64833.firebaseapp.com",
-      databaseURL: "https://bilimilova-64833-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "bilimilova-64833",
-      storageBucket: "bilimilova-64833.appspot.com",
-      messagingSenderId: "890689414502",
-      appId: "1:890689414502:web:8141d7aab413495c0c14a7",
-      measurementId: "G-ZBC8X1VVMZ"
-    };
+<div class="option">
+  <label>4. Tungi rejim</label>
+  <div class="buttons">
+    <button class="button">☀️ Yorug‘</button>
+    <button class="button">🌙 Qorong‘i</button>
+  </div>
+</div>
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const lessonContainer = document.getElementById("lessonContainer");
-    lessonContainer.innerHTML = "<p>Yuklanmoqda...</p>";
+<div class="option">
+  <label>5. Qayta tiklash</label>
+  <button class="button" onclick="resetProgress()">🔄 Natijalarni tozalash</button>
+</div>
 
-    try {
-      const querySnapshot = await getDocs(collection(db, "lessons"));
-      lessonContainer.innerHTML = "";
-      querySnapshot.forEach((doc) => {
-        const lesson = doc.data();
-        if (lesson.level === "A1") {
-          const a = document.createElement("a");
-          a.href = `lesson${lesson.id}.html`;
-          a.className = "button";
-          a.innerText = lesson.title;
-          lessonContainer.appendChild(a);
-        }
-      });
-    } catch (error) {
-      lessonContainer.innerHTML = "<p>Xatolik yuz berdi.</p>";
-      console.error("Darslar yuklashda xatolik:", error);
+<div class="option">
+  <label>6. Yordam va qo‘llanma</label>
+  <p>📖 Ilovadan foydalanish bo‘yicha qisqacha qo‘llanma</p>
+  <p>📞 Kontakt: +998 90 123 45 67</p>
+</div>
+
+<div class="option">
+  <label>7. Obuna haqida</label>
+  <p>👑 Premium: Faol</p>
+  <button class="button">💳 Obunani boshqarish</button>
+</div>
+
+  </div>  <h2>🏆 Reyting</h2>
+  <div class="section">
+    <div class="user-card">
+      <div class="avatar"></div>
+      <div class="user-info">
+        <strong>@jamshid123</strong><br>
+        <span class="stars">⭐ 142</span> - Ustoz
+      </div>
+      <div><strong>1-o‘rin</strong></div>
+    </div>
+    <div class="user-card">
+      <div class="avatar"></div>
+      <div class="user-info">
+        <strong>@nodira_q</strong><br>
+        <span class="stars">⭐ 95</span> - O‘rta
+      </div>
+      <div><strong>2-o‘rin</strong></div>
+    </div>
+    <div class="user-card">
+      <div class="avatar"></div>
+      <div class="user-info">
+        <strong>@ali_dev</strong><br>
+        <span class="stars">⭐ 45</span> - Boshlovchi
+      </div>
+      <div><strong>3-o‘rin</strong></div>
+    </div>
+  </div>  <script>
+    function resetProgress() {
+      if (confirm("Haqiqatan ham barcha natijalarni o‘chirib tashlamoqchimisiz?")) {
+        localStorage.clear();
+        alert("Barcha ma’lumotlar tozalandi.");
+      }
     }
-
-    // Telegram foydalanuvchi maʼlumotlari
-    window.Telegram.WebApp.ready();
-    const user = Telegram.WebApp.initDataUnsafe.user;
-    const userPhoto = document.getElementById('userPhoto');
-    const userName = document.getElementById('userName');
-    if (user?.photo_url) userPhoto.src = user.photo_url;
-    userName.innerText = user?.username || user?.first_name || 'Foydalanuvchi';
-
-    // Navigatsiya
-    document.querySelectorAll('.nav-item').forEach(item => {
-      item.addEventListener('click', () => {
-        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-
-        item.classList.add('active');
-        const target = item.getAttribute('data-target');
-        document.getElementById(target).classList.add('active');
-      });
-    });
-  </script>
-</body>
+  </script></body>
 </html>
