@@ -25,7 +25,7 @@
     .logo span {
       font-weight: bold; font-size: 18px;
     }
-    .progress-container, .lessons, .results, .settings, .level-container {
+    .progress-container, .lessons, .results, .settings {
       background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px;
     }
     .progress-bar { width: 100%; height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
@@ -37,20 +37,8 @@
       background: #007bff; color: white; padding: 14px 20px;
       border-radius: 8px; min-width: 260px; text-align: center;
       font-weight: bold; text-decoration: none; transition: 0.3s;
-      display: block;
     }
     a.button:hover { background-color: #0056b3; }
-    .level-button {
-      background: #4285F4; color: white; padding: 16px 20px;
-      border-radius: 8px; width: 100%; text-align: center;
-      font-weight: bold; text-decoration: none; transition: 0.3s;
-      margin-bottom: 12px; display: flex; justify-content: space-between;
-      align-items: center;
-    }
-    .level-button:hover { opacity: 0.9; }
-    .level-button i { font-size: 20px; }
-    .level-title { font-size: 18px; }
-    .level-progress { font-size: 14px; opacity: 0.8; }
     .navigation {
       display: flex; justify-content: space-around;
       background: #fff; padding: 12px 0;
@@ -64,8 +52,40 @@
     }
     .nav-item.active { color: #4285F4; font-weight: bold; }
     .nav-icon { font-size: 20px; margin-bottom: 4px; }
-    .level-lessons { display: none; padding-top: 12px; }
-    .level-lessons.active { display: block; }
+    
+    /* New styles for level tabs */
+    .level-tabs {
+      display: flex;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .level-tab {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    .level-tab.active {
+      background: #4285F4;
+      color: white;
+    }
+    .level-content {
+      display: none;
+    }
+    .level-content.active {
+      display: block;
+    }
+    .level-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 12px;
+      color: #4285F4;
+    }
   </style>
 </head>
 <body>
@@ -84,39 +104,40 @@
       <div class="progress-bar"><div class="progress-fill" style="width: 25%;"></div></div>
     </div>
     
-    <div class="level-container">
-      <h3 style="margin-bottom: 16px;">Darajalarni tanlang</h3>
-      
-      <a href="#" class="level-button" data-level="A1">
-        <span class="level-title">Boshlang'ich (A1)</span>
-        <span class="level-progress">5/10 dars</span>
-      </a>
-      <div id="A1-lessons" class="level-lessons button-container">
-        <!-- A1 darslari bu yerga yuklanadi -->
+    <!-- Level Tabs -->
+    <div class="level-tabs">
+      <div class="level-tab active" data-level="a1">A1</div>
+      <div class="level-tab" data-level="a2">A2</div>
+      <div class="level-tab" data-level="b1">B1</div>
+      <div class="level-tab" data-level="b2">B2</div>
+    </div>
+    
+    <!-- Level Contents -->
+    <div id="a1-level" class="level-content active">
+      <div class="level-title">Boshlang'ich (A1) Darslari</div>
+      <div id="a1-lessons" class="button-container">
+        <p>Yuklanmoqda...</p>
       </div>
-      
-      <a href="#" class="level-button" data-level="A2">
-        <span class="level-title">Elementar (A2)</span>
-        <span class="level-progress">0/12 dars</span>
-      </a>
-      <div id="A2-lessons" class="level-lessons button-container">
-        <!-- A2 darslari bu yerga yuklanadi -->
+    </div>
+    
+    <div id="a2-level" class="level-content">
+      <div class="level-title">Elementar (A2) Darslari</div>
+      <div id="a2-lessons" class="button-container">
+        <p>Yuklanmoqda...</p>
       </div>
-      
-      <a href="#" class="level-button" data-level="B1">
-        <span class="level-title">O'rta (B1)</span>
-        <span class="level-progress">0/15 dars</span>
-      </a>
-      <div id="B1-lessons" class="level-lessons button-container">
-        <!-- B1 darslari bu yerga yuklanadi -->
+    </div>
+    
+    <div id="b1-level" class="level-content">
+      <div class="level-title">O'rta (B1) Darslari</div>
+      <div id="b1-lessons" class="button-container">
+        <p>Yuklanmoqda...</p>
       </div>
-      
-      <a href="#" class="level-button" data-level="B2">
-        <span class="level-title">Yuqori o'rta (B2)</span>
-        <span class="level-progress">0/8 dars</span>
-      </a>
-      <div id="B2-lessons" class="level-lessons button-container">
-        <!-- B2 darslari bu yerga yuklanadi -->
+    </div>
+    
+    <div id="b2-level" class="level-content">
+      <div class="level-title">Yuqori O'rta (B2) Darslari</div>
+      <div id="b2-lessons" class="button-container">
+        <p>Yuklanmoqda...</p>
       </div>
     </div>
   </section>
@@ -185,77 +206,65 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-    const lessonContainer = document.getElementById("lessonContainer");
-    const A1Container = document.getElementById("A1-lessons");
-    const A2Container = document.getElementById("A2-lessons");
-    const B1Container = document.getElementById("B1-lessons");
-    const B2Container = document.getElementById("B2-lessons");
     
-    lessonContainer.innerHTML = "<p>Yuklanmoqda...</p>";
-    A1Container.innerHTML = "<p>Yuklanmoqda...</p>";
-    A2Container.innerHTML = "<p>Yuklanmoqda...</p>";
-    B1Container.innerHTML = "<p>Yuklanmoqda...</p>";
-    B2Container.innerHTML = "<p>Yuklanmoqda...</p>";
-
-    async function loadLessons() {
+    // Function to load lessons for a specific level
+    async function loadLessons(level, containerId) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "<p>Yuklanmoqda...</p>";
+      
       try {
         const querySnapshot = await getDocs(collection(db, "lessons"));
+        container.innerHTML = "";
         
-        // Clear containers
-        lessonContainer.innerHTML = "";
-        A1Container.innerHTML = "";
-        A2Container.innerHTML = "";
-        B1Container.innerHTML = "";
-        B2Container.innerHTML = "";
-        
-        // Count lessons per level
-        const lessonCounts = { A1: 0, A2: 0, B1: 0, B2: 0 };
-        
+        let hasLessons = false;
         querySnapshot.forEach((doc) => {
           const lesson = doc.data();
-          const a = document.createElement("a");
-          a.href = `lesson${lesson.id}.html`;
-          a.className = "button";
-          a.innerText = lesson.title;
-          
-          // Add to all lessons container
-          lessonContainer.appendChild(a.cloneNode(true));
-          
-          // Add to appropriate level container
-          if (lesson.level === "A1") {
-            A1Container.appendChild(a);
-            lessonCounts.A1++;
-          } else if (lesson.level === "A2") {
-            A2Container.appendChild(a);
-            lessonCounts.A2++;
-          } else if (lesson.level === "B1") {
-            B1Container.appendChild(a);
-            lessonCounts.B1++;
-          } else if (lesson.level === "B2") {
-            B2Container.appendChild(a);
-            lessonCounts.B2++;
+          if (lesson.level.toLowerCase() === level.toLowerCase()) {
+            hasLessons = true;
+            const a = document.createElement("a");
+            a.href = `lesson${lesson.id}.html`;
+            a.className = "button";
+            a.innerText = lesson.title;
+            container.appendChild(a);
           }
         });
         
-        // Update level progress indicators
-        document.querySelector('[data-level="A1"] .level-progress').textContent = 
-          `0/${lessonCounts.A1} dars`;
-        document.querySelector('[data-level="A2"] .level-progress').textContent = 
-          `0/${lessonCounts.A2} dars`;
-        document.querySelector('[data-level="B1"] .level-progress').textContent = 
-          `0/${lessonCounts.B1} dars`;
-        document.querySelector('[data-level="B2"] .level-progress').textContent = 
-          `0/${lessonCounts.B2} dars`;
-          
+        if (!hasLessons) {
+          container.innerHTML = `<p>${level.toUpperCase()} darajasida hozircha darslar mavjud emas.</p>`;
+        }
       } catch (error) {
-        lessonContainer.innerHTML = "<p>Xatolik yuz berdi.</p>";
-        A1Container.innerHTML = "<p>Xatolik yuz berdi.</p>";
-        A2Container.innerHTML = "<p>Xatolik yuz berdi.</p>";
-        B1Container.innerHTML = "<p>Xatolik yuz berdi.</p>";
-        B2Container.innerHTML = "<p>Xatolik yuz berdi.</p>";
+        container.innerHTML = "<p>Xatolik yuz berdi.</p>";
         console.error("Darslar yuklashda xatolik:", error);
       }
     }
+
+    // Load lessons for all levels when page loads
+    document.addEventListener('DOMContentLoaded', async () => {
+      await loadLessons('a1', 'a1-lessons');
+      await loadLessons('a2', 'a2-lessons');
+      await loadLessons('b1', 'b1-lessons');
+      await loadLessons('b2', 'b2-lessons');
+      
+      // Also load lessons for the separate lessons page
+      const lessonContainer = document.getElementById("lessonContainer");
+      if (lessonContainer) {
+        try {
+          const querySnapshot = await getDocs(collection(db, "lessons"));
+          lessonContainer.innerHTML = "";
+          querySnapshot.forEach((doc) => {
+            const lesson = doc.data();
+            const a = document.createElement("a");
+            a.href = `lesson${lesson.id}.html`;
+            a.className = "button";
+            a.innerText = `${lesson.level}: ${lesson.title}`;
+            lessonContainer.appendChild(a);
+          });
+        } catch (error) {
+          lessonContainer.innerHTML = "<p>Xatolik yuz berdi.</p>";
+          console.error("Darslar yuklashda xatolik:", error);
+        }
+      }
+    });
 
     // Telegram foydalanuvchi ma'lumotlari
     window.Telegram.WebApp.ready();
@@ -277,31 +286,17 @@
       });
     });
     
-    // Level buttons toggle
-    document.querySelectorAll('.level-button').forEach(button => {
-      button.addEventListener('click', (e) => {
-        e.preventDefault();
-        const level = button.getAttribute('data-level');
-        const lessonsContainer = document.getElementById(`${level}-lessons`);
+    // Level tabs functionality
+    document.querySelectorAll('.level-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.level-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.level-content').forEach(c => c.classList.remove('active'));
         
-        // Toggle active class
-        lessonsContainer.classList.toggle('active');
-        
-        // Rotate icon
-        const icon = button.querySelector('i');
-        if (!icon) {
-          const newIcon = document.createElement('i');
-          newIcon.className = 'fas fa-chevron-down';
-          button.appendChild(newIcon);
-        } else {
-          icon.classList.toggle('fa-chevron-down');
-          icon.classList.toggle('fa-chevron-up');
-        }
+        tab.classList.add('active');
+        const level = tab.getAttribute('data-level');
+        document.getElementById(`${level}-level`).classList.add('active');
       });
     });
-
-    // Load lessons
-    loadLessons();
   </script>
 </body>
 </html>
