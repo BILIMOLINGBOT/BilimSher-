@@ -1,118 +1,243 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Darslar ro‘yxati</title>
-<style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    max-width: 500px;
-    margin: 20px auto;
-    padding: 10px;
-    background: #fff3b0;
-    color: #4d3f00;
-  }
-  #lessonContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  a.button {
-    display: block;
-    padding: 14px 18px;
-    text-decoration: none;
-    background-color: #4d3f00;
-    color: white;
-    font-weight: 700;
-    border-radius: 10px;
-    user-select: none;
-    transition: background-color 0.3s;
-  }
-  a.button:hover {
-    background-color: #6b5f10;
-  }
-  a.button.locked {
-    background-color: #ccc;
-    color: #888;
-    cursor: not-allowed;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BilimSher</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background-color: #f5f5f5;
+      color: #333;
+      padding: 16px;
+      max-width: 500px;
+      margin: 0 auto;
+      padding-bottom: 100px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #4285F4;
+    }
+    .logo img {
+      width: 32px;
+      margin-right: 8px;
+    }
+    .user-info {
+      background-color: #fff;
+      padding: 8px 12px;
+      border-radius: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      font-size: 14px;
+    }
+    .progress-container {
+      background-color: #fff;
+      padding: 12px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .progress-label {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background-color: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 25%;
+      background-color: #34A853;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+    .levels {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+    }
+    .level {
+      min-width: 80px;
+      padding: 12px;
+      background-color: #fff;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .level.active {
+      background-color: #4285F4;
+      color: white;
+    }
+    .lessons {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    a.button {
+      display: inline-block;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      padding: 14px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 16px;
+      min-width: 260px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    a.button:hover {
+      background-color: #0056b3;
+    }
+    .navigation {
+      display: flex;
+      justify-content: space-around;
+      background-color: #fff;
+      padding: 12px 0;
+      border-radius: 12px;
+      box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 12px;
+      color: #4285F4;
+      cursor: pointer;
+    }
+    .nav-item.active {
+      font-weight: bold;
+    }
+    .nav-icon {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+  </style>
 </head>
 <body>
 
-<h2>Darslar ro‘yxati</h2>
-<div id="lessonContainer">Yuklanmoqda...</div>
+  <div class="header">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="logo" />
+      BilimSher
+    </div>
+    <div class="user-info">Foydalanuvchi: <span id="userName">...</span></div>
+  </div>
 
-<script>
-  const lessonList = [
-    "To be affirmative",
-    "To be affirmative test",
-    "To be question",
-    "To be question test",
-    "To be negative",
-    "To be negative test",
-    "Present continues affirmative",
-    "Present continues affirmative test",
-    "Present continues question",
-    "Present continues question test",
-    "Present continues negative",
-    "Present continues negative test",
-    "Present simple affirmative",
-    "Present simple affirmative test",
-    "Present simple question",
-    "Present simple question test",
-    "Present simple negative",
-    "Present simple negative test",
-    "I have/I have got affirmative",
-    "I have/I have got affirmative test",
-    "I have/I have got question",
-    "I have/I have got question test",
-    "I have/I have got negative",
-    "I have/I have got negative test",
-    "Past simple affirmative",
-    "Past simple affirmative test",
-    "Past simple question",
-    "Past simple question test",
-    "Past simple negative",
-    "Past simple negative test",
-    "Past continuous affirmative",
-    "Past continuous affirmative test",
-    "Past continuous question",
-    "Past continuous question test",
-    "Past continuous negative",
-    "Past continuous negative test"
-  ];
+  <div class="progress-container">
+    <div class="progress-label">Yakunlangan darslar: 5 / 20</div>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: 25%;"></div>
+    </div>
+  </div>
 
-  // Demo: foydalanuvchi nechta darsni tugatganini saqlaymiz
-  let completedLessons = 5;
+  <div class="levels">
+    <div class="level active" data-level="A1">A1</div>
+    <div class="level" data-level="A2">A2</div>
+    <div class="level" data-level="B1">B1</div>
+    <div class="level" data-level="B2">B2</div>
+  </div>
 
-  const lessonContainer = document.getElementById("lessonContainer");
-  lessonContainer.innerHTML = ""; // tozalaymiz
+  <div class="lessons">
+    <div id="lessonContainer" class="button-container"></div>
+  </div>
 
-  lessonList.forEach((title, index) => {
-    const lessonNumber = index + 1;
-    const a = document.createElement("a");
-    a.className = "button";
-    a.textContent = `${lessonNumber}. ${title}`;
+  <div class="navigation">
+    <div class="nav-item active">
+      <div class="nav-icon"><i class="fas fa-home"></i></div>
+      <div>Asosiy</div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon"><i class="fas fa-book"></i></div>
+      <div>Darslar</div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon"><i class="fas fa-chart-line"></i></div>
+      <div>Natijalar</div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-icon"><i class="fas fa-cog"></i></div>
+      <div>Sozlamalar</div>
+    </div>
+  </div>
 
-    if (lessonNumber <= completedLessons + 1) {
-      // Ochiq darslar uchun
-      a.href = `lesson${lessonNumber}.html`;
-      a.target = "_blank";
-    } else {
-      // Yopiq darslar uchun
-      a.classList.add("locked");
-      a.href = "#";
-      a.addEventListener("click", (e) => {
-        e.preventDefault();
-        alert("Darslarni ketma-ket o'rganish kerak");
+  <!-- Telegram Web Apps JS -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    window.Telegram.WebApp.ready();
+
+    // Foydalanuvchi ma'lumotlarini olish
+    const user = Telegram.WebApp.initDataUnsafe.user;
+
+    // Foydalanuvchi ismi yoki username, agar yo'q bo'lsa 'Foydalanuvchi' deb yozamiz
+    let name = user?.username || user?.first_name || 'Foydalanuvchi';
+
+    // Headerdagi spanga ismni chiqaramiz
+    document.getElementById('userName').innerText = name;
+
+    // Darslar ro'yxati (faqat A1 daraja uchun)
+    const lessons = [
+      { id: 1, title: "To be affirmative", level: "A1", points: 10 },
+      { id: 2, title: "To be affirmative test", level: "A1", points: 20 },
+      { id: 3, title: "To be question", level: "A1", points: 10 },
+      { id: 4, title: "To be question test", level: "A1", points: 20 },
+      { id: 5, title: "To be negative", level: "A1", points: 10 },
+      { id: 6, title: "To be negative test", level: "A1", points: 20 },
+      // boshqalar...
+    ];
+
+    const lessonContainer = document.getElementById("lessonContainer");
+
+    // Faol daraja - A1 deb olamiz, keyinchalik o'zgartirish mumkin
+    const activeLevel = "A1";
+
+    // Darslarni chiqarish
+    lessons
+      .filter(lesson => lesson.level === activeLevel)
+      .forEach(lesson => {
+        const a = document.createElement("a");
+        a.href = `lesson${lesson.id}.html`; // Har bir dars uchun fayl nomi
+        a.className = "button";
+        a.innerText = lesson.title;
+        lessonContainer.appendChild(a);
       });
-    }
 
-    lessonContainer.appendChild(a);
-  });
-</script>
-
+  </script>
 </body>
 </html>
