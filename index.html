@@ -71,7 +71,78 @@
     </div>
   </section>
 
-  <!-- Darslar -->
+
+  <div class="levels">
+    <div class="level active" data-level="A1">A1</div>
+    <div class="level" data-level="A2">A2</div>
+    <div class="level" data-level="B1">B1</div>
+    <div class="level" data-level="B2">B2</div>
+  </div>
+
+  // Darslar ro'yxati (36 ta)
+const lessonList = [
+  "To be affirmative",
+  "To be affirmative test",
+  "To be question",
+  "To be question test",
+  "To be negative",
+  "To be negative test",
+  "Present continues affirmative",
+  "Present continues affirmative test",
+  "Present continues question",
+  "Present continues question test",
+  "Present continues negative",
+  "Present continues negative test",
+  "Present simple affirmative",
+  "Present simple affirmative test",
+  "Present simple question",
+  "Present simple question test",
+  "Present simple negative",
+  "Present simple negative test",
+  "I have/I have got affirmative",
+  "I have/I have got affirmative test",
+  "I have/I have got question",
+  "I have/I have got question test",
+  "I have/I have got negative",
+  "I have/I have got negative test",
+  "Past simple affirmative",
+  "Past simple affirmative test",
+  "Past simple question",
+  "Past simple question test",
+  "Past simple negative",
+  "Past simple negative test",
+  "Past continuous affirmative",
+  "Past continuous affirmative test",
+  "Past continuous question",
+  "Past continuous question test",
+  "Past continuous negative",
+  "Past continuous negative test"
+];
+
+// Foydalanuvchi qancha darsni tugatgan (demo tarzda 5)
+let completedLessons = 5;
+
+lessonContainer.innerHTML = "";
+lessonList.forEach((title, index) => {
+  const lessonNumber = index + 1;
+  const a = document.createElement("a");
+  a.className = "button";
+  a.innerText = `${lessonNumber}. ${title}`;
+  if (lessonNumber <= completedLessons + 1) {
+    // Ochiq dars
+    a.href = `lesson${lessonNumber}.html`;
+  } else {
+    // Yopiq dars
+    a.style.backgroundColor = "#ccc";
+    a.style.pointerEvents = "auto";
+    a.style.cursor = "not-allowed";
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      alert("Darslarni ketma-ket oʻrganish kerak");
+    });
+  }
+  lessonContainer.appendChild(a);
+});
   <section id="lessons">
     <div class="lessons">
       <div id="lessonContainer" class="button-container">
@@ -135,7 +206,6 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-
     const lessonContainer = document.getElementById("lessonContainer");
     lessonContainer.innerHTML = "<p>Yuklanmoqda...</p>";
 
@@ -165,18 +235,17 @@
     if (user?.photo_url) userPhoto.src = user.photo_url;
     userName.innerText = user?.username || user?.first_name || 'Foydalanuvchi';
 
-    // Navigatsiya almashinuvi
+    // Navigatsiya
     document.querySelectorAll('.nav-item').forEach(item => {
       item.addEventListener('click', () => {
         document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
         document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
 
         item.classList.add('active');
-        const targetId = item.getAttribute('data-target');
-        document.getElementById(targetId).classList.add('active');
+        const target = item.getAttribute('data-target');
+        document.getElementById(target).classList.add('active');
       });
     });
   </script>
-
 </body>
 </html>
