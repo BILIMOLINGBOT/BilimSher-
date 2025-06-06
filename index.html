@@ -25,34 +25,20 @@
     .logo span {
       font-weight: bold; font-size: 18px;
     }
-    .levels {
-      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 20px;
+    .progress-container, .lessons, .results, .settings {
+      background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px;
     }
-    .level-button {
-      background: #34a853; color: white;
-      padding: 14px 20px;
-      border-radius: 10px;
-      min-width: 100px;
-      text-align: center;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-      transition: background 0.3s;
+    .progress-bar { width: 100%; height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
+    .progress-fill { height: 100%; width: 25%; background: #34A853; transition: width 0.5s; }
+    .button-container {
+      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
     }
-    .level-button:hover { background: #2c8d47; }
-
-    .lesson-card {
-      background: #fff;
-      padding: 14px;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      font-weight: bold;
-      color: #007bff;
-      text-decoration: none;
-      display: block;
+    a.button {
+      background: #007bff; color: white; padding: 14px 20px;
+      border-radius: 8px; min-width: 260px; text-align: center;
+      font-weight: bold; text-decoration: none; transition: 0.3s;
     }
-
+    a.button:hover { background-color: #0056b3; }
     .navigation {
       display: flex; justify-content: space-around;
       background: #fff; padding: 12px 0;
@@ -77,6 +63,7 @@
     </div>
   </div>
 
+  
   <!-- Asosiy sahifa -->
   <section id="home" class="active">
     <h3>Darajani tanlang</h3>
@@ -91,6 +78,14 @@
     </div>
   </section>
 
+  <!-- Darslar -->
+  <section id="lessons">
+    <div class="lessons">
+      <div id="lessonContainer" class="button-container">
+        <p>Yuklanmoqda...</p>
+      </div>
+    <
+
   <!-- Natijalar -->
   <section id="results">
     <div class="results">
@@ -104,7 +99,7 @@
     <div class="settings">
       <h3>Sozlamalar</h3>
       <p>Til: O‘zbek</p>
-      <p>Yana sozlamalar qo‘shiladi.</p>
+      <p>Tez orada boshqa sozlamalar ham qo‘shiladi.</p>
     </div>
   </section>
 
@@ -113,6 +108,10 @@
     <div class="nav-item active" data-target="home">
       <div class="nav-icon"><i class="fas fa-home"></i></div>
       <div>Asosiy</div>
+    </div>
+    <div class="nav-item" data-target="lessons">
+      <div class="nav-icon"><i class="fas fa-book"></i></div>
+      <div>Darslar</div>
     </div>
     <div class="nav-item" data-target="results">
       <div class="nav-icon"><i class="fas fa-chart-line"></i></div>
@@ -143,31 +142,24 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const lessonContainer = document.getElementById("lessonContainer");
+    lessonContainer.innerHTML = "<p>Yuklanmoqda...</p>";
 
-    async function loadLessons(level) {
-      lessonContainer.innerHTML = "<p>Yuklanmoqda...</p>";
-      try {
-        const querySnapshot = await getDocs(collection(db, "lessons"));
-        let found = false;
-        lessonContainer.innerHTML = "";
-        querySnapshot.forEach((doc) => {
-          const lesson = doc.data();
-          if (lesson.level === level) {
-            found = true;
-            const a = document.createElement("a");
-            a.href = `lesson${lesson.id}.html`;
-            a.className = "lesson-card";
-            a.innerText = lesson.title;
-            lessonContainer.appendChild(a);
-          }
-        });
-        if (!found) {
-          lessonContainer.innerHTML = "<p>Bu darajada darslar topilmadi.</p>";
+    try {
+      const querySnapshot = await getDocs(collection(db, "lessons"));
+      lessonContainer.innerHTML = "";
+      querySnapshot.forEach((doc) => {
+        const lesson = doc.data();
+        if (lesson.level === "A1") {
+          const a = document.createElement("a");
+          a.href = `lesson${lesson.id}.html`;
+          a.className = "button";
+          a.innerText = lesson.title;
+          lessonContainer.appendChild(a);
         }
-      } catch (error) {
-        lessonContainer.innerHTML = "<p>Xatolik yuz berdi.</p>";
-        console.error("Darslar yuklashda xatolik:", error);
-      }
+      });
+    } catch (error) {
+      lessonContainer.innerHTML = "<p>Xatolik yuz berdi.</p>";
+      console.error("Darslar yuklashda xatolik:", error);
     }
 
     // Telegram foydalanuvchi maʼlumotlari
@@ -183,17 +175,10 @@
       item.addEventListener('click', () => {
         document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
         document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+
         item.classList.add('active');
         const target = item.getAttribute('data-target');
         document.getElementById(target).classList.add('active');
-      });
-    });
-
-    // Daraja tugmalari
-    document.querySelectorAll('.level-button').forEach(button => {
-      button.addEventListener('click', () => {
-        const level = button.getAttribute('data-level');
-        loadLessons(level);
       });
     });
   </script>
