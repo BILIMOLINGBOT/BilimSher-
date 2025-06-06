@@ -1,162 +1,89 @@
-<!DOCTYPE html><html lang="uz">
+<!DOCTYPE html>
+<html lang="uz">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sozlamalar va Reyting</title>
+  <title>Sozlamalar</title>
   <style>
     body {
       font-family: sans-serif;
       background-color: #fff3b0;
-      margin: 0;
-      padding: 0;
+      color: #4d3f00;
+      padding: 20px;
+    }
+    .setting {
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+    }
+    select, button {
+      padding: 8px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      background-color: #f6d860;
       color: #4d3f00;
     }
-    h2 {
-      text-align: center;
-      margin-top: 1rem;
-    }
-    .section {
-      padding: 1rem;
-      background-color: #fffbe6;
-      margin: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .option {
-      margin-bottom: 1rem;
-    }
-    .option label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-    }
-    .buttons {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .button {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 10px;
-      background: #4d3f00;
+    .dark-mode {
+      background-color: #2e2e2e;
       color: white;
-      font-weight: bold;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-      transition: transform 0.1s ease;
-    }
-    .button:active {
-      transform: scale(0.95);
-    }
-    .user-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.75rem;
-      background-color: #fff;
-      margin-bottom: 0.5rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: #ccc;
-      margin-right: 0.75rem;
-    }
-    .user-info {
-      flex: 1;
-    }
-    .stars {
-      font-size: 1.2rem;
-      color: gold;
-      font-weight: bold;
     }
   </style>
 </head>
-<body>  <h2>⚙️ Sozlamalar</h2>
-  <div class="section">
-    <div class="option">
-      <label>1. Tilni tanlash</label>
-      <div class="buttons">
-        <button class="button">🇺🇿 O‘zbekcha</button>
-        <button class="button">🇬🇧 Inglizcha</button>
-      </div>
-    </div><div class="option">
-  <label>2. Ovoz tezligi</label>
-  <div class="buttons">
-    <button class="button">🐢 Sekin</button>
-    <button class="button">🚶 O‘rtacha</button>
-    <button class="button">🐇 Tez</button>
+<body id="app">
+
+  <h1>Sozlamalar</h1>
+
+  <div class="setting">
+    <label>Tilni tanlang:</label>
+    <select id="language">
+      <option value="uz">O‘zbekcha</option>
+      <option value="en">English</option>
+    </select>
   </div>
-</div>
 
-<div class="option">
-  <label>3. Ovoz turi</label>
-  <div class="buttons">
-    <button class="button">👩 Ayol ovozi</button>
-    <button class="button">👨 Erkak ovozi</button>
+  <div class="setting">
+    <label>Ovoz tezligi:</label>
+    <select id="speed">
+      <option value="0.8">Sekin</option>
+      <option value="1">O‘rtacha</option>
+      <option value="1.2">Tez</option>
+    </select>
   </div>
-</div>
 
-<div class="option">
-  <label>4. Tungi rejim</label>
-  <div class="buttons">
-    <button class="button">☀️ Yorug‘</button>
-    <button class="button">🌙 Qorong‘i</button>
+  <div class="setting">
+    <label>Tungi rejim:</label>
+    <button onclick="toggleDarkMode()">Yoqish / O‘chirish</button>
   </div>
-</div>
 
-<div class="option">
-  <label>5. Qayta tiklash</label>
-  <button class="button" onclick="resetProgress()">🔄 Natijalarni tozalash</button>
-</div>
+  <div class="setting">
+    <label>Progresni tozalash:</label>
+    <button onclick="resetProgress()">Tozalash</button>
+  </div>
 
-<div class="option">
-  <label>6. Yordam va qo‘llanma</label>
-  <p>📖 Ilovadan foydalanish bo‘yicha qisqacha qo‘llanma</p>
-  <p>📞 Kontakt: +998 90 123 45 67</p>
-</div>
+  <script>
+    // LocalStorage’dan o‘qish
+    document.getElementById('language').value = localStorage.getItem('lang') || 'uz';
+    document.getElementById('speed').value = localStorage.getItem('speed') || '1';
 
-<div class="option">
-  <label>7. Obuna haqida</label>
-  <p>👑 Premium: Faol</p>
-  <button class="button">💳 Obunani boshqarish</button>
-</div>
+    // Saqlash
+    document.getElementById('language').addEventListener('change', function () {
+      localStorage.setItem('lang', this.value);
+    });
 
-  </div>  <h2>🏆 Reyting</h2>
-  <div class="section">
-    <div class="user-card">
-      <div class="avatar"></div>
-      <div class="user-info">
-        <strong>@jamshid123</strong><br>
-        <span class="stars">⭐ 142</span> - Ustoz
-      </div>
-      <div><strong>1-o‘rin</strong></div>
-    </div>
-    <div class="user-card">
-      <div class="avatar"></div>
-      <div class="user-info">
-        <strong>@nodira_q</strong><br>
-        <span class="stars">⭐ 95</span> - O‘rta
-      </div>
-      <div><strong>2-o‘rin</strong></div>
-    </div>
-    <div class="user-card">
-      <div class="avatar"></div>
-      <div class="user-info">
-        <strong>@ali_dev</strong><br>
-        <span class="stars">⭐ 45</span> - Boshlovchi
-      </div>
-      <div><strong>3-o‘rin</strong></div>
-    </div>
-  </div>  <script>
-    function resetProgress() {
-      if (confirm("Haqiqatan ham barcha natijalarni o‘chirib tashlamoqchimisiz?")) {
-        localStorage.clear();
-        alert("Barcha ma’lumotlar tozalandi.");
-      }
+    document.getElementById('speed').addEventListener('change', function () {
+      localStorage.setItem('speed', this.value);
+    });
+
+    function toggleDarkMode() {
+      document.getElementById('app').classList.toggle('dark-mode');
     }
-  </script></body>
+
+    function resetProgress() {
+      localStorage.clear();
+      alert("Barcha ma'lumotlar tozalandi!");
+    }
+  </script>
+
+</body>
 </html>
