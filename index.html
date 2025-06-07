@@ -219,14 +219,14 @@
         <div class="button-container">
           <a href="lesson19.html" class="button closed" data-lesson-id="19" data-required="18">I have/I have got affirmative</a>
           <a href="lesson20.html" class="button closed" data-lesson-id="20" data-required="19">I have/I have got affirmative test</a>
-          <a href="lesson21.html" class="button closed" data-lesson-id="21" data-required="20">I have/I have got question</a>
-          <a href="lesson22.html" class="button closed" data-lesson-id="22" data-required="21">I have/I have got question test</a>
+          <a href="lesson21.html" class="button closed" data-lesson-id="21" data-required="20">I have/Point have got question</a>
+          <a href="lesson22.html" class="button closed" data-lesson-id="22" data-required="21">Point have/Point have got question point</a>
           <a href="lesson23.html" class="button closed" data-lesson-id="23" data-required="22">I have/I have got negative</a>
-          <a href="lesson24.html" class="button closed" data-lesson-id="24" data-required="23">I have/I have got negative test</a>
+          <a href="lesson24.html" class="button closed" data-lesson-id="24" data-required="23">I have I have/I got negative test</a>
         </div>
       </div>
       <div class="lesson-group">
-        <div class="lesson-group-title">Past Simple</div>
+        <div class="lesson-group-title">Past simple</div>
         <div class="button-container">
           <a href="lesson25.html" class="button closed" data-lesson-id="25" data-required="24">Past simple affirmative</a>
           <a href="lesson26.html" class="button closed" data-lesson-id="26" data-required="25">Past simple affirmative test</a>
@@ -357,7 +357,7 @@
         item.classList.add('active');
         const target = item.getAttribute('data-target');
         document.getElementById(target).classList.add('active');
-        // Darslar bo'limida sarlavhani yashirish
+        // Sarlavha ko'rsatish/yashirish
         const header = document.getElementById('header');
         if (target === 'lessons') {
           header.style.display = 'none';
@@ -393,7 +393,7 @@
     const completedLessons = new Set();
     completedLessons.add("0"); // No lesson is completed initially
 
-    // Dars 1 yakunlanganda 2 ni ochish uchun holatni saqlash
+    // Dars yakunlanganligini saqlash
     if (localStorage.getItem('completedLessons')) {
       const savedLessons = JSON.parse(localStorage.getItem('completedLessons'));
       savedLessons.forEach(lessonId => completedLessons.add(lessonId));
@@ -476,4 +476,4 @@
         querySnapshot.forEach((doc) => {
           const lesson = doc.data();
           if (lesson.level === "A1") {
-            if 
+            if (lesson.title.incl
