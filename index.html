@@ -1,130 +1,97 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Darslar</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BilimSher - Kontentlar</title>
   <style>
     body {
-      background-color: #fff3b0;
       font-family: sans-serif;
       margin: 0;
+      background-color: #fff3b0;
+      color: #333;
+    }
+
+    .tab-buttons {
+      display: flex;
+      justify-content: space-around;
+      padding: 10px;
+      background-color: #fde68a;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .tab-buttons button {
+      background: #4d3f00;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      font-size: 16px;
+      border-radius: 12px;
+      box-shadow: 0 4px #3b3200;
+      transition: all 0.2s;
+    }
+
+    .tab-buttons button:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px #3b3200;
+    }
+
+    .tab-buttons button.active {
+      background-color: #facc15;
+      color: #000;
+    }
+
+    .content-section {
+      display: none;
       padding: 20px;
     }
 
-    h1 {
-      text-align: center;
-      color: #4d3f00;
-    }
-
-    .level-buttons, .section-buttons {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-
-    button {
-      background-color: #ffda6b;
-      border: none;
-      border-radius: 12px;
-      padding: 12px 20px;
-      font-size: 16px;
-      color: #4d3f00;
-      box-shadow: 0 4px #c2a300;
-      cursor: pointer;
-      transition: transform 0.1s;
-    }
-
-    button:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px #c2a300;
-    }
-
-    .content {
-      display: none;
-      background: #fff8dc;
-      border-radius: 12px;
-      padding: 15px;
-      box-shadow: inset 0 0 5px #d6c080;
-    }
-
-    .content.active {
+    .content-section.active {
       display: block;
     }
 
-    .item {
-      margin-bottom: 15px;
-      padding: 10px;
-      background: #fff;
+    .content-item {
+      background: #fff8dc;
+      border: 1px solid #e2c770;
+      margin: 10px 0;
+      padding: 12px;
       border-radius: 10px;
-      box-shadow: 1px 1px 4px #d8caaa;
-    }
-
-    .item strong {
-      color: #4d3f00;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
   </style>
 </head>
 <body>
 
-  <h1>Darslar</h1>
-
-  <!-- Daraja tugmalari -->
-  <div class="level-buttons">
-    <button>A1</button>
-    <button>A2</button>
-    <button>B1</button>
-    <button>B2</button>
-  </div>
-
-  <!-- Hikoya/Aforizm/Ibora tugmalari -->
-  <div class="section-buttons">
-    <button onclick="showSection('hikoyalar')">Hikoyalar</button>
-    <button onclick="showSection('aforizmlar')">Aforizmlar</button>
-    <button onclick="showSection('iboralar')">Iboralar</button>
+  <!-- Tugmalar -->
+  <div class="tab-buttons">
+    <button class="tab-btn active" onclick="showContent('hikoyalar')">Hikoyalar</button>
+    <button class="tab-btn" onclick="showContent('aforizmlar')">Aforizmlar</button>
+    <button class="tab-btn" onclick="showContent('iboralar')">Iboralar</button>
   </div>
 
   <!-- Kontentlar -->
-  <div id="hikoyalar" class="content active">
-    <div class="item">
-      <strong>Short Story 1:</strong> The Clever Crow <br />
-      <em>A crow was very thirsty...</em>
-    </div>
-    <div class="item">
-      <strong>Short Story 2:</strong> The Lion and the Mouse <br />
-      <em>A small mouse helped a lion...</em>
-    </div>
+  <div id="hikoyalar" class="content-section active">
+    <div class="content-item">1. Oq qush va qora qush hikoyasi</div>
+    <div class="content-item">2. Donishmand va shogird hikoyasi</div>
   </div>
 
-  <div id="aforizmlar" class="content">
-    <div class="item">
-      <strong>“No pain, no gain.”</strong><br />
-      <em>Og‘riqsiz, yutuq bo‘lmaydi.</em>
-    </div>
-    <div class="item">
-      <strong>“Time is money.”</strong><br />
-      <em>Vaqt — bu pul.</em>
-    </div>
+  <div id="aforizmlar" class="content-section">
+    <div class="content-item">1. “Ilm – hayot nuridir.”</div>
+    <div class="content-item">2. “O‘qigan – odam, o‘qimagan – odam soyasi.”</div>
   </div>
 
-  <div id="iboralar" class="content">
-    <div class="item">
-      <strong>“How are you doing?”</strong><br />
-      <em>Qalaysiz?</em>
-    </div>
-    <div class="item">
-      <strong>“It’s up to you.”</strong><br />
-      <em>Bu sizga bog‘liq.</em>
-    </div>
+  <div id="iboralar" class="content-section">
+    <div class="content-item">1. Ko‘z tegmasin</div>
+    <div class="content-item">2. Quloqqa qulay</div>
   </div>
 
   <script>
-    function showSection(id) {
-      const sections = document.querySelectorAll('.content');
-      sections.forEach(sec => sec.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+    function showContent(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.content-section').forEach(section => section.classList.remove('active'));
+
+      document.querySelector(`[onclick="showContent('${tabId}')"]`).classList.add('active');
+      document.getElementById(tabId).classList.add('active');
     }
   </script>
 
