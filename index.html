@@ -268,12 +268,7 @@
     <div class="nav-item" data-target="lessons">
       <div class="nav-icon"><i class="fas fa-book"></i></div>
       <div>Darslar</div>
-    
-  <div class="tab-buttons">
-    <button class="tab-button active" onclick="showTab('hikoyalar')">Hikoyalar</button>
-    <button class="tab-button" onclick="showTab('aforizmlar')">Aforizmlar</button>
-    <button class="tab-button" onclick="showTab('iboralar')">Iboralar</button>
-  </div
+    </div>
     <div class="nav-item" data-target="results">
       <div class="nav-icon"><i class="fas fa-chart-line"></i></div>
       <div>Natijalar</div>
@@ -386,7 +381,14 @@
       const unlockedLessonsInCurrentLevel = document.querySelectorAll('.level-content.active .button:not(.closed)').length;
       const completedCount = completedLessons.size - 1; // Subtract the initial "0"
       const totalLessons = 36; // Jami darslar soni
-      document.getElementById('completedLessonsCount').innerText = `Yakunlangan darslar: ${completedCount} / ${totalLessons}`;
+      document.getElementById('completedLessonsCount').innerText = `
+  <div class="tab-buttons">
+    <button class="tab-button active" onclick="showTab('hikoyalar')">Hikoyalar</button>
+    <button class="tab-button" onclick="showTab('aforizmlar')">Aforizmlar</button>
+    <button class="tab-button" onclick="showTab('iboralar')">Iboralar</button>
+  </div>
+
+  <div id=: ${completedCount} / ${totalLessons}`;
       const progressPercentage = (completedCount / totalLessons) * 100;
       document.querySelector('.progress-fill').style.width = `${progressPercentage}%`;
       updatePoints();
