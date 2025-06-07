@@ -10,19 +10,36 @@
             font-family: Arial, sans-serif;
             margin: 20px;
         }
-        .section {
-            margin-bottom: 40px;
-        }
-        .section h2 {
-            color: #333;
+        .main-buttons {
+            display: flex;
+            gap: 20px; /* Asosiy tugmalar orasidagi masofa */
             margin-bottom: 20px;
+        }
+        .main-button {
+            background-color: #007bff; /* Tugma rangi */
+            color: white; /* Matn rangi */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .main-button:hover {
+            background-color: #0056b3; /* Hover effektida rang o'zgaradi */
+        }
+        .content-section {
+            display: none; /* Dastlab yashirin */
+        }
+        .content-section.active {
+            display: block; /* Faol bo'lganda ko'rinadi */
         }
         .button-container {
             display: flex;
             flex-wrap: wrap; /* Tugmalar gorizontal, agar joy yetmasa keyingi qatorga o'tadi */
             gap: 10px; /* Tugmalar orasidagi masofa */
         }
-        .button {
+        .sub-button {
             background-color: #007bff; /* Tugma rangi */
             color: white; /* Matn rangi */
             padding: 10px 20px;
@@ -33,130 +50,152 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        .button:hover {
-            background-color: #0056b3; /* Hover effektida tugma rangi biroz qorayadi */
+        .sub-button:hover {
+            background-color: #0056b3; /* Hover effektida rang o'zgaradi */
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
+    <!-- Asosiy Tugmalar -->
+    <div class="main-buttons">
+        <button class="main-button" onclick="showSection('hikoyalar')">Hikoyalar</button>
+        <button class="main-button" onclick="showSection('aforizmlar')">Aforizmlar</button>
+        <button class="main-button" onclick="showSection('iboralar')">Iboralar</button>
+    </div>
+
     <!-- Hikoyalar Bo'limi -->
-    <div class="section">
+    <div id="hikoyalar" class="content-section">
         <h2>Hikoyalar</h2>
         <div class="button-container">
-            <a href="#" class="button">1. O‘z haqimda</a>
-            <a href="#" class="button">2. Ingliz darsida</a>
-            <a href="#" class="button">3. Mening sevimli kitobim</a>
-            <a href="#" class="button">4. Kiyim-kechak va xarid qilish</a>
-            <a href="#" class="button">5. Mening bir kunim</a>
-            <a href="#" class="button">6. Mening boshlang‘ich ingliz maktabim</a>
-            <a href="#" class="button">7. Mazali taomlar</a>
-            <a href="#" class="button">8. Oxirgi ta’tilim</a>
-            <a href="#" class="button">9. Mening sevimli fanim</a>
-            <a href="#" class="button">10. Mening kvartiram</a>
-            <a href="#" class="button">11. Mening ona shahrim</a>
-            <a href="#" class="button">12. Oilamizdagi odamlar</a>
-            <a href="#" class="button">13. Mening kundalik hayotim</a>
-            <a href="#" class="button">14. Do‘stlar orttirish</a>
-            <a href="#" class="button">15. Mening sevimli mashg‘ulotim</a>
-            <a href="#" class="button">16. Hayvonot bog‘iga sayohat</a>
-            <a href="#" class="button">17. Mening tug‘ilgan kunim</a>
-            <a href="#" class="button">18. Bog‘ga sayr</a>
-            <a href="#" class="button">19. Uyda yordam berish</a>
-            <a href="#" class="button">20. Mening eng yaqin do‘stim</a>
-            <a href="#" class="button">21. Dam olish kunlari rejam</a>
-            <a href="#" class="button">22. Mening orzu qilgan kasbim</a>
-            <a href="#" class="button">23. Supermarketda</a>
-            <a href="#" class="button">24. Mening sevimli hayvonim</a>
-            <a href="#" class="button">25. So‘lda bir kun</a>
-            <a href="#" class="button">26. Shifokorga borish</a>
-            <a href="#" class="button">27. Mening maktab jadvalim</a>
-            <a href="#" class="button">28. Kompyuterdan foydalanish</a>
-            <a href="#" class="button">29. Ob-havo va fasllar</a>
-            <a href="#" class="button">30. Mening sevimli sportim</a>
-            <a href="#" class="button">31. Kutubxonada</a>
-            <a href="#" class="button">32. Mening sevimli bayramim</a>
-            <a href="#" class="button">33. Qanday sog‘lom bo‘lish kerak</a>
+            <a href="#" class="sub-button">1. O‘z haqimda</a>
+            <a href="#" class="sub-button">2. Ingliz darsida</a>
+            <a href="#" class="sub-button">3. Mening sevimli kitobim</a>
+            <a href="#" class="sub-button">4. Kiyim-kechak va xarid qilish</a>
+            <a href="#" class="sub-button">5. Mening bir kunim</a>
+            <a href="#" class="sub-button">6. Mening boshlang‘ich ingliz maktabim</a>
+            <a href="#" class="sub-button">7. Mazali taomlar</a>
+            <a href="#" class="sub-button">8. Oxirgi ta’tilim</a>
+            <a href="#" class="sub-button">9. Mening sevimli fanim</a>
+            <a href="#" class="sub-button">10. Mening kvartiram</a>
+            <a href="#" class="sub-button">11. Mening ona shahrim</a>
+            <a href="#" class="sub-button">12. Oilamizdagi odamlar</a>
+            <a href="#" class="sub-button">13. Mening kundalik hayotim</a>
+            <a href="#" class="sub-button">14. Do‘stlar orttirish</a>
+            <a href="#" class="sub-button">15. Mening sevimli mashg‘ulotim</a>
+            <a href="#" class="sub-button">16. Hayvonot bog‘iga sayohat</a>
+            <a href="#" class="sub-button">17. Mening tug‘ilgan kunim</a>
+            <a href="#" class="sub-button">18. Bog‘ga sayr</a>
+            <a href="#" class="sub-button">19. Uyda yordam berish</a>
+            <a href="#" class="sub-button">20. Mening eng yaqin do‘stim</a>
+            <a href="#" class="sub-button">21. Dam olish kunlari rejam</a>
+            <a href="#" class="sub-button">22. Mening orzu qilgan kasbim</a>
+            <a href="#" class="sub-button">23. Supermarketda</a>
+            <a href="#" class="sub-button">24. Mening sevimli hayvonim</a>
+            <a href="#" class="sub-button">25. So‘lda bir kun</a>
+            <a href="#" class="sub-button">26. Shifokorga borish</a>
+            <a href="#" class="sub-button">27. Mening maktab jadvalim</a>
+            <a href="#" class="sub-button">28. Kompyuterdan foydalanish</a>
+            <a href="#" class="sub-button">29. Ob-havo va fasllar</a>
+            <a href="#" class="sub-button">30. Mening sevimli sportim</a>
+            <a href="#" class="sub-button">31. Kutubxonada</a>
+            <a href="#" class="sub-button">32. Mening sevimli bayramim</a>
+            <a href="#" class="sub-button">33. Qanday sog‘lom bo‘lish kerak</a>
         </div>
     </div>
 
     <!-- Aforizmlar Bo'limi -->
-    <div class="section">
+    <div id="aforizmlar" class="content-section">
         <h2>Aforizmlar</h2>
         <div class="button-container">
-            <a href="#" class="button">1. Hayot</a>
-            <a href="#" class="button">2. Donolik va bilish</a>
-            <a href="#" class="button">3. Mehnat va muvaffaqiyat</a>
-            <a href="#" class="button">4. Sevgi va muhabbat</a>
-            <a href="#" class="button">5. Do‘stlik va insoniylik</a>
-            <a href="#" class="button">6. Vaqtning qadri</a>
-            <a href="#" class="button">7. Oila va ota-ona haqida</a>
-            <a href="#" class="button">8. Umid va orzu</a>
-            <a href="#" class="button">9. Xatolar va tajriba</a>
-            <a href="#" class="button">10. Baxt va quvonch</a>
-            <a href="#" class="button">11. Sabrlilik va chidamlilik</a>
-            <a href="#" class="button">12. Azob va dard</a>
-            <a href="#" class="button">13. Tinchlik va barqarorlik</a>
-            <a href="#" class="button">14. Erkinlik va mustaqillik</a>
-            <a href="#" class="button">15. Yoshlar va kelajak</a>
-            <a href="#" class="button">16. Kitob va bilim olish</a>
-            <a href="#" class="button">17. Qalb va ruhiyat</a>
-            <a href="#" class="button">18. Haqiqat va yolg‘on</a>
-            <a href="#" class="button">19. O‘z-o‘zini anglash</a>
-            <a href="#" class="button">20. Imkoniyatlar va qiyinchiliklar</a>
-            <a href="#" class="button">21. Vatan va millat sevgisi</a>
-            <a href="#" class="button">22. Yaxshilik va yomonlik</a>
-            <a href="#" class="button">23. Harakat va faollik</a>
-            <a href="#" class="button">24. O‘zgarish va rivojlanish</a>
-            <a href="#" class="button">25. O‘qish va o‘rganish</a>
-            <a href="#" class="button">26. Insonning ichki kuchi</a>
-            <a href="#" class="button">27. Doimiylik va barqarorlik</a>
-            <a href="#" class="button">28. O‘zlik va shaxsiyat</a>
-            <a href="#" class="button">29. Quvvat va irodani kuchaytirish</a>
-            <a href="#" class="button">30. Tabiat va atrof-muhit</a>
-            <a href="#" class="button">31. Maqsad va rejalar</a>
-            <a href="#" class="button">32. Ijobiy fikrlash</a>
-            <a href="#" class="button">33. Dunyoqarash va falsafa</a>
+            <a href="#" class="sub-button">1. Hayot</a>
+            <a href="#" class="sub-button">2. Donolik va bilish</a>
+            <a href="#" class="sub-button">3. Mehnat va muvaffaqiyat</a>
+            <a href="#" class="sub-button">4. Sevgi va muhabbat</a>
+            <a href="#" class="sub-button">5. Do‘stlik va insoniylik</a>
+            <a href="#" class="sub-button">6. Vaqtning qadri</a>
+            <a href="#" class="sub-button">7. Oila va ota-ona haqida</a>
+            <a href="#" class="sub-button">8. Umid va orzu</a>
+            <a href="#" class="sub-button">9. Xatolar va tajriba</a>
+            <a href="#" class="sub-button">10. Baxt va quvonch</a>
+            <a href="#" class="sub-button">11. Sabrlilik va chidamlilik</a>
+            <a href="#" class="sub-button">12. Azob va dard</a>
+            <a href="#" class="sub-button">13. Tinchlik va barqarorlik</a>
+            <a href="#" class="sub-button">14. Erkinlik va mustaqillik</a>
+            <a href="#" class="sub-button">15. Yoshlar va kelajak</a>
+            <a href="#" class="sub-button">16. Kitob va bilim olish</a>
+            <a href="#" class="sub-button">17. Qalb va ruhiyat</a>
+            <a href="#" class="sub-button">18. Haqiqat va yolg‘on</a>
+            <a href="#" class="sub-button">19. O‘z-o‘zini anglash</a>
+            <a href="#" class="sub-button">20. Imkoniyatlar va qiyinchiliklar</a>
+            <a href="#" class="sub-button">21. Vatan va millat sevgisi</a>
+            <a href="#" class="sub-button">22. Yaxshilik va yomonlik</a>
+            <a href="#" class="sub-button">23. Harakat va faollik</a>
+            <a href="#" class="sub-button">24. O‘zgarish va rivojlanish</a>
+            <a href="#" class="sub-button">25. O‘qish va o‘rganish</a>
+            <a href="#" class="sub-button">26. Insonning ichki kuchi</a>
+            <a href="#" class="sub-button">27. Doimiylik va barqarorlik</a>
+            <a href="#" class="sub-button">28. O‘zlik va shaxsiyat</a>
+            <a href="#" class="sub-button">29. Quvvat va irodani kuchaytirish</a>
+            <a href="#" class="sub-button">30. Tabiat va atrof-muhit</a>
+            <a href="#" class="sub-button">31. Maqsad va rejalar</a>
+            <a href="#" class="sub-button">32. Ijobiy fikrlash</a>
+            <a href="#" class="sub-button">33. Dunyoqarash va falsafa</a>
         </div>
     </div>
 
     <!-- Iboralar Bo'limi -->
-    <div class="section">
+    <div id="iboralar" class="content-section">
         <h2>Iboralar</h2>
         <div class="button-container">
-            <a href="#" class="button">1. Salomlashish va tanishtirish</a>
-            <a href="#" class="button">2. Yo‘l so‘rash</a>
-            <a href="#" class="button">3. Oziq-ovqat眼
-            <a href="#" class="button">4. Do‘konda xarid qilish va narx kelishish</a>
-            <a href="#" class="button">5. Kichik suhbatlar, mavzular haqida gaplashish</a>
-            <a href="#" class="button">6. Oila a’zolari haqida gapirish</a>
-            <a href="#" class="button">7. O‘zingiz va boshqalarni ta'riflash</a>
-            <a href="#" class="button">8. Kundalik odatlar haqida gapirish</a>
-            <a href="#" class="button">9. Rejalar tuzish va uchrashuvlarni tashkil qilish</a>
-            <a href="#" class="button">10. Fikr so‘rash va bildirish</a>
-            <a href="#" class="button">11. Havo haqida gapirish</a>
-            <a href="#" class="button">12. Yoqtirgan va yoqtirmagan narsalar haqida</a>
-            <a href="#" class="button">13. Iltimos qilish va taklif qilish</a>
-            <a href="#" class="button">14. Qiziqishlar va sevimli mashg‘ulotlar</a>
-            <a href="#" class="button">15. Yo‘l-yo‘riq berish</a>
-            <a href="#" class="button">16. Ish va kasblar haqida</a>
-            <a href="#" class="button">17. Telefon qo‘ng‘iroqlari qilish</a>
-            <a href="#" class="button">18. Sog‘liq va kasallik haqida</a>
-            <a href="#" class="button">19. His-tuyg‘ularni ifodalash</a>
-            <a href="#" class="button">20. Yordam so‘rash va maslahat berish</a>
-            <a href="#" class="button">21. Sayohat va ta'til haqida</a>
-            <a href="#" class="button">22. Norozilik bildirish va uzr so‘rash</a>
-            <a href="#" class="button">23. Ta’lim va maktab haqida</a>
-            <a href="#" class="button">24. Joylar va manzillarni ta'riflash</a>
-            <a href="#" class="button">25. Vaqt va sanalar haqida</a>
-            <a href="#" class="button">26. Taklif qilish</a>
-            <a href="#" class="button">27. Filmlar, musiqa va kitoblar haqida</a>
-            <a href="#" class="button">28. Kelajak rejalari haqida</a>
-            <a href="#" class="button">29. O‘tgan voqealar haqida</a>
-            <a href="#" class="button">30. Texnologiya va qurilmalar</a>
-            <a href="#" class="button">31. Qo‘llab-quvvatlash va norozilik bildirish</a>
-            <a href="#" class="button">32. Takliflar berish</a>
-            <a href="#" class="button">33. Pul va moliya haqida</a>
+            <a href="#" class="sub-button">1. Salomlashish va tanishtirish</a>
+            <a href="#" class="sub-button">2. Yo‘l so‘rash</a>
+            <a href="#" class="sub-button">3. Oziq-ovqat va ichimlik buyurtma qilish</a>
+            <a href="#" class="sub-button">4. Do‘konda xarid qilish va narx kelishish</a>
+            <a href="#" class="sub-button">5. Kichik suhbatlar, mavzular haqida gaplashish</a>
+            <a href="#" class="sub-button">6. Oila a’zolari haqida gapirish</a>
+            <a href="#" class="sub-button">7. O‘zingiz va boshqalarni ta'riflash</a>
+            <a href="#" class="sub-button">8. Kundalik odatlar haqida gapirish</a>
+            <a href="#" class="sub-button">9. Rejalar tuzish va uchrashuvlarni tashkil qilish</a>
+            <a href="#" class="sub-button">10. Fikr so‘rash va bildirish</a>
+            <a href="#" class="sub-button">11. Havo haqida gapirish</a>
+            <a href="#" class="sub-button">12. Yoqtirgan va yoqtirmagan narsalar haqida</a>
+            <a href="#" class="sub-button">13. Iltimos qilish va taklif qilish</a>
+            <a href="#" class="sub-button">14. Qiziqishlar va sevimli mashg‘ulotlar</a>
+            <a href="#" class="sub-button">15. Yo‘l-yo‘riq berish</a>
+            <a href="#" class="sub-button">16. Ish va kasblar haqida</a>
+            <a href="#" class="sub-button">17. Telefon qo‘ng‘iroqlari qilish</a>
+            <a href="#" class="sub-button">18. Sog‘liq va kasallik haqida</a>
+            <a href="#" class="sub-button">19. His-tuyg‘ularni ifodalash</a>
+            <a href="#" class="sub-button">20. Yordam so‘rash va maslahat berish</a>
+            <a href="#" class="sub-button">21. Sayohat va ta'til haqida</a>
+            <a href="#" class="sub-button">22. Norozilik bildirish va uzr so‘rash</a>
+            <a href="#" class="sub-button">23. Ta’lim va maktab haqida</a>
+            <a href="#" class="sub-button">24. Joylar va manzillarni ta'riflash</a>
+            <a href="#" class="sub-button">25. Vaqt va sanalar haqida</a>
+            <a href="#" class="sub-button">26. Taklif qilish</a>
+            <a href="#" class="sub-button">27. Filmlar, musiqa va kitoblar haqida</a>
+            <a href="#" class="sub-button">28. Kelajak rejalari haqida</a>
+            <a href="#" class="sub-button">29. O‘tgan voqealar haqida</a>
+            <a href="#" class="sub-button">30. Texnologiya va qurilmalar</a>
+            <a href="#" class="sub-button">31. Qo‘llab-quvvatlash va norozilik bildirish</a>
+            <a href="#" class="sub-button">32. Takliflar berish</a>
+            <a href="#" class="sub-button">33. Pul va moliya haqida</a>
         </div>
     </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Barcha bo'limlarni yashirish
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Tanlangan bo'limni ko'rsatish
+            document.getElementById(sectionId).classList.add('active');
+        }
+    </script>
 </body>
 </html>
