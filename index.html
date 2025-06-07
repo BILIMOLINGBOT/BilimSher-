@@ -126,29 +126,6 @@
     a.button.closed:hover {
       background-color: #ccc;
     }
-    .additional-content {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 20px;
-      overflow-x: auto; /* Agar elementlar sig'masa gorizontal aylantirish */
-      padding: 16px;
-      background-color: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .additional-content a {
-      display: block;
-      padding: 14px 20px;
-      background-color: #f0f0f0;
-      border-radius: 8px;
-      text-decoration: none;
-      color: #333;
-      white-space: nowrap; /* Bir qatorda bo'lishi uchun */
-      transition: background-color 0.3s;
-    }
-    .additional-content a:hover {
-      background-color: #e0e0e0;
-    }
   </style>
 </head>
 <body>
@@ -265,11 +242,6 @@
   </section>
   <section id="lessons">
     <div class="lessons">
-      <div class="additional-content">
-        <a href="#">Hikoyalar</a>
-        <a href="#">Aforizmlar</a>
-        <a href="#">Iboralar Jadvali</a>
-      </div>
       <div id="lessonContainerForLessonsPage" class="button-container">
         <p>Yuklanmoqda...</p>
       </div>
@@ -460,4 +432,20 @@
               const a = document.createElement("a");
               a.href = `lesson${lesson.id}.html`;
               a.className = `button ${completedLessons.has(lesson.id.toString()) ? '' : 'closed'}`;
-      
+              a.innerText = lesson.title;
+              if (!completedLessons.has(lesson.id.toString())) {
+                a.addEventListener('click', showClosedLessonMessage);
+              }
+              buttonContainer.appendChild(a);
+            });
+            lessonContainerForLessonsPage.appendChild(categoryDiv);
+          }
+        }
+      } catch (error) {
+        lessonContainerForLessonsPage.innerHTML = "<p>Xatolik yuz berdi.</p>";
+        console.error("Darslar yuklashda xatolik:", error);
+      }
+    }
+  </script>
+</body>
+</html>
