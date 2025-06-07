@@ -243,12 +243,12 @@
   <section id="lessons">
     <div class="lessons">
       <div id="lessonContainerForLessonsPage" class="button-container">
-        <p>ttggggg</p>
+        <p>Yuklanmoqda you want ...</p>
       </div>
     </div>
   </section>
-  <section id="llllllg">
-    <div class="oooo">
+  <section id="results">
+    <div class="results">
       <h3>Sizning natijalaringiz</h3>
       <p>Bu yerda foydalanuvchining statistikalari ko'rsatiladi.</p>
     </div>
@@ -381,7 +381,7 @@
       const unlockedLessonsInCurrentLevel = document.querySelectorAll('.level-content.active .button:not(.closed)').length;
       const completedCount = completedLessons.size - 1; // Subtract the initial "0"
       const totalLessons = 36; // Jami darslar soni
-      document.getElementById('completedLessonsCount').innerText = `Yakunlang: ${completedCount} / ${totalLessons}`;
+      document.getElementById('completedLessonsCount').innerText = `Yakunlangan darslar: ${completedCount} / ${totalLessons}`;
       const progressPercentage = (completedCount / totalLessons) * 100;
       document.querySelector('.progress-fill').style.width = `${progressPercentage}%`;
       updatePoints();
