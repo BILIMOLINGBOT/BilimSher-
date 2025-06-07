@@ -2,450 +2,228 @@
 <html lang="uz">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BilimSher</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Hikoyalar, Aforizmlar, Iboralar</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
     body {
-      background-color: #f5f5f5;
-      color: #333;
-      max-width: 500px;
-      margin: 0 auto;
-      padding-bottom: 100px;
-    }
-    section { display: none; padding: 16px; }
-    section.active { display: block; }
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 16px;
-    }
-    .logo img {
-      width: 36px; height: 36px; border-radius: 50%; background-color: #ddd;
-    }
-    .logo span {
-      font-weight: bold; font-size: 18px;
-    }
-    .header-center {
-      flex: 1;
-      text-align: center;
-    }
-    .academy-name {
-      font-weight: bold;
-      font-size: 18px;
-      color: #007bff; /* Ko'k rang "Koson academy" uchun */
-    }
-    .points-display {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
       background: #fff;
-      border-radius: 8px;
-      padding: 8px 12px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    #userPoints {
-      font-weight: bold;
-      font-size: 16px;
-      color: #34A853; /* Yashil rang progress chizig'iga mos */
-    }
-    .progress-container, .lessons, .results, .settings {
-      background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px;
-    }
-    .progress-bar { width: 100%; height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
-    .progress-fill { height: 100%; width: 25%; background: #34A853; transition: width 0.5s; }
-    .button-container {
-      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
-    }
-    a.button {
-      background: #007bff; color: white; padding: 14px 20px;
-      border-radius: 8px; min-width: 260px; text-align: center;
-      font-weight: bold; text-decoration: none; transition: 0.3s;
-    }
-    a.button:hover { background-color: #0056b3; }
-    .navigation {
-      display: flex; justify-content: space-around;
-      background: #fff; padding: 12px 0;
-      position: fixed; bottom: 0; left: 0; right: 0;
-      max-width: 500px; margin: 0 auto;
-      border-top: 1px solid #ddd;
-    }
-    .nav-item {
-      display: flex; flex-direction: column; align-items: center;
-      font-size: 12px; color: #555; cursor: pointer;
-    }
-    .nav-item.active { color: #4285F4; font-weight: bold; }
-    .nav-icon { font-size: 20px; margin-bottom: 4px; }
-    .level-tabs {
+    /* Tab tugmalar konteyneri */
+    .tabs {
       display: flex;
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      background: #f0e68c; /* och sariq */
+      border-bottom: 2px solid #ccc;
+      overflow-x: auto;
     }
-    .level-tab {
-      flex: 1;
-      padding: 12px;
-      text-align: center;
+    /* Har bir tab tugma */
+    .tab-btn {
+      flex-shrink: 0;
+      padding: 12px 20px;
       cursor: pointer;
+      background: #fff3b0;
+      border: none;
+      border-right: 1px solid #ccc;
       font-weight: bold;
-      transition: all 0.3s;
+      transition: background 0.3s ease;
+      white-space: nowrap;
     }
-    .level-tab.active {
-      background: #4285F4;
-      color: white;
+    .tab-btn.active, .tab-btn:hover {
+      background: #ffec99;
+      border-bottom: 3px solid #4d3f00;
+      color: #4d3f00;
     }
-    .level-content {
+
+    /* Kontent bloklari yashirin yoki ko‘rinadi */
+    .tab-content {
       display: none;
+      padding: 20px;
     }
-    .level-content.active {
+    .tab-content.active {
       display: block;
     }
-    .level-title {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 12px;
-      color: #4285F4;
+
+    /* Havola tugmalar (33 ta) */
+    .links-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
     }
-    .lesson-group {
-      margin-bottom: 20px;
+    .links-container a {
+      background: #fff3b0;
+      color: #4d3f00;
+      padding: 8px 12px;
+      text-decoration: none;
+      border-radius: 6px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+      font-size: 14px;
+      white-space: nowrap;
+      transition: background-color 0.3s ease;
     }
-    .lesson-group-title {
-      font-weight: bold;
-      margin-bottom: 8px;
-      color: #555;
-      padding-left: 8px;
-      border-left: 3px solid #4285F4;
+    .links-container a:hover {
+      background-color: #ffec99;
     }
-    a.button.closed {
-      background-color: #ccc;
-      color: #666;
-      cursor: not-allowed;
+
+    /* Scroll uchun kichik tugmalar */
+    .tabs::-webkit-scrollbar {
+      height: 8px;
     }
-    a.button.closed:hover {
-      background-color: #ccc;
+    .tabs::-webkit-scrollbar-thumb {
+      background-color: #c9b458;
+      border-radius: 4px;
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="logo">
-      <img id="userPhoto" src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" />
-      <span id="userName">Foydalanuvchi</span>
-    </div>
-    <div class="header-center">
-      <span class="academy-name">Koson academy</span>
-    </div>
-    <div class="points-display">
-      <span id="userPoints">Ballar: 0</span>
+
+  <!-- Bo'limlar uchun yuqori tugmalar -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="hikoyalar">Hikoyalar</button>
+    <button class="tab-btn" data-tab="aforizmlar">Aforizmlar</button>
+    <button class="tab-btn" data-tab="iboralari">Iboralar</button>
+  </div>
+
+  <!-- Hikoyalar bo'limi -->
+  <div id="hikoyalar" class="tab-content active">
+    <div class="links-container">
+      <!-- 33 ta havola -->
+      <a href="hikoya1.html">1. O‘z haqimda</a>
+      <a href="hikoya2.html">2. Ingliz darsida</a>
+      <a href="hikoya3.html">3. Mening sevimli kitobim</a>
+      <a href="hikoya4.html">4. Kiyim-kechak va xarid qilish</a>
+      <a href="hikoya5.html">5. Mening bir kunim</a>
+      <a href="hikoya6.html">6. Mening boshlang‘ich ingliz maktabim</a>
+      <a href="hikoya7.html">7. Mazali taomlar</a>
+      <a href="hikoya8.html">8. Oxirgi ta’tilim</a>
+      <a href="hikoya9.html">9. Mening sevimli fanim</a>
+      <a href="hikoya10.html">10. Mening kvartiram</a>
+      <a href="hikoya11.html">11. Mening ona shahrim</a>
+      <a href="hikoya12.html">12. Oilamizdagi odamlar</a>
+      <a href="hikoya13.html">13. Mening kundalik hayotim</a>
+      <a href="hikoya14.html">14. Do‘stlar orttirish</a>
+      <a href="hikoya15.html">15. Mening sevimli mashg‘ulotim</a>
+      <a href="hikoya16.html">16. Hayvonot bog‘iga sayohat</a>
+      <a href="hikoya17.html">17. Mening tug‘ilgan kunim</a>
+      <a href="hikoya18.html">18. Bog‘ga sayr</a>
+      <a href="hikoya19.html">19. Uyda yordam berish</a>
+      <a href="hikoya20.html">20. Mening eng yaqin do‘stim</a>
+      <a href="hikoya21.html">21. Dam olish kunlari rejam</a>
+      <a href="hikoya22.html">22. Mening orzu qilgan kasbim</a>
+      <a href="hikoya23.html">23. Supermarketda</a>
+      <a href="hikoya24.html">24. Mening sevimli hayvonim</a>
+      <a href="hikoya25.html">25. So‘lda bir kun</a>
+      <a href="hikoya26.html">26. Shifokorga borish</a>
+      <a href="hikoya27.html">27. Mening maktab jadvalim</a>
+      <a href="hikoya28.html">28. Kompyuterdan foydalanish</a>
+      <a href="hikoya29.html">29. Ob-havo va fasllar</a>
+      <a href="hikoya30.html">30. Mening sevimli sportim</a>
+      <a href="hikoya31.html">31. Kutubxonada</a>
+      <a href="hikoya32.html">32. Mening sevimli bayramim</a>
+      <a href="hikoya33.html">33. Qanday sog‘lom bo‘lish kerak</a>
     </div>
   </div>
-  <section id="home" class="active">
-    <div class="progress-container">
-      <div id="completedLessonsCount">Yakunlangan darslar: 0 / 36</div>
-      <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
-    </div>
-    <div class="level-tabs">
-      <div class="level-tab active" data-level="a1">A1</div>
-      <div class="level-tab" data-level="a2">A2</div>
-      <div class="level-tab" data-level="b1">B1</div>
-      <div class="level-tab" data-level="b2">B2</div>
-    </div>
-    <div id="a1-level" class="level-content active">
-      <div class="level-title">Boshlang'ich (A1) Darslari</div>
-      <div class="lesson-group">
-        <div class="lesson-group-title">To be fe'li</div>
-        <div class="button-container">
-          <a href="lesson1.html" class="button" data-lesson-id="1" data-required="">To be affirmative</a>
-          <a href="lesson2.html" class="button closed" data-lesson-id="2" data-required="1">To be affirmative test</a>
-          <a href="lesson3.html" class="button closed" data-lesson-id="3" data-required="2">To be question</a>
-          <a href="lesson4.html" class="button closed" data-lesson-id="4" data-required="3">To be question test</a>
-          <a href="lesson5.html" class="button closed" data-lesson-id="5" data-required="4">To be negative</a>
-          <a href="lesson6.html" class="button closed" data-lesson-id="6" data-required="5">To be negative test</a>
-        </div>
-      </div>
-      <div class="lesson-group">
-        <div class="lesson-group-title">Present Continuous</div>
-        <div class="button-container">
-          <a href="lesson7.html" class="button closed" data-lesson-id="7" data-required="6">Present continues affirmative</a>
-          <a href="lesson8.html" class="button closed" data-lesson-id="8" data-required="7">Present continues affirmative test</a>
-          <a href="lesson9.html" class="button closed" data-lesson-id="9" data-required="8">Present continues question</a>
-          <a href="lesson10.html" class="button closed" data-lesson-id="10" data-required="9">Present continues question test</a>
-          <a href="lesson11.html" class="button closed" data-lesson-id="11" data-required="10">Present continues negative</a>
-          <a href="lesson12.html" class="button closed" data-lesson-id="12" data-required="11">Present continues negative test</a>
-        </div>
-      </div>
-      <div class="lesson-group">
-        <div class="lesson-group-title">Present Simple</div>
-        <div class="button-container">
-          <a href="lesson13.html" class="button closed" data-lesson-id="13" data-required="12">Present simple affirmative</a>
-          <a href="lesson14.html" class="button closed" data-lesson-id="14" data-required="13">Present simple affirmative test</a>
-          <a href="lesson15.html" class="button closed" data-lesson-id="15" data-required="14">Present simple question</a>
-          <a href="lesson16.html" class="button closed" data-lesson-id="16" data-required="15">Present simple question test</a>
-          <a href="lesson17.html" class="button closed" data-lesson-id="17" data-required="16">Present simple negative</a>
-          <a href="lesson18.html" class="button closed" data-lesson-id="18" data-required="17">Present simple negative test</a>
-        </div>
-      </div>
-      <div class="lesson-group">
-        <div class="lesson-group-title">I have/I have got</div>
-        <div class="button-container">
-          <a href="lesson19.html" class="button closed" data-lesson-id="19" data-required="18">I have/I have got affirmative</a>
-          <a href="lesson20.html" class="button closed" data-lesson-id="20" data-required="19">I have/I have got affirmative test</a>
-          <a href="lesson21.html" class="button closed" data-lesson-id="21" data-required="20">I have/I have got question</a>
-          <a href="lesson22.html" class="button closed" data-lesson-id="22" data-required="21">I have/I have got question test</a>
-          <a href="lesson23.html" class="button closed" data-lesson-id="23" data-required="22">I have/I have got negative</a>
-          <a href="lesson24.html" class="button closed" data-lesson-id="24" data-required="23">I have/I have got negative test</a>
-        </div>
-      </div>
-      <div class="lesson-group">
-        <div class="lesson-group-title">Past Simple</div>
-        <div class="button-container">
-          <a href="lesson25.html" class="button closed" data-lesson-id="25" data-required="24">Past simple affirmative</a>
-          <a href="lesson26.html" class="button closed" data-lesson-id="26" data-required="25">Past simple affirmative test</a>
-          <a href="lesson27.html" class="button closed" data-lesson-id="27" data-required="26">Past simple question</a>
-          <a href="lesson28.html" class="button closed" data-lesson-id="28" data-required="27">Past simple question test</a>
-          <a href="lesson29.html" class="button closed" data-lesson-id="29" data-required="28">Past simple negative</a>
-          <a href="lesson30.html" class="button closed" data-lesson-id="30" data-required="29">Past simple negative test</a>
-        </div>
-      </div>
-      <div class="lesson-group">
-        <div class="lesson-group-title">Past Continuous</div>
-        <div class="button-container">
-          <a href="lesson31.html" class="button closed" data-lesson-id="31" data-required="30">Past continuous affirmative</a>
-          d<a href="lesson32.html" class="button closed" data-lesson-id="32" data-required="31">Past continuous affirmative test</a>
-          <a href="lesson33.html" class="button closed" data-lesson-id="33" data-required="32">Past continuous question</a>
-          <a href="lesson34.html" class="button closed" data-lesson-id="34" data-required="33">Past continuous question test</a>
-          <a href="lesson35.html" class="button closed" data-lesson-id="35" data-required="34">Past continuous negative</a>
-          <a href="lesson36.html" class="button closed" data-lesson-id="36" data-required="35">Past continuous negative test</a>
-        </div>
-      </div>
-    </div>
-    <div id="a2-level" class="level-content">
-      <div class="level-title">Elementar (A2) Darslari</div>
-      <div id="a2-lessons" class="button-container">
-        <p>Tez orada qo'shiladi</p>
-      </div>
-    </div>
-    <div id="b1-level" class="level-content">
-      <div class="level-title">O'rta (B1) Darslari</div>
-      <div id="b1-lessons" class="button-container">
-        <p>Tez orada qo'shiladi</p>
-      </div>
-    </div>
-    <div id="b2-level" class="level-content">
-      <div class="level-title">Yuqori O'rta (B2) Darslari</div>
-      <div id="b2-lessons" class="button-container">
-        <p>Tez orada qo'shiladi</p>
-      </div>
-    </div>
-  </section>
-  <section id="lessons">
-    Just let me 
-      <div id="lessonContainerForLessonsPage" class="button-container">
-        <p>Yuklanmoqda...</p>
-      </div>
-    </div>
-  </section>
-  <section id="results">
-    <div class="results">
-      <h3>Sizning natijalaringiz</h3>
-      <p>Bu yerda foydalanuvchining statistikalari ko'rsatiladi.</p>
-    </div>
-  </section>
-  <section id="settings">
-    <div class="settings">
-      <h3>Sozlamalar</h3>
-      <p>Til: O'zbek</p>
-      <p>Tez orada boshqa sozlamalar ham qo'shiladi.</p>
-    </div>
-  </section>
-  <div class="navigation">
-    <div class="nav-item active" data-target="home">
-      <div class="nav-icon"><i class="fas fa-home"></i></div>
-      <div>Asosiy</div>
-    </div>
-    <div class="nav-item" data-target="lessons">
-      <div class="nav-icon"><i class="fas fa-book"></i></div>
-      <div>Darslar</div>
-    </div>
-    <div class="nav-item" data-target="results">
-      <div class="nav-icon"><i class="fas fa-chart-line"></i></div>
-      <div>Natijalar</div>
-    </div>
-    <div class="nav-item" data-target="settings">
-      <div class="nav-icon"><i class="fas fa-cog"></i></div>
-      <div>Sozlamalar</div>
+
+  <!-- Aforizmlar bo'limi -->
+  <div id="aforizmlar" class="tab-content">
+    <div class="links-container">
+      <a href="aforizm1.html">1. Hayot</a>
+      <a href="aforizm2.html">2. Donolik va bilish</a>
+      <a href="aforizm3.html">3. Mehnat va muvaffaqiyat</a>
+      <a href="aforizm4.html">4. Sevgi va muhabbat</a>
+      <a href="aforizm5.html">5. Do‘stlik va insoniylik</a>
+      <a href="aforizm6.html">6. Vaqtning qadri</a>
+      <a href="aforizm7.html">7. Oila va ota-ona haqida</a>
+      <a href="aforizm8.html">8. Umid va orzu</a>
+      <a href="aforizm9.html">9. Xatolar va tajriba</a>
+      <a href="aforizm10.html">10. Baxt va quvonch</a>
+      <a href="aforizm11.html">11. Sabrlilik va chidamlilik</a>
+      <a href="aforizm12.html">12. Azob va dard</a>
+      <a href="aforizm13.html">13. Tinchlik va barqarorlik</a>
+      <a href="aforizm14.html">14. Erkinlik va mustaqillik</a>
+      <a href="aforizm15.html">15. Yoshlar va kelajak</a>
+      <a href="aforizm16.html">16. Kitob va bilim olish</a>
+      <a href="aforizm17.html">17. Qalb va ruhiyat</a>
+      <a href="aforizm18.html">18. Haqiqat va yolg‘on</a>
+      <a href="aforizm19.html">19. O‘z-o‘zini anglash</a>
+      <a href="aforizm20.html">20. Imkoniyatlar va qiyinchiliklar</a>
+      <a href="aforizm21.html">21. Vatan va millat sevgisi</a>
+      <a href="aforizm22.html">22. Yaxshilik va yomonlik</a>
+      <a href="aforizm23.html">23. Harakat va faollik</a>
+      <a href="aforizm24.html">24. O‘zgarish va rivojlanish</a>
+      <a href="aforizm25.html">25. O‘qish va o‘rganish</a>
+      <a href="aforizm26.html">26. Insonning ichki kuchi</a>
+      <a href="aforizm27.html">27. Doimiylik va barqarorlik</a>
+      <a href="aforizm28.html">28. O‘zlik va shaxsiyat</a>
+      <a href="aforizm29.html">29. Quvvat va irodani kuchaytirish</a>
+      <a href="aforizm30.html">30. Tabiat va atrof-muhit</a>
+      <a href="aforizm31.html">31. Maqsad va rejalar</a>
+      <a href="aforizm32.html">32. Ijobiy fikrlash</a>
+      <a href="aforizm33.html">33. Dunyoqarash va falsafa</a>
     </div>
   </div>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyD0gBUJNcrgvvntcrfKK7Ky8t6_9Qb96Io",
-      authDomain: "bilimilova-64833.firebaseapp.com",
-      databaseURL: "https://bilimilova-64833-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "bilimilova-64833",
-      storageBucket: "bilimilova-64833.appspot.com",
-      messagingSenderId: "890689414502",
-      appId: "1:890689414502:web:8141d7aab413495c0c14a7",
-      measurementId: "G-ZBC8X1VVMZ"
-    };
+  <!-- Iboralar bo'limi -->
+  <div id="iboralari" class="tab-content">
+    <div class="links-container">
+      <a href="ibora1.html">1. Greetings and Introductions (Salomlashish va tanishtirish)</a>
+      <a href="ibora2.html">2. Asking for Directions (Yo‘l so‘rash)</a>
+      <a href="ibora3.html">3. Ordering Food and Drinks (Oziq-ovqat va ichimlik buyurtma qilish)</a>
+      <a href="ibora4.html">4. Shopping and Bargaining (Do‘konda xarid qilish va narx kelishish)</a>
+      <a href="ibora5.html">5. Making Small Talk (Kichik suhbatlar, mavzular haqida gaplashish)</a>
+      <a href="ibora6.html">6. Talking About Family (Oila a’zolari haqida gapirish)</a>
+      <a href="ibora7.html">7. Describing Yourself and Others (O‘zingiz va boshqalarni ta'riflash)</a>
+      <a href="ibora8.html">8. Talking About Daily Routine (Kundalik odatlar haqida gapirish)</a>
+      <a href="ibora9.html">9. Making Plans and Arrangements (Rejalar tuzish va uchrashuvlarni tashkil qilish)</a>
+      <a href="ibora10.html">10. Asking and Giving Opinions (Fikr so‘rash va bildirish)</a>
+      <a href="ibora11.html">11. Talking About Weather (Havo haqida gapirish)</a>
+      <a href="ibora12.html">12. Expressing Likes and Dislikes (Yoqtirgan va yoqtirmagan narsalar haqida)</a>
+      <a href="ibora13.html">13. Making Requests and Offers (Iltimos qilish va taklif qilish)</a>
+      <a href="ibora14.html">14. Talking About Hobbies and Interests (Qiziqishlar va sevimli mashg‘ulotlar)</a>
+      <a href="ibora15.html">15. Giving Directions and Instructions (Yo‘l-yo‘riq berish)</a>
+      <a href="ibora16.html">16. Talking About Work and Jobs (Ish va kasblar haqida)</a>
+      <a href="ibora17.html">17. Making Phone Calls (Telefon qo‘ng‘iroqlari qilish)</a>
+      <a href="ibora18.html">18. Talking About Health and Illness (Sog‘liq va kasallik haqida)</a>
+      <a href="ibora19.html">19. Expressing Emotions and Feelings (His-tuyg‘ularni ifodalash)</a>
+      <a href="ibora20.html">20. Asking for Help and Advice (Yordam so‘rash va maslahat berish)</a>
+      <a href="ibora21.html">21. Talking About Travel and Holidays (Sayohat va ta'til haqida)</a>
+      <a href="ibora22.html">22. Making Complaints and Apologies (Norozilik bildirish va uzr so‘rash)</a>
+      <a href="ibora23.html">23. Talking About Education and School (Ta’lim va maktab haqida)</a>
+      <a href="ibora24.html">24. Describing Places and Locations (Joylar va manzillarni ta'riflash)</a>
+      <a href="ibora25.html">25. Talking About Time and Dates (Vaqt va sanalar haqida)</a>
+      <a href="ibora26.html">26. Making Invitations (Taklif qilish)</a>
+      <a href="ibora27.html">27. Discussing Movies, Music, and Books (Filmlar, musiqa va kitoblar haqida)</a>
+      <a href="ibora28.html">28. Talking About Future Plans (Kelajak rejalari haqida)</a>
+      <a href="ibora29.html">29. Discussing Past Experiences (O‘tgan voqealar haqida)</a>
+      <a href="ibora30.html">30. Talking About Technology and Gadgets (Texnologiya va qurilmalar)</a>
+      <a href="ibora31.html">31. Expressing Agreement and Disagreement (Qo‘llab-quvvatlash va norozilik bildirish)</a>
+      <a href="ibora32.html">32. Making Suggestions (Takliflar berish)</a>
+      <a href="ibora33.html">33. Talking About Money and Finance (Pul va moliya haqida)</a>
+    </div>
+  </div>
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+  <script>
+    // Tablar orasida o‘tish uchun JavaScript
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
 
-    // Telegram foydalanuvchi ma'lumotlari
-    window.Telegram.WebApp.ready();
-    const user = Telegram.WebApp.initDataUnsafe.user;
-    const userPhoto = document.getElementById('userPhoto');
-    const userName = document.getElementById('userName');
-    if (user?.photo_url) userPhoto.src = user.photo_url;
-    userName.innerText = user?.username || user?.first_name || 'Foydalanuvchi';
-
-    // Navigatsiya
-    document.querySelectorAll('.nav-item').forEach(item => {
-      item.addEventListener('click', () => {
-        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-        item.classList.add('active');
-        const target = item.getAttribute('data-target');
-        document.getElementById(target).classList.add('active');
-      });
-    });
-
-    // Level tabs functionality
-    document.querySelectorAll('.level-tab').forEach(tab => {
+    tabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        document.querySelectorAll('.level-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.level-content').forEach(c => c.classList.remove('active'));
+        // Faol tugmani o‘zgartirish
+        tabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
-        const level = tab.getAttribute('data-level');
-        document.getElementById(`${level}-level`).classList.add('active');
-      });
-    });
 
-    // Completed lessons tracking
-    const completedLessons = new Set();
-    completedLessons.add("0"); // No lesson is completed initially
-
-    // Dars 1 yakunlanganda 2 ni ochish uchun holatni saqlash
-    if (localStorage.getItem('completedLessons')) {
-      const savedLessons = JSON.parse(localStorage.getItem('completedLessons'));
-      savedLessons.forEach(lessonId => completedLessons.add(lessonId));
-    }
-
-    // Points tracking
-    const updatePoints = () => {
-      const completedCount = completedLessons.size - 1; // Subtract the initial "0"
-      const points = completedCount * 10; // 10 ball har dars uchun
-      document.getElementById('userPoints').innerText = `Ballar: ${points}`;
-    };
-
-    const updateLessonAvailability = () => {
-      const lessonButtons = document.querySelectorAll('.level-content.active .button');
-      lessonButtons.forEach(button => {
-        const requiredLessonId = button.getAttribute('data-required');
-        if (requiredLessonId && !completedLessons.has(requiredLessonId)) {
-          button.classList.add('closed');
-          button.addEventListener('click', showClosedLessonMessage);
-        } else {
-          button.classList.remove('closed');
-          button.removeEventListener('click', showClosedLessonMessage);
-        }
-      });
-      updateProgress();
-      // Holatni saqlash
-      localStorage.setItem('completedLessons', JSON.stringify([...completedLessons]));
-    };
-
-    const showClosedLessonMessage = (event) => {
-      event.preventDefault();
-      alert("Darslarni ketma-ket oʻrganish kerak");
-    };
-
-    const markLessonAsComplete = (lessonId) => {
-      completedLessons.add(lessonId);
-      updateLessonAvailability();
-    };
-
-    // Dars 1 ga kirganda 2 ni ochish
-    document.querySelector('a[data-lesson-id="1"]').addEventListener('click', () => {
-      markLessonAsComplete("1"); // 1-dars yakunlandi
-    });
-
-    const updateProgress = () => {
-      const allLessonsInCurrentLevel = document.querySelectorAll('.level-content.active .button').length;
-      const unlockedLessonsInCurrentLevel = document.querySelectorAll('.level-content.active .button:not(.closed)').length;
-      const completedCount = completedLessons.size - 1; // Subtract the initial "0"
-      const totalLessons = 36; // Jami darslar soni
-      document.getElementById('completedLessonsCount').innerText = `Yakunlangan darslar: ${completedCount} / ${totalLessons}`;
-      const progressPercentage = (completedCount / totalLessons) * 100;
-      document.querySelector('.progress-fill').style.width = `${progressPercentage}%`;
-      updatePoints();
-    };
-
-    // Initial calls
-    updateLessonAvailability();
-    updatePoints();
-
-    // Telefonning orqaga qaytish tugmasi
-    window.Telegram.WebApp.BackButton.show();
-    window.Telegram.WebApp.BackButton.onClick(() => {
-      window.history.back();
-    });
-
-    // Load lessons for the separate lessons page
-    const lessonContainerForLessonsPage = document.getElementById("lessonContainerForLessonsPage");
-    if (lessonContainerForLessonsPage) {
-      try {
-        const querySnapshot = await getDocs(collection(db, "lessons"));
-        lessonContainerForLessonsPage.innerHTML = "";
-        const categories = {
-          "To be fe'li": [],
-          "Present Continuous": [],
-          "Present Simple": [],
-          "I have/I have got": [],
-          "Past Simple": [],
-          "Past Continuous": []
-        };
-        querySnapshot.forEach((doc) => {
-          const lesson = doc.data();
-          if (lesson.level === "A1") {
-            if (lesson.title.includes("To be")) categories["To be fe'li"].push(lesson);
-            else if (lesson.title.includes("Present continues")) categories["Present Continuous"].push(lesson);
-            else if (lesson.title.includes("Present simple")) categories["Present Simple"].push(lesson);
-            else if (lesson.title.includes("I have")) categories["I have/I have got"].push(lesson);
-            else if (lesson.title.includes("Past simple")) categories["Past Simple"].push(lesson);
-            else if (lesson.title.includes("Past continuous")) categories["Past Continuous"].push(lesson);
+        // Faol kontentni o‘zgartirish
+        const target = tab.getAttribute('data-tab');
+        contents.forEach(c => {
+          if (c.id === target) {
+            c.classList.add('active');
+          } else {
+            c.classList.remove('active');
           }
         });
-        for (const [category, lessons] of Object.entries(categories)) {
-          if (lessons.length > 0) {
-            const categoryDiv = document.createElement("div");
-            categoryDiv.className = "lesson-group";
-            categoryDiv.innerHTML = `<div class="lesson-group-title">${category}</div><div class="button-container"></div>`;
-            const buttonContainer = categoryDiv.querySelector(".button-container");
-            lessons.forEach(lesson => {
-              const a = document.createElement("a");
-              a.href = `lesson${lesson.id}.html`;
-              a.className = `button ${completedLessons.has(lesson.id.toString()) ? '' : 'closed'}`;
-              a.innerText = lesson.title;
-              if (!completedLessons.has(lesson.id.toString())) {
-                a.addEventListener('click', showClosedLessonMessage);
-              }
-              buttonContainer.appendChild(a);
-            });
-            lessonContainerForLessonsPage.appendChild(categoryDiv);
-          }
-        }
-      } catch (error) {
-        lessonContainerForLessonsPage.innerHTML = "<p>Xatolik yuz berdi.</p>";
-        console.error("Darslar yuklashda xatolik:", error);
-      }
-    }
+      });
+    });
   </script>
 </body>
 </html>
