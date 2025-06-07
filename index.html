@@ -14,6 +14,9 @@
       margin: 0 auto;
       padding-bottom: 100px;
     }
+    body.lessons-page .header {
+      display: none;
+    }
     section { display: none; padding: 16px; }
     section.active { display: block; }
     .header {
@@ -125,6 +128,17 @@
     }
     a.button.closed:hover {
       background-color: #ccc;
+    }
+    .horizontal-section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .horizontal-section h3 {
+      color: #007bff;
+      margin-bottom: 10px;
     }
   </style>
 </head>
@@ -241,6 +255,24 @@
     </div>
   </section>
   <section id="lessons">
+    <div class="horizontal-section">
+      <h3>Hikoyalar</h3>
+      <div id="storiesContainer" class="button-container">
+        <p>Hikoyalar tez orada qo'shiladi</p>
+      </div>
+    </div>
+    <div class="horizontal-section">
+      <h3>Aforizmlar</h3>
+      <div id="aphorismsContainer" class="button-container">
+        <p>Aforizmlar tez orada qo'shiladi</p>
+      </div>
+    </div>
+    <div class="horizontal-section">
+      <h3>Iboralar Jadvali</h3>
+      <div id="phrasesContainer" class="button-container">
+        <p>Iboralar jadvali tez orada qo'shiladi</p>
+      </div>
+    </div>
     <div class="lessons">
       <div id="lessonContainerForLessonsPage" class="button-container">
         <p>Yuklanmoqda...</p>
@@ -313,6 +345,10 @@
         item.classList.add('active');
         const target = item.getAttribute('data-target');
         document.getElementById(target).classList.add('active');
+        document.body.classList.remove('lessons-page');
+        if (target === 'lessons') {
+          document.body.classList.add('lessons-page');
+        }
       });
     });
 
@@ -428,24 +464,4 @@
             categoryDiv.className = "lesson-group";
             categoryDiv.innerHTML = `<div class="lesson-group-title">${category}</div><div class="button-container"></div>`;
             const buttonContainer = categoryDiv.querySelector(".button-container");
-            lessons.forEach(lesson => {
-              const a = document.createElement("a");
-              a.href = `lesson${lesson.id}.html`;
-              a.className = `button ${completedLessons.has(lesson.id.toString()) ? '' : 'closed'}`;
-              a.innerText = lesson.title;
-              if (!completedLessons.has(lesson.id.toString())) {
-                a.addEventListener('click', showClosedLessonMessage);
-              }
-              buttonContainer.appendChild(a);
-            });
-            lessonContainerForLessonsPage.appendChild(categoryDiv);
-          }
-        }
-      } catch (error) {
-        lessonContainerForLessonsPage.innerHTML = "<p>Xatolik yuz berdi.</p>";
-        console.error("Darslar yuklashda xatolik:", error);
-      }
-    }
-  </script>
-</body>
-</html>
+     
