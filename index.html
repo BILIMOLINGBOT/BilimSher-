@@ -3,140 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ingliz Tili Bo‘limlari</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fff3b0;
-      margin: 0;
-      padding: 20px;
-    }
-
-    h1, h2 {
-      color: #4d3f00;
-      text-align: center;
-    }
-
-    .navbar {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      background-color: #4d3f00;
-      padding: 10px 0;
-    }
-
-    .navbar button {
-      background-color: #4d3f00;
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 16px;
-      box-shadow: 2px 4px 0 rgba(0, 0, 0, 0.2);
-      font-size: 18px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .navbar button:active {
-      transform: scale(0.97);
-    }
-
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .sub-button {
-      background-color: #fff;
-      color: #4d3f00;
-      border: 2px solid #4d3f00;
-      padding: 10px 20px;
-      border-radius: 12px;
-      box-shadow: 1px 3px 0 rgba(0, 0, 0, 0.1);
-      width: 90%;
-      max-width: 400px;
-      font-size: 16px;
-      text-align: center;
-      text-decoration: none;
-      transition: all 0.2s ease;
-    }
-
-    .sub-button:active {
-      transform: scale(0.97);
-    }
-
-    .content-section {
-      display: none;
-    }
-  </style>
+  <title>Bilim mini ilova</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Ingliz tili bo‘limlari</h1>
-
-  <!-- Gorizontal Tugmalar -->
-  <div class="navbar">
-    <button onclick="toggleSection('hikoyalar')">Hikoyalar</button>
-    <button onclick="toggleSection('aforizmlar')">Aforizmlar</button>
-    <button onclick="toggleSection('iboralar')">Iboralar</button>
+  <div class="tab-buttons">
+    <button class="tab active" onclick="showTab('hikoyalar')">Hikoyalar</button>
+    <button class="tab" onclick="showTab('aforizmlar')">Aforizmlar</button>
+    <button class="tab" onclick="showTab('iboralar')">Iboralar</button>
   </div>
 
-  <div id="hikoyalar" class="content-section">
+  <div class="content" id="hikoyalar">
     <h2>Hikoyalar</h2>
-    <div class="button-container">
-      <a href="hikoya1.html" class="sub-button">1. O‘z haqimda</a>
-      <a href="hikoya2.html" class="sub-button">2. Ingliz darsida</a>
-      <a href="hikoya3.html" class="sub-button">3. Mening sevimli kitobim</a>
-      <a href="hikoya4.html" class="sub-button">4. Do‘stim haqida</a>
-      <a href="hikoya5.html" class="sub-button">5. Sevimli faslim</a>
-      <a href="hikoya6.html" class="sub-button">6. Hayvonot bog‘ida</a>
-      <a href="hikoya7.html" class="sub-button">7. Mening oilam</a>
-      <a href="hikoya8.html" class="sub-button">8. Bo‘sh vaqtimda</a>
-      <a href="hikoya9.html" class="sub-button">9. Mening maktabim</a>
-      <a href="hikoya10.html" class="sub-button">10. Sayohat</a>
-    </div>
+    <p>Bu yerda qiziqarli hikoyalar bo‘ladi.</p>
   </div>
 
-  <div id="aforizmlar" class="content-section">
+  <div class="content" id="aforizmlar" style="display: none;">
     <h2>Aforizmlar</h2>
-    <div class="button-container">
-      <a href="aforizm1.html" class="sub-button">1. Hayot</a>
-      <a href="aforizm2.html" class="sub-button">2. Do‘stlik</a>
-      <a href="aforizm3.html" class="sub-button">3. Kitoblar</a>
-      <a href="aforizm4.html" class="sub-button">4. Yaxshilik</a>
-      <a href="aforizm5.html" class="sub-button">5. Ta’lim</a>
-      <a href="aforizm6.html" class="sub-button">6. Mehnat</a>
-      <a href="aforizm7.html" class="sub-button">7. Orzular</a>
-      <a href="aforizm8.html" class="sub-button">8. Vaqt</a>
-      <a href="aforizm9.html" class="sub-button">9. Muvaffaqiyat</a>
-      <a href="aforizm10.html" class="sub-button">10. Qiyinchilik</a>
-    </div>
+    <p>Bu yerda donolik so‘zlari, aforizmlar bo‘ladi.</p>
   </div>
 
-  <div id="iboralar" class="content-section">
+  <div class="content" id="iboralar" style="display: none;">
     <h2>Iboralar</h2>
-    <div class="button-container">
-      <a href="ibora1.html" class="sub-button">1. Salomlashish va tanishtirish</a>
-      <a href="ibora2.html" class="sub-button">2. Yo‘l so‘rash</a>
-      <a href="ibora3.html" class="sub-button">3. Xarid qilish</a>
-      <a href="ibora4.html" class="sub-button">4. Ovqatlanish joyida</a>
-      <a href="ibora5.html" class="sub-button">5. Mehmonxonada</a>
-      <a href="ibora6.html" class="sub-button">6. Aeroportda</a>
-      <a href="ibora7.html" class="sub-button">7. Do‘konda</a>
-      <a href="ibora8.html" class="sub-button">8. Kasalxonada</a>
-      <a href="ibora9.html" class="sub-button">9. Telefon orqali suhbat</a>
-      <a href="ibora10.html" class="sub-button">10. Ijtimoiy tarmoqlarda</a>
-    </div>
+    <p>Bu yerda inglizcha iboralar va ularning tarjimalari bo‘ladi.</p>
   </div>
 
-  <script>
-    function toggleSection(id) {
-      document.querySelectorAll('.content-section').forEach(section => {
-        section.style.display = section.id === id ? 'block' : 'none';
-      });
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
