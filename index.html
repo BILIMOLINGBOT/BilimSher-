@@ -126,23 +126,15 @@
     a.button.closed:hover {
       background-color: #ccc;
     }
-    .horizontal-buttons {
+    .lessons-menu {
       display: flex;
-      justify-content: space-around;
+      gap: 10px;
       margin-bottom: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
-    .horizontal-buttons a {
-      background: #f0f0f0;
-      color: #333;
-      padding: 10px 15px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-      border: 1px solid #ddd;
-    }
-    .horizontal-buttons a:hover {
-      background-color: #e0e0e0;
+    .lessons-menu a.button {
+      min-width: 150px;
     }
   </style>
 </head>
@@ -260,10 +252,10 @@
   </section>
   <section id="lessons">
     <div class="lessons">
-      <div class="horizontal-buttons">
-        <a href="#">Hikoyalar</a>
-        <a href="#">Aforizmlar</a>
-        <a href="#">Iboralar Jadvali</a>
+      <div class="lessons-menu">
+        <a href="#" class="button">Hikoyalar</a>
+        <a href="#" class="button">Aforizmlar</a>
+        <a href="#" class="button">Iboralar</a>
       </div>
       <div id="lessonContainerForLessonsPage" class="button-container">
         <p>Yuklanmoqda...</p>
@@ -459,4 +451,10 @@
               if (!completedLessons.has(lesson.id.toString())) {
                 a.addEventListener('click', showClosedLessonMessage);
               }
-              buttonCo
+              buttonContainer.appendChild(a);
+            });
+            lessonContainerForLessonsPage.appendChild(categoryDiv);
+          }
+        }
+      } catch (error) {
+        lessonContainerForLessonsPage.innerHTML = "<p>Xatolik y
