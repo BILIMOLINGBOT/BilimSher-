@@ -36,7 +36,7 @@
     .academy-name {
       font-weight: bold;
       font-size: 18px;
-      color:  #007bff; /* Light blue for Koson academy */
+      color: #007bff; /* Ko'k rang "Koson academy" uchun */
     }
     .points-display {
       background: #fff;
@@ -47,7 +47,7 @@
     #userPoints {
       font-weight: bold;
       font-size: 16px;
-      color: #34A853; /* Green to match progress bar */
+      color: #34A853; /* Yashil rang progress chizig'iga mos */
     }
     .progress-container, .lessons, .results, .settings {
       background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px;
@@ -213,7 +213,7 @@
         <div class="lesson-group-title">Past Continuous</div>
         <div class="button-container">
           <a href="lesson31.html" class="button closed" data-lesson-id="31" data-required="30">Past continuous affirmative</a>
-          <a href="lesson32.html" class="button closed" data-lesson-id="32" data-required="31">Past continuous affirmative test</a>
+          d<a href="lesson32.html" class="button closed" data-lesson-id="32" data-required="31">Past continuous affirmative test</a>
           <a href="lesson33.html" class="button closed" data-lesson-id="33" data-required="32">Past continuous question</a>
           <a href="lesson34.html" class="button closed" data-lesson-id="34" data-required="33">Past continuous question test</a>
           <a href="lesson35.html" class="button closed" data-lesson-id="35" data-required="34">Past continuous negative</a>
@@ -331,10 +331,16 @@
     const completedLessons = new Set();
     completedLessons.add("0"); // No lesson is completed initially
 
-    // Points tracking (example: 10 points per completed lesson)
+    // Dars 1 yakunlanganda 2 ni ochish uchun holatni saqlash
+    if (localStorage.getItem('completedLessons')) {
+      const savedLessons = JSON.parse(localStorage.getItem('completedLessons'));
+      savedLessons.forEach(lessonId => completedLessons.add(lessonId));
+    }
+
+    // Points tracking
     const updatePoints = () => {
       const completedCount = completedLessons.size - 1; // Subtract the initial "0"
-      const points = completedCount * 10; // Example: 10 points per lesson
+      const points = completedCount * 10; // 10 ball har dars uchun
       document.getElementById('userPoints').innerText = `Ballar: ${points}`;
     };
 
@@ -351,6 +357,8 @@
         }
       });
       updateProgress();
+      // Holatni saqlash
+      localStorage.setItem('completedLessons', JSON.stringify([...completedLessons]));
     };
 
     const showClosedLessonMessage = (event) => {
@@ -363,28 +371,31 @@
       updateLessonAvailability();
     };
 
-    // Simulate completing lessons for demonstration
-    setTimeout(() => markLessonAsComplete("1"), 1000);
-    setTimeout(() => markLessonAsComplete("2"), 2000);
-    setTimeout(() => markLessonAsComplete("3"), 3000);
-    setTimeout(() => markLessonAsComplete("4"), 4000);
-    setTimeout(() => markLessonAsComplete("5"), 5000);
-    setTimeout(() => markLessonAsComplete("6"), 6000);
+    // Dars 1 ga kirganda 2 ni ochish
+    document.querySelector('a[data-lesson-id="1"]').addEventListener('click', () => {
+      markLessonAsComplete("1"); // 1-dars yakunlandi
+    });
 
     const updateProgress = () => {
       const allLessonsInCurrentLevel = document.querySelectorAll('.level-content.active .button').length;
       const unlockedLessonsInCurrentLevel = document.querySelectorAll('.level-content.active .button:not(.closed)').length;
       const completedCount = completedLessons.size - 1; // Subtract the initial "0"
-      const totalLessons = 36; // Total number of lessons
+      const totalLessons = 36; // Jami darslar soni
       document.getElementById('completedLessonsCount').innerText = `Yakunlangan darslar: ${completedCount} / ${totalLessons}`;
       const progressPercentage = (completedCount / totalLessons) * 100;
       document.querySelector('.progress-fill').style.width = `${progressPercentage}%`;
-      updatePoints(); // Update points with progress
+      updatePoints();
     };
 
     // Initial calls
     updateLessonAvailability();
     updatePoints();
+
+    // Telefonning orqaga qaytish tugmasi
+    window.Telegram.WebApp.BackButton.show();
+    window.Telegram.WebApp.BackButton.onClick(() => {
+      window.history.back();
+    });
 
     // Load lessons for the separate lessons page
     const lessonContainerForLessonsPage = document.getElementById("lessonContainerForLessonsPage");
