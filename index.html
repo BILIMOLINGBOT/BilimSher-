@@ -49,8 +49,28 @@
       font-size: 16px;
       color: #34A853; /* Yashil rang progress chizig'iga mos */
     }
-    .progress-container, .lessons, .results, .settings {
+    .progress-container, .lessons, .results, .settings, .horizontal-buttons {
       background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px;
+    }
+    .horizontal-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+    }
+    .horizontal-buttons button {
+      background: none;
+      border: none;
+      padding: 10px 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .horizontal-buttons button.active {
+      color: #007bff;
+      border-bottom: 2px solid #007bff;
+    }
+    .horizontal-buttons button:hover {
+      color: #0056b3;
     }
     .progress-bar { width: 100%; height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; }
     .progress-fill { height: 100%; width: 25%; background: #34A853; transition: width 0.5s; }
@@ -126,6 +146,9 @@
     a.button.closed:hover {
       background-color: #ccc;
     }
+    #stories-content, #aphorisms-content, #expressions-content {
+      background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px;
+    }
   </style>
 </head>
 <body>
@@ -141,7 +164,39 @@
       <span id="userPoints">Ballar: 0</span>
     </div>
   </div>
-  <section id="home" class="active">
+  <div class="horizontal-buttons">
+    <button class="active" data-target="stories">Hikoyalar</button>
+    <button data-target="aphorisms">Aforizmlar</button>
+    <button data-target="expressions">Iboralar</button>
+  </div>
+  <section id="stories-content" class="active">
+    <h3>Hikoyalar</h3>
+    <p>Bu yerda qisqa hikoyalar ro'yxati bo'ladi.</p>
+    <ul>
+      <li>Birinchi hikoya</li>
+      <li>Ikkinchi hikoya</li>
+      <li>Uchinchi hikoya</li>
+    </ul>
+  </section>
+  <section id="aphorisms-content">
+    <h3>Aforizmlar</h3>
+    <p>Bu yerda mashhur aforizmlar ro'yxati bo'ladi.</p>
+    <ul>
+      <li>Birinchi aforizm</li>
+      <li>Ikkinchi aforizm</li>
+      <li>Uchinchi aforizm</li>
+    </ul>
+  </section>
+  <section id="expressions-content">
+    <h3>Iboralar</h3>
+    <p>Bu yerda ingliz tilidagi iboralar ro'yxati bo'ladi.</p>
+    <ul>
+      <li>Birinchi ibora</li>
+      <li>Ikkinchi ibora</li>
+      <li>Uchinchi ibora</li>
+    </ul>
+  </section>
+  <section id="home">
     <div class="progress-container">
       <div id="completedLessonsCount">Yakunlangan darslar: 0 / 36</div>
       <div class="progress-bar"><div class="progress-fill" style="width: 0%;"></div></div>
@@ -243,14 +298,12 @@
   <section id="lessons">
     <div class="lessons">
       <div id="lessonContainerForLessonsPage" class="button-container">
-        
-  <div class="main-tabs">
-    <button onclick="showTab('hikoyalar')">📘 Hikoyalar</button>
-    <button onclick="showTab('iboralar')">💬 Iboralar</button>
-    <button onclick="showTab('aforizmlar')">🧠 Aforizmlar</button>
-  </div>  <div id="hikoyalar" class="sub-tabs"></div>
-  <div id="iboralar" class="sub-tabs hidden"></div>
-  <div id="aforizmlar" class="sub-tabs hidden"></div>  <div c
+        <p>Yuklanmoqda...</p>
+      </div>
+    </div>
+  </section>
+  <section id="results">
+    <div class="results">
       <h3>Sizning natijalaringiz</h3>
       <p>Bu yerda foydalanuvchining statistikalari ko'rsatiladi.</p>
     </div>
@@ -280,6 +333,40 @@
       <div>Sozlamalar</div>
     </div>
   </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const buttons = document.querySelectorAll('.horizontal-buttons button');
+      const contents = {
+        stories: document.getElementById('stories-content'),
+        aphorisms: document.getElementById('aphorisms-content'),
+        expressions: document.getElementById('expressions-content')
+      };
+
+      // Initially show the 'Hikoyalar' content
+      contents.stories.style.display = 'block';
+
+      buttons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Deactivate all buttons
+          buttons.forEach(btn => btn.classList.remove('active'));
+          // Activate the clicked button
+          this.classList.add('active');
+
+          // Hide all content sections
+          for (const key in contents) {
+            contents[key].style.display = 'none';
+          }
+
+          // Show the content section corresponding to the clicked button
+          const targetId = this.getAttribute('data-target') + '-content';
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            targetElement.style.display = 'block';
+          }
+        });
+      });
+    });
+  </script>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -395,59 +482,4 @@
 
     // Telefonning orqaga qaytish tugmasi
     window.Telegram.WebApp.BackButton.show();
-    window.Telegram.WebApp.BackButton.onClick(() => {
-      window.history.back();
-    });
-
-    // Load lessons for the separate lessons page
-    const lessonContainerForLessonsPage = document.getElementById("lessonContainerForLessonsPage");
-    if (lessonContainerForLessonsPage) {
-      try {
-        const querySnapshot = await getDocs(collection(db, "lessons"));
-        lessonContainerForLessonsPage.innerHTML = "";
-        const categories = {
-          "To be fe'li": [],
-          "Present Continuous": [],
-          "Present Simple": [],
-          "I have/I have got": [],
-          "Past Simple": [],
-          "Past Continuous": []
-        };
-        querySnapshot.forEach((doc) => {
-          const lesson = doc.data();
-          if (lesson.level === "A1") {
-            if (lesson.title.includes("To be")) categories["To be fe'li"].push(lesson);
-            else if (lesson.title.includes("Present continues")) categories["Present Continuous"].push(lesson);
-            else if (lesson.title.includes("Present simple")) categories["Present Simple"].push(lesson);
-            else if (lesson.title.includes("I have")) categories["I have/I have got"].push(lesson);
-            else if (lesson.title.includes("Past simple")) categories["Past Simple"].push(lesson);
-            else if (lesson.title.includes("Past continuous")) categories["Past Continuous"].push(lesson);
-          }
-        });
-        for (const [category, lessons] of Object.entries(categories)) {
-          if (lessons.length > 0) {
-            const categoryDiv = document.createElement("div");
-            categoryDiv.className = "lesson-group";
-            categoryDiv.innerHTML = `<div class="lesson-group-title">${category}</div><div class="button-container"></div>`;
-            const buttonContainer = categoryDiv.querySelector(".button-container");
-            lessons.forEach(lesson => {
-              const a = document.createElement("a");
-              a.href = `lesson${lesson.id}.html`;
-              a.className = `button ${completedLessons.has(lesson.id.toString()) ? '' : 'closed'}`;
-              a.innerText = lesson.title;
-              if (!completedLessons.has(lesson.id.toString())) {
-                a.addEventListener('click', showClosedLessonMessage);
-              }
-              buttonContainer.appendChild(a);
-            });
-            lessonContainerForLessonsPage.appendChild(categoryDiv);
-          }
-        }
-      } catch (error) {
-        lessonContainerForLessonsPage.innerHTML = "<p>Xatolik yuz berdi.</p>";
-        console.error("Darslar yuklashda xatolik:", error);
-      }
-    }
-  </script>
-</body>
-</html>
+    window.Telegram.WebApp.Back
