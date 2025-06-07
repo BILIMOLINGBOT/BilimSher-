@@ -17,13 +17,22 @@
     section { display: none; padding: 16px; }
     section.active { display: block; }
     .header {
-      display: flex; align-items: center; gap: 10px; padding: 16px;
+      display: flex; align-items: center; justify-content: space-between; padding: 16px;
+    }
+    .header-left {
+      display: flex; align-items: center; gap: 10px;
     }
     .logo img {
       width: 36px; height: 36px; border-radius: 50%; background-color: #ddd;
     }
     .logo span {
       font-weight: bold; font-size: 18px;
+    }
+    .academy-name {
+      font-size: 16px; margin: 0 10px;
+    }
+    .header-right {
+      font-weight: bold; font-size: 16px;
     }
     .progress-container, .lessons, .results, .settings {
       background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px;
@@ -107,9 +116,15 @@ a.button.closed:hover {
 </head>
 <body>
     <div class="header">
-    <div class="logo">
-      <img id="userPhoto" src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" />
-      <span id="userName">Foydalanuvchi</span>
+    <div class="header-left">
+      <div class="logo">
+        <img id="userPhoto" src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" />
+        <span id="userName">Foydalanuvchi</span>
+      </div>
+      <span class="academy-name">Koson academy</span>
+    </div>
+    <div class="header-right">
+      Ballar: <span id="userScore">0</span>
     </div>
   </div>
     <section id="home" class="active">
@@ -283,8 +298,12 @@ a.button.closed:hover {
     const user = Telegram.WebApp.initDataUnsafe.user;
     const userPhoto = document.getElementById('userPhoto');
     const userName = document.getElementById('userName');
+    const userScore = document.getElementById('userScore'); // Get the score element
     if (user?.photo_url) userPhoto.src = user.photo_url;
     userName.innerText = user?.username || user?.first_name || 'Foydalanuvchi';
+    // Assume initial score is 0, you would need to fetch this from your backend
+    let currentScore = 0;
+    userScore.innerText = currentScore;
 
     // Navigatsiya
     document.querySelectorAll('.nav-item').forEach(item => {
@@ -336,6 +355,10 @@ a.button.closed:hover {
 
     const markLessonAsComplete = (lessonId) => {
       completedLessons.add(lessonId);
+      // In a real application, you would update the score based on the completed lesson
+      // For demonstration, let's just increment the score
+      currentScore += 10;
+      userScore.innerText = currentScore;
       updateLessonAvailability();
     };
 
