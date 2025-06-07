@@ -4,16 +4,63 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bilim mini ilova</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #fffbe6;
+    }
+    .tab-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .tab {
+      padding: 10px 20px;
+      background: #f7d488;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 4px #b38600;
+      transition: transform 0.1s;
+    }
+    .tab:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px #b38600;
+    }
+    .tab.active {
+      background: #ffbb00;
+      box-shadow: 0 4px #805900;
+    }
+    .content {
+      display: none;
+      background: #fff;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+    }
+    .content h2 {
+      margin-top: 0;
+      color: #805900;
+    }
+    .card {
+      background: #fff8d6;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+    }
+  </style>
 </head>
 <body>
   <div class="tab-buttons">
-    <button class="tab active" onclick="showTab('hikoyalar')">Hikoyalar</button>
-    <button class="tab" onclick="showTab('aforizmlar')">Aforizmlar</button>
-    <button class="tab" onclick="showTab('iboralar')">Iboralar</button>
+    <button class="tab active" onclick="showTab('hikoyalar', this)">Hikoyalar</button>
+    <button class="tab" onclick="showTab('aforizmlar', this)">Aforizmlar</button>
+    <button class="tab" onclick="showTab('iboralar', this)">Iboralar</button>
   </div>
 
-  <div class="content" id="hikoyalar">
+  <div class="content" id="hikoyalar" style="display: block;">
     <h2>Hikoyalar</h2>
     <div class="card">
       <h3>1. Donishmand va Yigit</h3>
@@ -29,7 +76,7 @@
     </div>
   </div>
 
-  <div class="content" id="aforizmlar" style="display: none;">
+  <div class="content" id="aforizmlar">
     <h2>Aforizmlar</h2>
     <ul>
       <li>📌 “O‘zingni yenggan — eng katta g‘olib.”</li>
@@ -38,7 +85,7 @@
     </ul>
   </div>
 
-  <div class="content" id="iboralar" style="display: none;">
+  <div class="content" id="iboralar">
     <h2>Iboralar</h2>
     <ul>
       <li>✅ <strong>Break the ice</strong> – Muomala boshlash, muzni eritmoq  
@@ -50,6 +97,21 @@
     </ul>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    function showTab(tabId, element) {
+      // Hide all content blocks
+      document.querySelectorAll('.content').forEach(c => {
+        c.style.display = 'none';
+      });
+      // Remove active class from all tabs
+      document.querySelectorAll('.tab').forEach(t => {
+        t.classList.remove('active');
+      });
+      // Show selected content
+      document.getElementById(tabId).style.display = 'block';
+      // Mark clicked tab active
+      element.classList.add('active');
+    }
+  </script>
 </body>
 </html>
