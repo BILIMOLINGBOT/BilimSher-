@@ -1,168 +1,137 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BilimSher Mini Ilova</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BilimKutubxonasi</title>
   <style>
     body {
-      font-family: sans-serif;
-      background-color: #fff3b0;
       margin: 0;
-      padding: 0;
-      text-align: center;
+      font-family: 'Arial', sans-serif;
+      background-color: #fff8dc;
+      color: #333;
     }
 
-    nav {
-      background-color: #4d3f00;
+    .top-tabs {
       display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
+      justify-content: center;
+      background-color: #fff3b0;
+      padding: 10px;
+      flex-wrap: wrap;
+      gap: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
-    .nav-item {
+    .tab-btn {
+      background-color: #4d3f00;
       color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
       font-weight: bold;
       cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: all 0.2s ease;
     }
 
-    .nav-item.active {
-      text-decoration: underline;
+    .tab-btn:hover {
+      transform: translateY(-2px);
+      background-color: #6a5718;
     }
 
-    section {
+    .tab-btn.active {
+      background-color: #e0c560;
+      color: #000;
+    }
+
+    .tab-content {
       display: none;
-      padding: 60px 20px 100px;
+      padding: 20px;
+      animation: fadeIn 0.4s ease;
     }
 
-    section.active {
+    .tab-content.active {
       display: block;
     }
 
-    ul {
-      list-style: none;
-      padding: 0;
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
     }
 
-    li {
-      margin: 10px 0;
+    .content-box {
+      background-color: #fff;
+      border-radius: 16px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
-    a {
-      background-color: #fff8dc;
-      border: 2px solid #4d3f00;
-      padding: 10px 20px;
-      border-radius: 12px;
-      display: inline-block;
-      text-decoration: none;
-      color: #4d3f00;
-      font-weight: bold;
-      transition: all 0.2s ease;
-    }
-
-    a:hover {
-      background-color: #ffe799;
-      transform: scale(1.05);
-    }
-
-    button {
-      background-color: #ffcc00;
-      color: #4d3f00;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    button:hover {
-      background-color: #ffdb4d;
-      transform: scale(1.05);
-    }
-
-    label {
-      font-size: 16px;
+    @media (max-width: 600px) {
+      .tab-btn {
+        padding: 10px;
+        font-size: 14px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Darslar bo‘limi -->
-  <section id="home" class="active">
-    <h1>📘 Darslar</h1>
-    <ul>
-      <li><a href="a1.html">A1 Boshlang‘ich</a></li>
-      <li><a href="a2.html">A2 O‘rta</a></li>
-      <li><a href="b1.html">B1 O‘rta Yuqori</a></li>
-      <li><a href="b2.html">B2 Ilg‘or</a></li>
-    </ul>
-  </section>
+  <!-- Gorizontal Tugmalar -->
+  <div class="top-tabs">
+    <button class="tab-btn active" data-tab="hikoyalar">📚 Hikoyalar</button>
+    <button class="tab-btn" data-tab="aforizmlar">💡 Aforizmlar</button>
+    <button class="tab-btn" data-tab="iboralar">🗣️ Iboralar</button>
+  </div>
 
-  <!-- Natijalar bo‘limi -->
-  <section id="results">
-    <h1>📊 Natijalar</h1>
-    <p>O‘rganilgan darslar natijalari quyida ko‘rsatiladi:</p>
-    <ul id="results-list">
-      <!-- localStorage'dan yuklanadi -->
-    </ul>
-  </section>
+  <!-- Kontentlar -->
+  <div id="hikoyalar" class="tab-content active">
+    <div class="content-box">
+      <h3>Hikoya 1: Donolik saboqlari</h3>
+      <p>Bir kuni bir o‘quvchi donishmanddan so‘radi: “Eng katta boylik nima?” Donishmand javob berdi: “Bu — bilim va yurak pokligi.”</p>
+    </div>
+    <div class="content-box">
+      <h3>Hikoya 2: Tashabbus kuchi</h3>
+      <p>Bir bola o‘zi kichkina bog‘ yaratdi. Uni ko‘rganlar hayratda qoldi: “Bola bo‘lsa ham, yuragida orzu bor ekan.”</p>
+    </div>
+  </div>
 
-  <!-- Sozlamalar bo‘limi -->
-  <section id="settings">
-    <h1>⚙️ Sozlamalar</h1>
-    <label>
-      <input type="checkbox" id="sound-toggle" checked>
-      🔊 Tovushlarni yoqish/o‘chirish
-    </label>
-    <br><br>
-    <button onclick="clearProgress()">📛 Natijalarni o‘chirish</button>
-  </section>
+  <div id="aforizmlar" class="tab-content">
+    <div class="content-box">
+      <h3>Aforizm 1</h3>
+      <p>“Bilim — yuksalishning yagona yo‘lidir.”</p>
+    </div>
+    <div class="content-box">
+      <h3>Aforizm 2</h3>
+      <p>“Orzu qil, harakat qil, erish!”</p>
+    </div>
+  </div>
 
-  <!-- Navigatsiya -->
-  <nav>
-    <div class="nav-item active" data-target="home">🏠 Darslar</div>
-    <div class="nav-item" data-target="results">📊 Natijalar</div>
-    <div class="nav-item" data-target="settings">⚙️ Sozlamalar</div>
-  </nav>
+  <div id="iboralar" class="tab-content">
+    <div class="content-box">
+      <h3>Iboralar</h3>
+      <ul>
+        <li>Ko‘z tegmasin — Juda yaxshi natija yoki holatga nisbatan aytiladi.</li>
+        <li>Til uchida — Esga tushay deb turgan narsa.</li>
+        <li>Yuragi orqaga tortdi — Qo‘rqib, ikkilandi.</li>
+      </ul>
+    </div>
+  </div>
 
   <!-- JavaScript -->
   <script>
-    const navItems = document.querySelectorAll('.nav-item');
-    const sections = document.querySelectorAll('section');
+    const buttons = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
 
-    navItems.forEach(item => {
-      item.addEventListener('click', () => {
-        const target = item.getAttribute('data-target');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
 
-        sections.forEach(section => {
-          section.classList.toggle('active', section.id === target);
-        });
-
-        navItems.forEach(nav => nav.classList.remove('active'));
-        item.classList.add('active');
+        btn.classList.add('active');
+        document.getElementById(btn.getAttribute('data-tab')).classList.add('active');
       });
     });
-
-    // Natijalarni o‘chirish
-    function clearProgress() {
-      localStorage.clear();
-      document.getElementById('results-list').innerHTML = '';
-      alert("⛔ Barcha natijalar o‘chirildi!");
-    }
-
-    // Natijalarni yuklash
-    function loadResults() {
-      const results = JSON.parse(localStorage.getItem('results')) || [];
-      const resultsList = document.getElementById('results-list');
-      resultsList.innerHTML = results.map(r => `<li>⭐ ${r}</li>`).join('');
-    }
-
-    // Yuklashda ishga tushadi
-    window.addEventListener('DOMContentLoaded', loadResults);
   </script>
 
 </body>
