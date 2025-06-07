@@ -126,16 +126,6 @@
     a.button.closed:hover {
       background-color: #ccc;
     }
-    .lessons-menu {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .lessons-menu a.button {
-      min-width: 150px;
-    }
   </style>
 </head>
 <body>
@@ -252,11 +242,6 @@
   </section>
   <section id="lessons">
     <div class="lessons">
-      <div class="lessons-menu">
-        <a href="#" class="button">Hikoyalar</a>
-        <a href="#" class="button">Aforizmlar</a>
-        <a href="#" class="button">Iboralar</a>
-      </div>
       <div id="lessonContainerForLessonsPage" class="button-container">
         <p>Yuklanmoqda...</p>
       </div>
@@ -457,4 +442,10 @@
           }
         }
       } catch (error) {
-        lessonContainerForLessonsPage.innerHTML = "<p>Xatolik y
+        lessonContainerForLessonsPage.innerHTML = "<p>Xatolik yuz berdi.</p>";
+        console.error("Darslar yuklashda xatolik:", error);
+      }
+    }
+  </script>
+</body>
+</html>
