@@ -242,8 +242,25 @@
   </section>
   <section id="lessons">
     <div class="lessons">
-      <div id="lessonContainerForLessonsPage" class="button-container">
-        <p>Yuklanmoqda...</p>
+      <div class="level-tabs">
+        <div class="level-tab active" data-lesson-type="grammar">Grammatika</div>
+        <div class="level-tab" data-lesson-type="stories">Hikoyalar</div>
+        <div class="level-tab" data-lesson-type="aphorisms">Aforizmlar</div>
+        <div class="level-tab" data-lesson-type="phrases">Iboralar</div>
+      </div>
+      <div id="grammar" class="level-content active">
+        <div id="lessonContainerForLessonsPage" class="button-container">
+          <p>Yuklanmoqda...</p>
+        </div>
+      </div>
+      <div id="stories" class="level-content">
+        <p>Hikoyalar bo'limi tez orada qo'shiladi.</p>
+      </div>
+      <div id="aphorisms" class="level-content">
+        <p>Aforizmlar bo'limi tez orada qo'shiladi.</p>
+      </div>
+      <div id="phrases" class="level-content">
+        <p>Iboralar bo'limi tez orada qo'shiladi.</p>
       </div>
     </div>
   </section>
@@ -316,14 +333,25 @@
       });
     });
 
-    // Level tabs functionality
-    document.querySelectorAll('.level-tab').forEach(tab => {
+    // Level tabs functionality on Home page
+    document.querySelectorAll('.level-tab[data-level]').forEach(tab => {
       tab.addEventListener('click', () => {
-        document.querySelectorAll('.level-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.level-tab[data-level]').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.level-content').forEach(c => c.classList.remove('active'));
         tab.classList.add('active');
         const level = tab.getAttribute('data-level');
         document.getElementById(`${level}-level`).classList.add('active');
+      });
+    });
+
+    // Lesson type tabs functionality on Lessons page
+    document.querySelectorAll('.level-tab[data-lesson-type]').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.level-tab[data-lesson-type]').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.level-content').forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        const lessonType = tab.getAttribute('data-lesson-type');
+        document.getElementById(lessonType).classList.add('active');
       });
     });
 
@@ -377,13 +405,13 @@
     });
 
     const updateProgress = () => {
-      const allLessonsInCurrentLevel = document.querySelectorAll('.level-content.active .button').length;
-      const unlockedLessonsInCurrentLevel = document.querySelectorAll('.level-content.active .button:not(.closed)').length;
+      const allLessonsInCurrentLevel = document.querySelectorAll('#home .level-content.active .button').length;
+      const unlockedLessonsInCurrentLevel = document.querySelectorAll('#home .level-content.active .button:not(.closed)').length;
       const completedCount = completedLessons.size - 1; // Subtract the initial "0"
       const totalLessons = 36; // Jami darslar soni
       document.getElementById('completedLessonsCount').innerText = `Yakunlangan darslar: ${completedCount} / ${totalLessons}`;
       const progressPercentage = (completedCount / totalLessons) * 100;
-      document.querySelector('.progress-fill').style.width = `${progressPercentage}%`;
+      document.querySelector('#home .progress-fill').style.width = `${progressPercentage}%`;
       updatePoints();
     };
 
@@ -423,29 +451,4 @@
           }
         });
         for (const [category, lessons] of Object.entries(categories)) {
-          if (lessons.length > 0) {
-            const categoryDiv = document.createElement("div");
-            categoryDiv.className = "lesson-group";
-            categoryDiv.innerHTML = `<div class="lesson-group-title">${category}</div><div class="button-container"></div>`;
-            const buttonContainer = categoryDiv.querySelector(".button-container");
-            lessons.forEach(lesson => {
-              const a = document.createElement("a");
-              a.href = `lesson${lesson.id}.html`;
-              a.className = `button ${completedLessons.has(lesson.id.toString()) ? '' : 'closed'}`;
-              a.innerText = lesson.title;
-              if (!completedLessons.has(lesson.id.toString())) {
-                a.addEventListener('click', showClosedLessonMessage);
-              }
-              buttonContainer.appendChild(a);
-            });
-            lessonContainerForLessonsPage.appendChild(categoryDiv);
-          }
-        }
-      } catch (error) {
-        lessonContainerForLessonsPage.innerHTML = "<p>Xatolik yuz berdi.</p>";
-        console.error("Darslar yuklashda xatolik:", error);
-      }
-    }
-  </script>
-</body>
-</html>
+          if (lessons.length > 0) 
