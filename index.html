@@ -126,37 +126,10 @@
     a.button.closed:hover {
       background-color: #ccc;
     }
-    /* Darslar sahifasi uchun tablar */
-    .lesson-tabs {
-      display: flex;
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .lesson-tab {
-      flex: 1;
-      padding: 12px;
-      text-align: center;
-      cursor: pointer;
-      font-weight: bold;
-      transition: all 0.3s;
-    }
-    .lesson-tab.active {
-      background: #4285F4;
-      color: white;
-    }
-    .lesson-content {
-      display: none;
-    }
-    .lesson-content.active {
-      display: block;
-    }
   </style>
 </head>
 <body>
-  <div class="header" id="header">
+  <div class="header">
     <div class="logo">
       <img id="userPhoto" src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" />
       <span id="userName">Foydalanuvchi</span>
@@ -209,7 +182,7 @@
           <a href="lesson13.html" class="button closed" data-lesson-id="13" data-required="12">Present simple affirmative</a>
           <a href="lesson14.html" class="button closed" data-lesson-id="14" data-required="13">Present simple affirmative test</a>
           <a href="lesson15.html" class="button closed" data-lesson-id="15" data-required="14">Present simple question</a>
-          <a href="lesson16.html" class="button closed" data-lesson-id="16" data-required="15">Present simple question about</a>
+          <a href="lesson16.html" class="button closed" data-lesson-id="16" data-required="15">Present simple question test</a>
           <a href="lesson17.html" class="button closed" data-lesson-id="17" data-required="16">Present simple negative</a>
           <a href="lesson18.html" class="button closed" data-lesson-id="18" data-required="17">Present simple negative test</a>
         </div>
@@ -219,14 +192,14 @@
         <div class="button-container">
           <a href="lesson19.html" class="button closed" data-lesson-id="19" data-required="18">I have/I have got affirmative</a>
           <a href="lesson20.html" class="button closed" data-lesson-id="20" data-required="19">I have/I have got affirmative test</a>
-          <a href="lesson21.html" class="button closed" data-lesson-id="21" data-required="20">I have/Point have got question</a>
-          <a href="lesson22.html" class="button closed" data-lesson-id="22" data-required="21">Point have/Point have got question point</a>
+          <a href="lesson21.html" class="button closed" data-lesson-id="21" data-required="20">I have/I have got question</a>
+          <a href="lesson22.html" class="button closed" data-lesson-id="22" data-required="21">I have/I have got question test</a>
           <a href="lesson23.html" class="button closed" data-lesson-id="23" data-required="22">I have/I have got negative</a>
-          <a href="lesson24.html" class="button closed" data-lesson-id="24" data-required="23">I have I have/I got negative test</a>
+          <a href="lesson24.html" class="button closed" data-lesson-id="24" data-required="23">I have/I have got negative test</a>
         </div>
       </div>
       <div class="lesson-group">
-        <div class="lesson-group-title">Past simple</div>
+        <div class="lesson-group-title">Past Simple</div>
         <div class="button-container">
           <a href="lesson25.html" class="button closed" data-lesson-id="25" data-required="24">Past simple affirmative</a>
           <a href="lesson26.html" class="button closed" data-lesson-id="26" data-required="25">Past simple affirmative test</a>
@@ -240,7 +213,7 @@
         <div class="lesson-group-title">Past Continuous</div>
         <div class="button-container">
           <a href="lesson31.html" class="button closed" data-lesson-id="31" data-required="30">Past continuous affirmative</a>
-          <a href="lesson32.html" class="button closed" data-lesson-id="32" data-required="31">Past continuous affirmative test</a>
+          d<a href="lesson32.html" class="button closed" data-lesson-id="32" data-required="31">Past continuous affirmative test</a>
           <a href="lesson33.html" class="button closed" data-lesson-id="33" data-required="32">Past continuous question</a>
           <a href="lesson34.html" class="button closed" data-lesson-id="34" data-required="33">Past continuous question test</a>
           <a href="lesson35.html" class="button closed" data-lesson-id="35" data-required="34">Past continuous negative</a>
@@ -269,25 +242,8 @@
   </section>
   <section id="lessons">
     <div class="lessons">
-      <div class="lesson-tabs">
-        <div class="lesson-tab active" data-lesson-type="aphorisms">Aforizmlar</div>
-        <div class="lesson-tab" data-lesson-type="stories">Hikoyalar</div>
-        <div class="lesson-tab" data-lesson-type="phrases">Iboralar</div>
-        <div class="lesson-tab" data-lesson-type="tables">Jadval</div>
-      </div>
-      <div id="aphorisms-content" class="lesson-content active">
-        <div id="lessonContainerForLessonsPage" class="button-container">
-          <p>Yuklanmoqda...</p>
-        </div>
-      </div>
-      <div id="stories-content" class="lesson-content">
-        <p>Tez orada qo'shiladi</p>
-      </div>
-      <div id="phrases-content" class="lesson-content">
-        <p>Tez orada qo'shiladi</p>
-      </div>
-      <div id="tables-content" class="lesson-content">
-        <p>Tez orada qo'shiladi</p>
+      <div id="lessonContainerForLessonsPage" class="button-container">
+        <p>Yuklanmoqda...</p>
       </div>
     </div>
   </section>
@@ -357,13 +313,6 @@
         item.classList.add('active');
         const target = item.getAttribute('data-target');
         document.getElementById(target).classList.add('active');
-        // Sarlavha ko'rsatish/yashirish
-        const header = document.getElementById('header');
-        if (target === 'lessons') {
-          header.style.display = 'none';
-        } else {
-          header.style.display = 'flex';
-        }
       });
     });
 
@@ -378,22 +327,11 @@
       });
     });
 
-    // Lesson tabs functionality
-    document.querySelectorAll('.lesson-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.lesson-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.lesson-content').forEach(c => c.classList.remove('active'));
-        tab.classList.add('active');
-        const lessonType = tab.getAttribute('data-lesson-type');
-        document.getElementById(`${lessonType}-content`).classList.add('active');
-      });
-    });
-
     // Completed lessons tracking
     const completedLessons = new Set();
     completedLessons.add("0"); // No lesson is completed initially
 
-    // Dars yakunlanganligini saqlash
+    // Dars 1 yakunlanganda 2 ni ochish uchun holatni saqlash
     if (localStorage.getItem('completedLessons')) {
       const savedLessons = JSON.parse(localStorage.getItem('completedLessons'));
       savedLessons.forEach(lessonId => completedLessons.add(lessonId));
@@ -476,4 +414,38 @@
         querySnapshot.forEach((doc) => {
           const lesson = doc.data();
           if (lesson.level === "A1") {
-            if (lesson.title.incl
+            if (lesson.title.includes("To be")) categories["To be fe'li"].push(lesson);
+            else if (lesson.title.includes("Present continues")) categories["Present Continuous"].push(lesson);
+            else if (lesson.title.includes("Present simple")) categories["Present Simple"].push(lesson);
+            else if (lesson.title.includes("I have")) categories["I have/I have got"].push(lesson);
+            else if (lesson.title.includes("Past simple")) categories["Past Simple"].push(lesson);
+            else if (lesson.title.includes("Past continuous")) categories["Past Continuous"].push(lesson);
+          }
+        });
+        for (const [category, lessons] of Object.entries(categories)) {
+          if (lessons.length > 0) {
+            const categoryDiv = document.createElement("div");
+            categoryDiv.className = "lesson-group";
+            categoryDiv.innerHTML = `<div class="lesson-group-title">${category}</div><div class="button-container"></div>`;
+            const buttonContainer = categoryDiv.querySelector(".button-container");
+            lessons.forEach(lesson => {
+              const a = document.createElement("a");
+              a.href = `lesson${lesson.id}.html`;
+              a.className = `button ${completedLessons.has(lesson.id.toString()) ? '' : 'closed'}`;
+              a.innerText = lesson.title;
+              if (!completedLessons.has(lesson.id.toString())) {
+                a.addEventListener('click', showClosedLessonMessage);
+              }
+              buttonContainer.appendChild(a);
+            });
+            lessonContainerForLessonsPage.appendChild(categoryDiv);
+          }
+        }
+      } catch (error) {
+        lessonContainerForLessonsPage.innerHTML = "<p>Xatolik yuz berdi.</p>";
+        console.error("Darslar yuklashda xatolik:", error);
+      }
+    }
+  </script>
+</body>
+</html>
